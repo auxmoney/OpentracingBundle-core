@@ -1,0 +1,67 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Auxmoney\OpentracingBundle\EventListener;
+
+use Auxmoney\OpentracingBundle\Service\Tracing;
+use ReflectionClass;
+use ReflectionException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Throwable;
+
+final class ExceptionLogSubscriber implements EventSubscriberInterface
+{
+    private $tracing;
+
+    public function __construct(Tracing $tracing)
+    {
+        $this->tracing = $tracing;
+    }
+
+    /**
+     * @return array<string,array>
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            'kernel.exception' => ['onException', 16],
+            'console.error' => ['onException', 16],
+        ];
+    }
+
+    /**
+     * TODO: when Symfony 3.4 is unmaintained (November 2021), refactor to `ExceptionEvent|ConsoleErrorEvent $event`
+     * @param mixed $event GetResponseForExceptionEvent|ExceptionEvent|ConsoleErrorEvent until Symfony 4.4
+     */
+    public function onException($event): void
+    {
+        $exception = $this->extractExceptionFrom($event);
+        $this->tracing->logInActiveSpan(['exception' => get_class($exception), 'message' => $exception->getMessage()]);
+    }
+
+    /**
+     * TODO: when Symfony 3.4 is unmaintained (November 2021), refactor to `ExceptionEvent|ConsoleErrorEvent $event`
+     *       and remove reflection in favor of `instanceof`
+     * @param mixed $event GetResponseForExceptionEvent|ExceptionEvent|ConsoleErrorEvent until Symfony 4.4
+     */
+    private function extractExceptionFrom($event): Throwable
+    {
+        try {
+            $reflectionClass = new ReflectionClass($event);
+            if ($reflectionClass->hasMethod('getException')) {
+                return $reflectionClass->getMethod('getException')->invoke($event);
+            }
+            if ($reflectionClass->hasMethod('getThrowable')) {
+                return $reflectionClass->getMethod('getThrowable')->invoke($event);
+            }
+            if ($reflectionClass->hasMethod('getError')) {
+                return $reflectionClass->getMethod('getError')->invoke($event);
+            }
+        } catch (ReflectionException $exception) {
+            return $exception;
+        }
+
+        return new ReflectionException('could not reflect event of type ' . get_class($event));
+    }
+}
