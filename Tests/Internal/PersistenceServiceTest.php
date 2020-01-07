@@ -6,7 +6,7 @@ namespace Auxmoney\OpentracingBundle\Tests\Internal;
 
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
 use Auxmoney\OpentracingBundle\Internal\PersistenceService;
-use Auxmoney\OpentracingBundle\Mock\MockTracer;
+use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use PHPUnit\Framework\TestCase;
 
 class PersistenceServiceTest extends TestCase

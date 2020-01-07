@@ -6,7 +6,7 @@ namespace Auxmoney\OpentracingBundle\Tests\Internal;
 
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
 use Auxmoney\OpentracingBundle\Internal\UtilityService;
-use Auxmoney\OpentracingBundle\Mock\MockTracer;
+use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use OpenTracing\Tracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;

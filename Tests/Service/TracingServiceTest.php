@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Tests\Service;
 
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
-use Auxmoney\OpentracingBundle\Mock\MockTracer;
+use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use Auxmoney\OpentracingBundle\Service\TracingService;
 use OpenTracing\Mock\MockSpan;
 use PHPUnit\Framework\TestCase;

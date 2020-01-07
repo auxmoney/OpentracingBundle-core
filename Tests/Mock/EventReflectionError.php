@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Auxmoney\OpentracingBundle\Mock;
+namespace Auxmoney\OpentracingBundle\Tests\Mock;
 
 use ReflectionException;
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Tests\EventListener;
 
 use Auxmoney\OpentracingBundle\EventListener\ExceptionLogSubscriber;
-use Auxmoney\OpentracingBundle\Mock\EventReflectionError;
-use Auxmoney\OpentracingBundle\Mock\EventWithError;
-use Auxmoney\OpentracingBundle\Mock\EventWithException;
-use Auxmoney\OpentracingBundle\Mock\EventWithThrowable;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventReflectionError;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventWithError;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventWithException;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventWithThrowable;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\Event;

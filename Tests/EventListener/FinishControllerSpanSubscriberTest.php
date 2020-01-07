@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Tests\EventListener;
 
 use Auxmoney\OpentracingBundle\EventListener\FinishControllerSpanSubscriber;
-use Auxmoney\OpentracingBundle\Mock\EventWithResponse;
-use Auxmoney\OpentracingBundle\Mock\EventWithResponseAndReflectionError;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventWithResponse;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventWithResponseAndReflectionError;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;

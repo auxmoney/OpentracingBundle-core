@@ -6,7 +6,7 @@ namespace Auxmoney\OpentracingBundle\Tests\Internal;
 
 use Auxmoney\OpentracingBundle\Factory\TracerFactory;
 use Auxmoney\OpentracingBundle\Internal\CachedOpentracing;
-use Auxmoney\OpentracingBundle\Mock\MockTracer;
+use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
