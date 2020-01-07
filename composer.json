@@ -2,7 +2,7 @@
     "name": "auxmoney/opentracing-bundle-core",
     "description": "Symfony Opentracing bundle to easily enable distributed tracing",
     "keywords": ["opentracing", "symfony", "bundle", "distributed", "tracing", "zipkin", "jaeger"],
-    "type": "symfony-bundle",
+    "type": "library",
     "license": "MIT",
     "require": {
         "php": "^7.1.33",
