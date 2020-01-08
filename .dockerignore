@@ -1,4 +1,0 @@
-.dockerignore
-composer.lock
-Dockerfile
-vendor/
