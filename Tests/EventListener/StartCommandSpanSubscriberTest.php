@@ -47,4 +47,21 @@ class StartCommandSpanSubscriberTest extends TestCase
 
         $this->subject->onCommand($event->reveal());
     }
+
+    public function testOnCommandNoName(): void
+    {
+        $command = $this->prophesize(Command::class);
+        $command->getName()->willReturn(null);
+        $command->getDescription()->willReturn('command description');
+        $event = $this->prophesize(ConsoleEvent::class);
+        $event->getCommand()->willReturn($command->reveal());
+        $this->spanOptionsFactory->createSpanOptions()->willReturn(['tags' => ['arbitrary' => 'tag']]);
+
+        $this->tracing->startActiveSpan(
+            '<unknown>',
+            ['tags' => ['arbitrary' => 'tag', 'command.name' => '<unknown>', 'command.description' => 'command description']]
+        )->shouldBeCalledOnce();
+
+        $this->subject->onCommand($event->reveal());
+    }
 }

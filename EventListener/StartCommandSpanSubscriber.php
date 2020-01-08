@@ -35,13 +35,14 @@ final class StartCommandSpanSubscriber implements EventSubscriberInterface
     {
         /** @var Command $command */
         $command = $event->getCommand();
+        $commandName = $command->getName() ?? '<unknown>';
 
         $options = $this->spanOptionsFactory->createSpanOptions();
-        $options['tags']['command.name'] = $command->getName();
+        $options['tags']['command.name'] = $commandName;
         $options['tags']['command.description'] = $command->getDescription();
 
         $this->tracing->startActiveSpan(
-            $command->getName(),
+            $commandName,
             $options
         );
     }
