@@ -11,7 +11,7 @@ use Auxmoney\OpentracingBundle\Tests\Mock\EventWithException;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithThrowable;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\EventDispatcher\Event;
+use stdClass;
 
 class ExceptionLogSubscriberTest extends TestCase
 {
@@ -66,10 +66,10 @@ class ExceptionLogSubscriberTest extends TestCase
         $this->tracing->logInActiveSpan(
             [
                 'exception' => 'ReflectionException',
-                'message' => 'could not reflect event of type Symfony\Contracts\EventDispatcher\Event'
+                'message' => 'could not reflect event of type stdClass'
             ]
         )->shouldBeCalledOnce();
 
-        $this->subject->onException(new Event());
+        $this->subject->onException(new stdClass());
     }
 }
