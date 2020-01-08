@@ -17,6 +17,9 @@ jobs:
     - php: '7.4'
       env: SYMFONY_VERSION="5.0.*"
 
+before_install:
+  - composer global require hirak/prestissimo
+
 install:
   - composer require symfony/symfony:${SYMFONY_VERSION}
 
