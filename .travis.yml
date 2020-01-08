@@ -1,0 +1,24 @@
+language: php
+sudo: false
+dist: bionic
+
+jobs:
+  include:
+    - php: '7.1'
+      env: SYMFONY_VERSION="3.4.*"
+    - php: '7.4'
+      env: SYMFONY_VERSION="3.4.*"
+    - php: '7.2'
+      env: SYMFONY_VERSION="4.4.*"
+    - php: '7.4'
+      env: SYMFONY_VERSION="4.4.*"
+    - php: '7.2'
+      env: SYMFONY_VERSION="5.0.*"
+    - php: '7.4'
+      env: SYMFONY_VERSION="5.0.*"
+
+install:
+  - composer require symfony/symfony:${SYMFONY_VERSION}
+
+script:
+  - composer run-script quality
