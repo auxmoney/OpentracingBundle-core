@@ -1,9 +1,10 @@
 parameters:
   paths:
-    - EventListener
-    - Factory
-    - Internal
-    - Service
+    - .
+
+  excludes_analyse:
+    - Tests/*
+    - vendor/*
 
   level: 7
   inferPrivatePropertyTypeFromConstructor: true
