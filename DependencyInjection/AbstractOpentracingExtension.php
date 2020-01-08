@@ -15,7 +15,7 @@ abstract class AbstractOpentracingExtension extends Extension
     /**
      * @param array<mixed> $configs
      * @throws Exception
-
+     * @return void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function load(array $configs, ContainerBuilder $container)
