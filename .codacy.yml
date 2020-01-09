@@ -1,4 +1,2 @@
----
-engines:
-  exclude_paths:
-    - 'Tests/**/*'
+exclude_paths:
+  - Tests/**/*
