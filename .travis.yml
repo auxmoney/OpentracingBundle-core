@@ -26,6 +26,9 @@ install:
 script:
   - composer run-script quality
 
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
+
 notifications:
   slack:
     rooms:

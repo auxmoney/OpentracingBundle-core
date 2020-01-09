@@ -10,6 +10,7 @@
 >
     <logging>
         <log type="coverage-text" showOnlySummary="true" target="php://stdout" />
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
 
     <php>
