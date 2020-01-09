@@ -47,21 +47,22 @@ final class ExceptionLogSubscriber implements EventSubscriberInterface
      */
     private function extractExceptionFrom($event): Throwable
     {
+        $eventException = null;
         try {
             $reflectionClass = new ReflectionClass($event);
             if ($reflectionClass->hasMethod('getException')) {
-                return $reflectionClass->getMethod('getException')->invoke($event);
+                $eventException = $reflectionClass->getMethod('getException')->invoke($event);
             }
             if ($reflectionClass->hasMethod('getThrowable')) {
-                return $reflectionClass->getMethod('getThrowable')->invoke($event);
+                $eventException = $reflectionClass->getMethod('getThrowable')->invoke($event);
             }
             if ($reflectionClass->hasMethod('getError')) {
-                return $reflectionClass->getMethod('getError')->invoke($event);
+                $eventException = $reflectionClass->getMethod('getError')->invoke($event);
             }
         } catch (ReflectionException $exception) {
-            return $exception;
+            $eventException = $exception;
+        } finally {
+            return $eventException ?? new ReflectionException('could not reflect event of type ' . get_class($event));
         }
-
-        return new ReflectionException('could not reflect event of type ' . get_class($event));
     }
 }
