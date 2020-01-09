@@ -1,3 +1,4 @@
-exclude_paths:
-  - 'Tests/**'
-  - '**.md'
+---
+engines:
+  exclude_paths:
+    - 'Tests/**'
