@@ -23,8 +23,10 @@ before_install:
   - composer config extra.symfony.allow-contrib true
 
 install:
-  - composer require symfony/flex --no-scripts # suppress recipes
-  - composer install # generate package versions
+  - composer require symfony/flex --no-update # adds flex, suppress composer.lock
+  - composer update symfony/*                 # updates to SYMFONY_VERSION, but runs recipes
+  - git reset --hard                          # reset tracked files
+  - git clean -df                             # clean up recipe generated files and folders
 
 script:
   - composer run-script quality
