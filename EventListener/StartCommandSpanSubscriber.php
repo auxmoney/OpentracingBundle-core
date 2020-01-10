@@ -9,6 +9,7 @@ use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use const OpenTracing\Tags\SPAN_KIND;
 
 final class StartCommandSpanSubscriber implements EventSubscriberInterface
 {
@@ -40,6 +41,7 @@ final class StartCommandSpanSubscriber implements EventSubscriberInterface
         $options = $this->spanOptionsFactory->createSpanOptions();
         $options['tags']['command.name'] = $commandName;
         $options['tags']['command.description'] = $command->getDescription();
+        $options['tags'][SPAN_KIND] = 'client';
 
         $this->tracing->startActiveSpan(
             $commandName,

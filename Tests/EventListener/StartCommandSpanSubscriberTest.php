@@ -42,7 +42,7 @@ class StartCommandSpanSubscriberTest extends TestCase
 
         $this->tracing->startActiveSpan(
             'command name',
-            ['tags' => ['arbitrary' => 'tag', 'command.name' => 'command name', 'command.description' => 'command description']]
+            ['tags' => ['arbitrary' => 'tag', 'command.name' => 'command name', 'command.description' => 'command description', 'span.kind' => 'client']]
         )->shouldBeCalledOnce();
 
         $this->subject->onCommand($event->reveal());
@@ -59,7 +59,7 @@ class StartCommandSpanSubscriberTest extends TestCase
 
         $this->tracing->startActiveSpan(
             '<unknown>',
-            ['tags' => ['arbitrary' => 'tag', 'command.name' => '<unknown>', 'command.description' => 'command description']]
+            ['tags' => ['arbitrary' => 'tag', 'command.name' => '<unknown>', 'command.description' => 'command description', 'span.kind' => 'client']]
         )->shouldBeCalledOnce();
 
         $this->subject->onCommand($event->reveal());

@@ -11,6 +11,7 @@ use Auxmoney\OpentracingBundle\Tests\Mock\EventWithException;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithThrowable;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use stdClass;
 
 class ExceptionLogSubscriberTest extends TestCase
@@ -35,40 +36,65 @@ class ExceptionLogSubscriberTest extends TestCase
 
     public function testOnExceptionSuccessException(): void
     {
-        $this->tracing->logInActiveSpan(['exception' => 'Exception', 'message' => 'exception'])->shouldBeCalledOnce();
+        $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
+            self::assertArrayHasKey('error.object', $argument);
+            self::assertSame('Exception', $argument['error.object']);
+            self::assertArrayHasKey('message', $argument);
+            self::assertSame('exception', $argument['message']);
+            return true;
+        }))->shouldBeCalledOnce();
 
         $this->subject->onException(new EventWithException());
     }
 
     public function testOnExceptionSuccessThrowable(): void
     {
-        $this->tracing->logInActiveSpan(['exception' => 'Exception', 'message' => 'throwable'])->shouldBeCalledOnce();
+        $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
+            self::assertArrayHasKey('error.object', $argument);
+            self::assertSame('Exception', $argument['error.object']);
+            self::assertArrayHasKey('message', $argument);
+            self::assertSame('throwable', $argument['message']);
+            return true;
+        }))->shouldBeCalledOnce();
 
         $this->subject->onException(new EventWithThrowable());
     }
 
     public function testOnExceptionSuccessError(): void
     {
-        $this->tracing->logInActiveSpan(['exception' => 'Error', 'message' => 'error'])->shouldBeCalledOnce();
+        $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
+            self::assertArrayHasKey('error.object', $argument);
+            self::assertSame('Error', $argument['error.object']);
+            self::assertArrayHasKey('message', $argument);
+            self::assertSame('error', $argument['message']);
+            return true;
+        }))->shouldBeCalledOnce();
 
         $this->subject->onException(new EventWithError());
     }
 
     public function testOnExceptionReflectionError(): void
     {
-        $this->tracing->logInActiveSpan(['exception' => 'ReflectionException', 'message' => 'this does not work'])->shouldBeCalledOnce();
+        $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
+            self::assertArrayHasKey('error.object', $argument);
+            self::assertSame('ReflectionException', $argument['error.object']);
+            self::assertArrayHasKey('message', $argument);
+            self::assertSame('this does not work', $argument['message']);
+            return true;
+        }))->shouldBeCalledOnce();
 
         $this->subject->onException(new EventReflectionError());
     }
 
     public function testOnExceptionImproperEvent(): void
     {
-        $this->tracing->logInActiveSpan(
-            [
-                'exception' => 'ReflectionException',
-                'message' => 'could not reflect event of type stdClass'
-            ]
-        )->shouldBeCalledOnce();
+        $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
+            self::assertArrayHasKey('error.object', $argument);
+            self::assertSame('ReflectionException', $argument['error.object']);
+            self::assertArrayHasKey('message', $argument);
+            self::assertSame('could not reflect event of type stdClass', $argument['message']);
+            return true;
+        }))->shouldBeCalledOnce();
 
         $this->subject->onException(new stdClass());
     }

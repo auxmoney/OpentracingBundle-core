@@ -8,6 +8,9 @@ use Auxmoney\OpentracingBundle\Factory\SpanOptionsFactory;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+use const OpenTracing\Tags\HTTP_METHOD;
+use const OpenTracing\Tags\HTTP_URL;
+use const OpenTracing\Tags\SPAN_KIND;
 
 final class StartRootSpanSubscriber implements EventSubscriberInterface
 {
@@ -40,6 +43,10 @@ final class StartRootSpanSubscriber implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $options = $this->spanOptionsFactory->createSpanOptions($request);
+        $options['tags'][HTTP_METHOD] = $request->getMethod();
+        $options['tags'][HTTP_URL] = $request->getUri();
+        $options['tags'][SPAN_KIND] = 'server';
+
         $this->tracing->startActiveSpan(
             $request->getUri(),
             $options

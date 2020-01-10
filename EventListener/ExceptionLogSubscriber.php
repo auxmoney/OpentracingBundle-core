@@ -37,7 +37,15 @@ final class ExceptionLogSubscriber implements EventSubscriberInterface
     public function onException($event): void
     {
         $exception = $this->extractExceptionFrom($event);
-        $this->tracing->logInActiveSpan(['exception' => get_class($exception), 'message' => $exception->getMessage()]);
+        $this->tracing->logInActiveSpan(
+            [
+                'event' => 'error',
+                'error.kind' => 'Exception',
+                'error.object' => get_class($exception),
+                'message' => $exception->getMessage(),
+                'stack' => $exception->getTraceAsString(),
+            ]
+        );
     }
 
     /**

@@ -40,7 +40,17 @@ class StartRootSpanSubscriberTest extends TestCase
         $event->getRequest()->willReturn($request);
 
         $this->spanOptionsFactory->createSpanOptions($request)->willReturn(['some' => 'options']);
-        $this->tracing->startActiveSpan('http://some.uri.test/', ['some' => 'options'])->shouldBeCalledOnce();
+        $this->tracing->startActiveSpan(
+            'http://some.uri.test/',
+            [
+                'some' => 'options',
+                'tags' => [
+                    'http.method' => 'GET',
+                    'http.url' => 'http://some.uri.test/',
+                    'span.kind' => 'server'
+                ]
+            ]
+        )->shouldBeCalledOnce();
 
         $this->subject->onRequest($event->reveal());
     }
