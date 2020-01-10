@@ -1,7 +1,7 @@
 parameters:
   env(HOSTNAME): unknown
   env(AUXMONEY_OPENTRACING_AGENT_HOST): localhost
-  env(AUXMONEY_OPENTRACING_AGENT_PORT): '6831'
+  env(AUXMONEY_OPENTRACING_AGENT_PORT): 'default will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation'
   env(AUXMONEY_OPENTRACING_PROJECT_NAME): 'default will be provided by extension (basename(kernel.project_dir))'
 
   auxmoney_opentracing.hostname: '%env(HOSTNAME)%'
