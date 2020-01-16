@@ -27,7 +27,7 @@ which will then use this library.
 * require the dependencies (unfortunately, neither `opentracing/opentracing` nor `jukylin/jaeger-php` are released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-jaeger:^0.3 opentracing/opentracing:1.0.0-beta6@beta jukylin/jaeger-php:dev-master@dev
+    composer req auxmoney/opentracing-bundle-jaeger:^0.3 opentracing/opentracing:1.0.0-beta5@beta jukylin/jaeger-php:dev-master@dev
 ```
 
 #### Zipkin
@@ -35,7 +35,7 @@ which will then use this library.
 * require the dependencies (unfortunately, `opentracing/opentracing` is not released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-zipkin^0.3 opentracing/opentracing:1.0.0-beta6@beta
+    composer req auxmoney/opentracing-bundle-zipkin^0.3 opentracing/opentracing:1.0.0-beta5@beta
 ```
 
 ### Enable the bundle

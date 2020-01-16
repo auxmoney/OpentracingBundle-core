@@ -20,7 +20,7 @@
     "ext-json": "*",
     "psr/log": "^1.1",
     "psr/http-message": "^1.0",
-    "opentracing/opentracing": "1.0.0-beta6@beta",
+    "opentracing/opentracing": "1.0.0-beta5@beta",
     "ocramius/package-versions": "^1.4",
     "symfony/http-kernel": "^3.4|^4.2|^5.0",
     "symfony/dependency-injection": "^3.4|^4.2|^5.0",
