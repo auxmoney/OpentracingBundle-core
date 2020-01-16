@@ -1,0 +1,43 @@
+language: php
+os: linux
+dist: bionic
+
+jobs:
+  include:
+    - php: '7.1'
+      env: SYMFONY_VERSION="3.4.*"
+    - php: '7.4'
+      env: SYMFONY_VERSION="3.4.*"
+    - php: '7.2'
+      env: SYMFONY_VERSION="4.4.*"
+    - php: '7.4'
+      env: SYMFONY_VERSION="4.4.*"
+    - php: '7.2'
+      env: SYMFONY_VERSION="5.0.*"
+    - php: '7.4'
+      env: SYMFONY_VERSION="5.0.*"
+
+before_install:
+  - composer global require hirak/prestissimo
+  - composer config extra.symfony.require "${SYMFONY_VERSION}"
+  - composer config extra.symfony.allow-contrib true
+
+install:
+  - composer require symfony/flex --no-update # adds flex, suppress composer.lock
+  - composer update symfony/*                 # updates to SYMFONY_VERSION, but runs recipes
+  - git reset --hard                          # reset tracked files
+  - git clean -df                             # clean up recipe generated files and folders
+
+script:
+  - composer run-script quality
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
+
+notifications:
+  slack:
+    rooms:
+      - secure: TSDxynroFy1qh09A191AJWASZJ1yktJTYL0eyxHO5m1ymm52b08Vhru/ZD9LsbZ21+g0JXT9jYtQ2ga4bO1+MJoRMS6OD8wkpVODk54mOH03fPPhakOXFgo5Ej+3comi8PnWvXp6HpMnti+p39M9CzsZpNdvsH+Tn7c4rhjSPbrV/CDJ3lrR4Px+is5aXl9pa6UU/TkYM22dtRP7R5hx/oBBn0GAFo6raieb5d5YjGQMwSdb/Sbw8wmtgZQrjeCn44rZMZ9pcTv5ZoLvIttQiNaD1W7sGqEJ7V9TEI4rmLv1+NhqTlGxoqOqsrceG9NOKMqk5etjenuxiHhGq7W+g41vKDpunxe5MJNpTV0Oerz1qUlBPWMpL6usPIhURlC6PADuJK6bPHyFxGoGle1pfSFYQ+Ij5PdVsZ7Qp3rjLUbG5RAHFPHDmm7toFH+toWFUdfaMTnnwKYbx86U19yBwn6Flzn3VJ9v6+QIlmxD1b07JXpvCdoVGyK8I/4XNL8C1/jZf4plNGiaWhf4eRkje3fvH1SzZDVwc1nPiENvlXAfVOdZWFe6zAgdT6FDJ+hXuUXme7uhSzutY7RD86dqxlrYAhZt3paxGCsPsPLRLzHjp68WV+eYQAnZL5uG+aaGzljbo2d/OxEBPXokNjjn8+X88T3TOT+7FnSmNcfkXJs=
+    on_success: change
+    on_failure: always
+    on_pull_requests: false

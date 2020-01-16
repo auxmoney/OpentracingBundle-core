@@ -1,0 +1,10 @@
+parameters:
+  paths:
+    - .
+
+  excludes_analyse:
+    - Tests/*
+    - vendor/*
+
+  level: 7
+  inferPrivatePropertyTypeFromConstructor: true

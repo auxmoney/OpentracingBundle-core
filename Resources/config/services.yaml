@@ -1,0 +1,58 @@
+parameters:
+  env(HOSTNAME): unknown
+  env(AUXMONEY_OPENTRACING_AGENT_HOST): localhost
+  # env(AUXMONEY_OPENTRACING_AGENT_PORT) will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation
+  env(AUXMONEY_OPENTRACING_PROJECT_NAME): 'default will be provided by extension (basename(kernel.project_dir))'
+
+  auxmoney_opentracing.hostname: '%env(HOSTNAME)%'
+  auxmoney_opentracing.agent.host: '%env(AUXMONEY_OPENTRACING_AGENT_HOST)%'
+  auxmoney_opentracing.agent.port: '%env(AUXMONEY_OPENTRACING_AGENT_PORT)%'
+  auxmoney_opentracing.project.name: '%env(AUXMONEY_OPENTRACING_PROJECT_NAME)%'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ### public service ###
+
+  Auxmoney\OpentracingBundle\Service\Tracing:
+    class: Auxmoney\OpentracingBundle\Service\TracingService
+    public: true
+
+  auxmoney_opentracing:
+    alias: Auxmoney\OpentracingBundle\Service\Tracing
+    public: true
+
+  ### internals ###
+
+  Auxmoney\OpentracingBundle\Factory\SpanOptionsFactory:
+    class: Auxmoney\OpentracingBundle\Factory\RequestSpanOptionsFactory
+    arguments:
+      $kernelDebug: '%kernel.debug%'
+      $kernelEnvironment: '%kernel.environment%'
+      $hostName: '%auxmoney_opentracing.hostname%'
+
+  Auxmoney\OpentracingBundle\Internal\Opentracing:
+    class: Auxmoney\OpentracingBundle\Internal\CachedOpentracing
+    arguments:
+      $projectName: '%auxmoney_opentracing.project.name%'
+      $agentHost: '%auxmoney_opentracing.agent.host%'
+      $agentPort: '%auxmoney_opentracing.agent.port%'
+
+  Auxmoney\OpentracingBundle\Internal\Persistence:
+    class: Auxmoney\OpentracingBundle\Internal\PersistenceService
+
+  Auxmoney\OpentracingBundle\Internal\Utility:
+    class: Auxmoney\OpentracingBundle\Internal\UtilityService
+
+  ### event subscribers ###
+
+  Auxmoney\OpentracingBundle\EventListener\StartRootSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\FinishRootSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\StartControllerSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\FinishControllerSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\StartCommandSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\FinishCommandSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\ExceptionLogSubscriber: ~
