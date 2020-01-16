@@ -20,7 +20,7 @@ final class StartControllerSpanSubscriber implements EventSubscriberInterface
     /**
      * @return array<string,array>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'kernel.controller' => ['onController', 16],

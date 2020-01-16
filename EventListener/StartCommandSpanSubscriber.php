@@ -25,7 +25,7 @@ final class StartCommandSpanSubscriber implements EventSubscriberInterface
     /**
      * @return array<string,array>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'console.command' => ['onCommand', 4096],

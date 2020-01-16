@@ -28,7 +28,7 @@ final class StartRootSpanSubscriber implements EventSubscriberInterface
     /**
      * @return array<string,array>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'kernel.request' => ['onRequest', 4096],

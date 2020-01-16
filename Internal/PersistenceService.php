@@ -6,15 +6,15 @@ namespace Auxmoney\OpentracingBundle\Internal;
 
 final class PersistenceService implements Persistence
 {
-    private $opentracing;
+    private $tracer;
 
     public function __construct(Opentracing $opentracing)
     {
-        $this->opentracing = $opentracing;
+        $this->tracer = $opentracing->getTracerInstance();
     }
 
     public function flush(): void
     {
-        $this->opentracing->getTracerInstance()->flush();
+        $this->tracer->flush();
     }
 }

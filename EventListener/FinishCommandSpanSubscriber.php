@@ -23,7 +23,7 @@ final class FinishCommandSpanSubscriber implements EventSubscriberInterface
     /**
      * @return array<string,array>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'console.terminate' => ['onTerminate', -2048],

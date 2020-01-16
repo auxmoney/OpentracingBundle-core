@@ -9,15 +9,15 @@ use const OpenTracing\Formats\TEXT_MAP;
 
 final class UtilityService implements Utility
 {
-    private $opentracing;
+    private $tracer;
 
     public function __construct(Opentracing $opentracing)
     {
-        $this->opentracing = $opentracing;
+        $this->tracer = $opentracing->getTracerInstance();
     }
 
     public function extractSpanContext(array $headers): ?SpanContext
     {
-        return $this->opentracing->getTracerInstance()->extract(TEXT_MAP, $headers);
+        return $this->tracer->extract(TEXT_MAP, $headers);
     }
 }

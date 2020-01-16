@@ -22,7 +22,7 @@ final class ExceptionLogSubscriber implements EventSubscriberInterface
     /**
      * @return array<string,array>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'kernel.exception' => ['onException', 16],

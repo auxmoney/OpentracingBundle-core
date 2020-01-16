@@ -15,15 +15,11 @@ use const OpenTracing\Formats\TEXT_MAP;
 class UtilityServiceTest extends TestCase
 {
     private $opentracing;
-    /** @var UtilityService */
-    private $subject;
 
     public function setUp()
     {
         parent::setUp();
         $this->opentracing = $this->prophesize(Opentracing::class);
-
-        $this->subject = new UtilityService($this->opentracing->reveal());
     }
 
     public function testExtractSpanContextNoSpanContext(): void
@@ -32,7 +28,9 @@ class UtilityServiceTest extends TestCase
         $tracer->extract(TEXT_MAP, Argument::any())->willReturn(null);
         $this->opentracing->getTracerInstance()->willReturn($tracer->reveal());
 
-        $extractedSpanContext = $this->subject->extractSpanContext(['input' => 'headers']);
+        $subject = new UtilityService($this->opentracing->reveal());
+
+        $extractedSpanContext = $subject->extractSpanContext(['input' => 'headers']);
         self::assertNull($extractedSpanContext);
     }
 
@@ -40,7 +38,9 @@ class UtilityServiceTest extends TestCase
     {
         $this->opentracing->getTracerInstance()->willReturn(new MockTracer());
 
-        $extractedSpanContext = $this->subject->extractSpanContext(['input' => 'headers']);
+        $subject = new UtilityService($this->opentracing->reveal());
+
+        $extractedSpanContext = $subject->extractSpanContext(['input' => 'headers']);
         self::assertNotNull($extractedSpanContext);
     }
 }

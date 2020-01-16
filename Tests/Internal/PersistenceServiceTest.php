@@ -12,15 +12,11 @@ use PHPUnit\Framework\TestCase;
 class PersistenceServiceTest extends TestCase
 {
     private $opentracing;
-    /** @var PersistenceService */
-    private $subject;
 
     public function setUp()
     {
         parent::setUp();
         $this->opentracing = $this->prophesize(Opentracing::class);
-
-        $this->subject = new PersistenceService($this->opentracing->reveal());
     }
 
     public function testFlushSuccess(): void
@@ -29,7 +25,9 @@ class PersistenceServiceTest extends TestCase
         $mockTracer->startActiveSpan('operation name');
         $this->opentracing->getTracerInstance()->willReturn($mockTracer);
 
-        $this->subject->flush();
+        $subject = new PersistenceService($this->opentracing->reveal());
+
+        $subject->flush();
 
         self::assertEmpty($mockTracer->getSpans());
     }

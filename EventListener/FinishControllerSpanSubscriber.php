@@ -25,7 +25,7 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
     /**
      * @return array<string,array>
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'kernel.response' => ['onResponse', -2048],

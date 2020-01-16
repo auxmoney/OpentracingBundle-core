@@ -18,7 +18,7 @@ abstract class AbstractOpentracingExtension extends Extension
      * @return void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $this->loadBundleServices($container);
         $this->loadCoreServices($container);

@@ -11,25 +11,25 @@ use const OpenTracing\Formats\TEXT_MAP;
 
 final class TracingService implements Tracing
 {
-    private $opentracing;
+    private $tracer;
     private $logger;
 
     public function __construct(Opentracing $opentracing, LoggerInterface $logger)
     {
-        $this->opentracing = $opentracing;
+        $this->tracer = $opentracing->getTracerInstance();
         $this->logger = $logger;
     }
 
     public function injectTracingHeaders(RequestInterface $request): RequestInterface
     {
-        if (!$this->opentracing->getTracerInstance()->getActiveSpan()) {
+        if (!$this->tracer->getActiveSpan()) {
             $this->logger->warning(self::class . ': could not inject tracing headers, missing active span');
             return $request;
         }
 
         $headers = [];
-        $this->opentracing->getTracerInstance()->inject(
-            $this->opentracing->getTracerInstance()->getActiveSpan()->getContext(),
+        $this->tracer->inject(
+            $this->tracer->getActiveSpan()->getContext(),
             TEXT_MAP,
             $headers
         );
@@ -43,7 +43,7 @@ final class TracingService implements Tracing
     {
         $options = $options ?? [];
         $options['finish_span_on_close'] = true;
-        $this->opentracing->getTracerInstance()->startActiveSpan(
+        $this->tracer->startActiveSpan(
             $operationName,
             $options
         );
@@ -51,31 +51,31 @@ final class TracingService implements Tracing
 
     public function logInActiveSpan(array $fields): void
     {
-        if (!$this->opentracing->getTracerInstance()->getActiveSpan()) {
+        if (!$this->tracer->getActiveSpan()) {
             $this->logger->warning(self::class . ': could not log in active span, missing active span');
             return;
         }
 
-        $this->opentracing->getTracerInstance()->getActiveSpan()->log($fields);
+        $this->tracer->getActiveSpan()->log($fields);
     }
 
     public function setTagOfActiveSpan(string $key, $value): void
     {
-        if (!$this->opentracing->getTracerInstance()->getActiveSpan()) {
+        if (!$this->tracer->getActiveSpan()) {
             $this->logger->warning(self::class . ': could not log in active span, missing active span');
             return;
         }
 
-        $this->opentracing->getTracerInstance()->getActiveSpan()->setTag($key, $value);
+        $this->tracer->getActiveSpan()->setTag($key, $value);
     }
 
     public function finishActiveSpan(): void
     {
-        if (!$this->opentracing->getTracerInstance()->getScopeManager()->getActive()) {
+        if (!$this->tracer->getScopeManager()->getActive()) {
             $this->logger->warning(self::class . ': could not finish active span, missing active scope');
             return;
         }
 
-        $this->opentracing->getTracerInstance()->getScopeManager()->getActive()->close();
+        $this->tracer->getScopeManager()->getActive()->close();
     }
 }
