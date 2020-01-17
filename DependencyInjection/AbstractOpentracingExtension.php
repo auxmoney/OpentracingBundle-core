@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\DependencyInjection;
 
 use Exception;
+use Psr\Http\Client\ClientInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -23,6 +24,7 @@ abstract class AbstractOpentracingExtension extends Extension
         $this->loadBundleServices($container);
         $this->loadCoreServices($container);
         $this->overwriteProjectNameParameter($container);
+        $this->addTagsForPSR18Clients($container);
     }
 
     /**
@@ -46,5 +48,10 @@ abstract class AbstractOpentracingExtension extends Extension
     {
         $projectDirectory = $container->getParameter('kernel.project_dir');
         $container->setParameter('env(AUXMONEY_OPENTRACING_PROJECT_NAME)', basename($projectDirectory));
+    }
+
+    private function addTagsForPSR18Clients(ContainerBuilder $container): void
+    {
+        $container->registerForAutoconfiguration(ClientInterface::class)->addTag(PSR18CompilerPass::TAG_PSR_18);
     }
 }
