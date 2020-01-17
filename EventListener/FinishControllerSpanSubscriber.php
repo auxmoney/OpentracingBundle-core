@@ -10,6 +10,7 @@ use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use const OpenTracing\Tags\HTTP_STATUS_CODE;
 
 final class FinishControllerSpanSubscriber implements EventSubscriberInterface
 {
@@ -38,7 +39,7 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
      */
     public function onResponse($event): void
     {
-        $this->tracing->setTagOfActiveSpan('http.status-code', $this->getHttpStatusCode($event) ?? 'not determined');
+        $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $this->getHttpStatusCode($event) ?? 'not determined');
         $this->tracing->finishActiveSpan();
     }
 
