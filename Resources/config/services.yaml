@@ -47,6 +47,9 @@ services:
   Auxmoney\OpentracingBundle\Internal\Utility:
     class: Auxmoney\OpentracingBundle\Internal\UtilityService
 
+  Auxmoney\OpentracingBundle\Internal\Decorator\RequestSpanning:
+    class: Auxmoney\OpentracingBundle\Internal\Decorator\RequestSpanningService
+
   ### event subscribers ###
 
   Auxmoney\OpentracingBundle\EventListener\StartRootSpanSubscriber: ~
