@@ -52,7 +52,7 @@ If you are not using it, you need to manually enable the bundle:
 ```
 
 ```php
-    # Symfony 4: bundles.php
+    # Symfony 4+: bundles.php
     Auxmoney\OpentracingBundle\OpentracingBundle::class => ['all' => true],
 ```
 
@@ -62,7 +62,7 @@ You can optionally configure environment variables, however, the default configu
 If you cannot change environment variables in your project, you can alternatively overwrite the container parameters directly.
 
 | environment variable | container parameter | type | default | description |
-|---|---|---|---|
+|---|---|---|---|---|
 | AUXMONEY_OPENTRACING_AGENT_HOST | auxmoney_opentracing.agent.host | `string` | `localhost` | hostname or IP of the agent |
 | AUXMONEY_OPENTRACING_AGENT_PORT | auxmoney_opentracing.agent.port | `string` | (depends on the chosen tracer) | port of the agent |
 | AUXMONEY_OPENTRACING_PROJECT_NAME | auxmoney_opentracing.project.name | `string` | `basename(kernel.project_dir)` |  passed to the tracer as tracer name / service name |
