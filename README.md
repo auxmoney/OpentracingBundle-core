@@ -59,12 +59,13 @@ If you are not using it, you need to manually enable the bundle:
 ## Configuration
 
 You can optionally configure environment variables, however, the default configuration will run fine out of the box for a tracing agent on localhost.
+If you cannot change environment variables in your project, you can alternatively overwrite the container parameters directly.
 
-| environment variable | type | default | description |
+| environment variable | container parameter | type | default | description |
 |---|---|---|---|
-| AUXMONEY_OPENTRACING_AGENT_HOST | `string` | `localhost` | hostname or IP of the agent |
-| AUXMONEY_OPENTRACING_AGENT_PORT | `string` | (depends on the chosen tracer) | port of the agent |
-| AUXMONEY_OPENTRACING_PROJECT_NAME | `string` | `basename(kernel.project_dir)` |  passed to the tracer as tracer name / service name |
+| AUXMONEY_OPENTRACING_AGENT_HOST | auxmoney_opentracing.agent.host | `string` | `localhost` | hostname or IP of the agent |
+| AUXMONEY_OPENTRACING_AGENT_PORT | auxmoney_opentracing.agent.port | `string` | (depends on the chosen tracer) | port of the agent |
+| AUXMONEY_OPENTRACING_PROJECT_NAME | auxmoney_opentracing.project.name | `string` | `basename(kernel.project_dir)` |  passed to the tracer as tracer name / service name |
 
 ## Usage
 
