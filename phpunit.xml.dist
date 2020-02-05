@@ -20,6 +20,12 @@
     <testsuites>
         <testsuite name="unit">
             <directory>./Tests/</directory>
+            <exclude>./Tests/Functional</exclude>
+        </testsuite>
+        <testsuite name="functional">
+            <directory>./Tests/Functional/</directory>
+            <exclude>./Tests/Functional/Scripts</exclude>
+            <exclude>./Tests/Functional/TestProjectFiles</exclude>
         </testsuite>
     </testsuites>
 
