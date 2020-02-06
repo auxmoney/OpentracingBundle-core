@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.5](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.3.4...v0.3.5) (2020-02-06)
+
+
+### Features
+
+* add basic framework for functional tests ([#16](https://github.com/auxmoney/OpentracingBundle-core/issues/16)) ([269cc72](https://github.com/auxmoney/OpentracingBundle-core/commit/269cc72524127d09be7ab401939e415df85e5e3e))
+
+
+### Bug Fixes
+
+* no faulty host resolving ([#15](https://github.com/auxmoney/OpentracingBundle-core/issues/15)) ([17b77d1](https://github.com/auxmoney/OpentracingBundle-core/commit/17b77d17b1f367d3a6ce8232368464ee45b20ef2))
+
 ### [0.3.4](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.3.3...v0.3.4) (2020-01-24)
 
 
