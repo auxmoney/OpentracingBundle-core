@@ -22,13 +22,13 @@ class DefaultAgentHostResolverTest extends TestCase
 
     public function testResolveAgentHostSuccessByHost(): void
     {
-        $this->subject->resolveAgentHost('localhost');
+        $this->subject->ensureAgentHostIsResolvable('localhost');
         self::assertTrue(true); // if no exception is raised, we count this as a successful test
     }
 
     public function testResolveAgentHostSuccessByIp(): void
     {
-        $this->subject->resolveAgentHost('127.0.0.1');
+        $this->subject->ensureAgentHostIsResolvable('127.0.0.1');
         self::assertTrue(true); // if no exception is raised, we count this as a successful test
     }
 
@@ -37,6 +37,6 @@ class DefaultAgentHostResolverTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageRegExp('/could not resolve/');
 
-        $this->subject->resolveAgentHost('älsakfdkaofkeäkvaäsooäaegölsgälkfdvpaoskvä.cöm');
+        $this->subject->ensureAgentHostIsResolvable('älsakfdkaofkeäkvaäsooäaegölsgälkfdvpaoskvä.cöm');
     }
 }
