@@ -11,5 +11,5 @@ interface AgentHostResolver
     /**
      * @throws RuntimeException
      */
-    public function resolveAgentHost(string $agentHost): void;
+    public function ensureAgentHostIsResolvable(string $agentHost): void;
 }
