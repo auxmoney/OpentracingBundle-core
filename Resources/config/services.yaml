@@ -34,6 +34,9 @@ services:
       $kernelEnvironment: '%kernel.environment%'
       $hostName: '%auxmoney_opentracing.hostname%'
 
+  Auxmoney\OpentracingBundle\Factory\AgentHostResolver:
+    class: Auxmoney\OpentracingBundle\Factory\DefaultAgentHostResolver
+
   Auxmoney\OpentracingBundle\Internal\Opentracing:
     class: Auxmoney\OpentracingBundle\Internal\CachedOpentracing
     arguments:
