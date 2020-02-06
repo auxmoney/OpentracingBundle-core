@@ -36,7 +36,11 @@
     "phpstan/phpstan": "^0.12",
     "squizlabs/php_codesniffer": "^3.5",
     "phpmd/phpmd": "^2.7",
-    "php-coveralls/php-coveralls": "^2.2"
+    "php-coveralls/php-coveralls": "^2.2",
+    "symfony/filesystem": "*",
+    "symfony/process": "*",
+    "symfony/yaml": "*",
+    "mtdowling/jmespath.php": "^2.5"
   },
   "autoload": {
     "psr-4": {
@@ -57,7 +61,7 @@
     ],
     "phpmd": "vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,Tests",
     "phpcs": "vendor/bin/phpcs",
-    "phpunit": "phpdbg -qrr vendor/bin/phpunit --colors=never",
+    "phpunit": "phpdbg -qrr vendor/bin/phpunit --colors=never --testsuite=unit",
     "phpstan": "vendor/bin/phpstan analyse --no-progress"
   }
 }
