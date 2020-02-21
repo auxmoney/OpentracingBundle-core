@@ -14,39 +14,27 @@ use function JmesPath\search as jmesSearch;
 
 abstract class JaegerFunctionalTest extends TestCase
 {
+    protected const BUILD_TESTPROJECT = 'build/testproject';
+
     protected function setUpTestProject(string $projectSetup): void
     {
-        $filesystem = new Filesystem();
-        $filesystem->mirror(sprintf('Tests/Functional/TestProjectFiles/%s/', $projectSetup), 'build/testproject/');
+        $this->copyTestProjectFiles($projectSetup);
 
-        $p = new Process(['composer', 'dump-autoload'], 'build/testproject');
-        $p->mustRun();
-        $p = new Process(['symfony', 'console', 'cache:clear'], 'build/testproject');
-        $p->mustRun();
-        $p = new Process(['symfony', 'local:server:start', '-d', '--no-tls'], 'build/testproject');
-        $p->mustRun();
+        $this->composerDumpAutoload();
+        $this->consoleCacheClear();
+        $this->symfonyLocalServerStart();
     }
 
     public function setUp()
     {
-        parent::setUp();
-
-        $p = new Process(['docker', 'start', 'jaeger']);
-        $p->mustRun();
-
-        sleep(3);
+        $this->dockerStartJaeger();
     }
 
     protected function tearDown()
     {
-        $p = new Process(['symfony', 'local:server:stop'], 'build/testproject');
-        $p->mustRun();
-        $p = new Process(['git', 'reset', '--hard', 'reset'], 'build/testproject');
-        $p->mustRun();
-        $p = new Process(['docker', 'stop', 'jaeger']);
-        $p->mustRun();
-
-        parent::tearDown();
+        $this->symfonyLocalServerStop();
+        $this->gitResetTestProject();
+        $this->dockerStopJaeger();
     }
 
     protected function getTraceFromJaegerAPI(string $traceId): array
@@ -95,5 +83,53 @@ abstract class JaegerFunctionalTest extends TestCase
             unset($node->childOf);
         }
         return Yaml::dump($rootNode, 1024, 2, Yaml::DUMP_OBJECT_AS_MAP);
+    }
+
+    protected function runInTestProject(array $commandLine): void
+    {
+        $process = new Process($commandLine, self::BUILD_TESTPROJECT);
+        $process->mustRun();
+    }
+
+    protected function composerDumpAutoload(): void
+    {
+        $this->runInTestProject(['composer', 'dump-autoload']);
+    }
+
+    protected function consoleCacheClear(): void
+    {
+        $this->runInTestProject(['symfony', 'console', 'cache:clear']);
+    }
+
+    protected function gitResetTestProject(): void
+    {
+        $this->runInTestProject(['git', 'reset', '--hard', 'reset']);
+    }
+
+    protected function copyTestProjectFiles(string $projectSetup): void
+    {
+        $filesystem = new Filesystem();
+        $filesystem->mirror(sprintf('Tests/Functional/TestProjectFiles/%s/', $projectSetup), self::BUILD_TESTPROJECT . '/', null, ['override' => true]);
+    }
+
+    protected function symfonyLocalServerStart(): void
+    {
+        $this->runInTestProject(['symfony', 'local:server:start', '-d', '--no-tls']);
+    }
+
+    protected function symfonyLocalServerStop(): void
+    {
+        $this->runInTestProject(['symfony', 'local:server:stop']);
+    }
+
+    protected function dockerStartJaeger(): void
+    {
+        $this->runInTestProject(['docker', 'start', 'jaeger']);
+        sleep(3);
+    }
+
+    protected function dockerStopJaeger(): void
+    {
+        $this->runInTestProject(['docker', 'stop', 'jaeger']);
     }
 }
