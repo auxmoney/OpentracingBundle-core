@@ -109,7 +109,7 @@ abstract class JaegerFunctionalTest extends TestCase
     protected function copyTestProjectFiles(string $projectSetup): void
     {
         $filesystem = new Filesystem();
-        $filesystem->mirror(sprintf('Tests/Functional/TestProjectFiles/%s/', $projectSetup), self::BUILD_TESTPROJECT . '/');
+        $filesystem->mirror(sprintf('Tests/Functional/TestProjectFiles/%s/', $projectSetup), self::BUILD_TESTPROJECT . '/', null, ['override' => true]);
     }
 
     protected function symfonyLocalServerStart(): void
