@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.3.6...v0.4.0) (2020-03-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* functional tests must now select startTime: startTime in their $expression for getSpansAsYAML()
+
+contributors: @cHeeSaW 
+
+### Bug Fixes
+
+* sort spans in functional tests by startTime ([#20](https://github.com/auxmoney/OpentracingBundle-core/issues/20)) ([1f3250b](https://github.com/auxmoney/OpentracingBundle-core/commit/1f3250b6dfce42a30647cc4a5474b1eb1b77e4eb))
+
 ### [0.3.6](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.3.5...v0.3.6) (2020-02-21)
 
 
