@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.0...v0.4.1) (2020-03-04)
+
+
+### Bug Fixes
+
+* remove automatic releases ([da51e09](https://github.com/auxmoney/OpentracingBundle-core/commit/da51e0943ef1ea70b9e447354886a039acc1f3d2))
+
 ## [0.4.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.3.6...v0.4.0) (2020-03-04)
 
 
