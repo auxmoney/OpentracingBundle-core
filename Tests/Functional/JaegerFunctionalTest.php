@@ -59,10 +59,20 @@ abstract class JaegerFunctionalTest extends TestCase
             $spans
         );
 
+        $nodes = $this->transformSpanDataToNodes($spanData);
+        $rootNode = $this->buildTree($nodes);
+        $this->sortNodesByStartTime($nodes);
+
+        return Yaml::dump($rootNode, 1024, 2, Yaml::DUMP_OBJECT_AS_MAP);
+    }
+
+    private function transformSpanDataToNodes(array $spanData): array
+    {
         $nodes = [];
         foreach ($spanData as $data) {
             $node = new stdClass();
             $node->operationName = $data['operationName'];
+            $node->startTime = $data['startTime'];
             if (isset($data['tags'])) {
                 $node->tags = $data['tags'];
             }
@@ -72,7 +82,11 @@ abstract class JaegerFunctionalTest extends TestCase
             $node->childOf = $data['references'][0]['spanID'] ?? null;
             $nodes[$data['spanID']] = $node;
         }
+        return $nodes;
+    }
 
+    private function buildTree(array &$nodes)
+    {
         $rootNode = null;
         foreach ($nodes as $node) {
             if ($node->childOf) {
@@ -82,7 +96,24 @@ abstract class JaegerFunctionalTest extends TestCase
             }
             unset($node->childOf);
         }
-        return Yaml::dump($rootNode, 1024, 2, Yaml::DUMP_OBJECT_AS_MAP);
+        return $rootNode;
+    }
+
+    private function sortNodesByStartTime(array &$nodes): void
+    {
+        foreach ($nodes as $node) {
+            if (!empty($node->children)) {
+                usort(
+                    $node->children,
+                    static function ($nodeA, $nodeB) {
+                        return $nodeA->startTime - $nodeB->startTime;
+                    }
+                );
+            }
+        }
+        foreach ($nodes as $node) {
+            unset($node->startTime);
+        }
     }
 
     protected function runInTestProject(array $commandLine): void
