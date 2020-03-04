@@ -1,5 +1,14 @@
 # auxmoney OpentracingBundle
 
+![release](https://github.com/auxmoney/OpentracingBundle-core/workflows/release/badge.svg)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/auxmoney/OpentracingBundle-core)
+![Travis (.org)](https://img.shields.io/travis/auxmoney/OpentracingBundle-core)
+![Coveralls github](https://img.shields.io/coveralls/github/auxmoney/OpentracingBundle-core)
+![Codacy Badge](https://api.codacy.com/project/badge/Grade/fc044c88d4e046ab8813be04032a29a4)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/auxmoney/OpentracingBundle-core)
+![Scrutinizer code quality (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/quality/g/auxmoney/OpentracingBundle-core)
+![GitHub](https://img.shields.io/github/license/auxmoney/OpentracingBundle-core)
+
 This collection of symfony bundles provides everything needed for a symfony application to enable distributed tracing.
 
 It utilizes the [PHP implementation](https://github.com/opentracing/opentracing-php) of the [opentracing specification](https://opentracing.io/specification/) 
