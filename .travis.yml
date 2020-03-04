@@ -1,6 +1,7 @@
 language: php
 os: linux
 dist: bionic
+if: tag IS blank
 
 jobs:
   include:
