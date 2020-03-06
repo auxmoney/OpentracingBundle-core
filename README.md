@@ -154,3 +154,7 @@ Be sure to run
 ```
 
 every time before you push code changes. The tools run by this script are also run in the CI pipeline.
+
+## Doc
+
+Various informations regarding the bundle and its usage is available in the [doc section](./doc/README.md).
