@@ -3,11 +3,16 @@ parameters:
   env(AUXMONEY_OPENTRACING_AGENT_HOST): localhost
   # env(AUXMONEY_OPENTRACING_AGENT_PORT) will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation
   env(AUXMONEY_OPENTRACING_PROJECT_NAME): 'default will be provided by extension (basename(kernel.project_dir))'
+  # env(AUXMONEY_OPENTRACING_SAMPLER_CLASS) will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation
+  # env(AUXMONEY_OPENTRACING_SAMPLER_VALUE) will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation
 
   auxmoney_opentracing.hostname: '%env(HOSTNAME)%'
   auxmoney_opentracing.agent.host: '%env(AUXMONEY_OPENTRACING_AGENT_HOST)%'
   auxmoney_opentracing.agent.port: '%env(AUXMONEY_OPENTRACING_AGENT_PORT)%'
   auxmoney_opentracing.project.name: '%env(AUXMONEY_OPENTRACING_PROJECT_NAME)%'
+  auxmoney_opentracing.sampler.class: '%env(AUXMONEY_OPENTRACING_SAMPLER_CLASS)%'
+  auxmoney_opentracing.sampler.value: '%env(AUXMONEY_OPENTRACING_SAMPLER_VALUE)%'
+
 
 services:
   _defaults:
@@ -43,6 +48,8 @@ services:
       $projectName: '%auxmoney_opentracing.project.name%'
       $agentHost: '%auxmoney_opentracing.agent.host%'
       $agentPort: '%auxmoney_opentracing.agent.port%'
+      $samplerClass: '%auxmoney_opentracing.sampler.class%'
+      $samplerValue: '%auxmoney_opentracing.sampler.value%'
 
   Auxmoney\OpentracingBundle\Internal\Persistence:
     class: Auxmoney\OpentracingBundle\Internal\PersistenceService

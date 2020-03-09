@@ -20,6 +20,8 @@ class CachedOpentracingTest extends TestCase
     private $tracerFactory;
     /** @var CachedOpentracing */
     private $subject;
+    private $samplerClass;
+    private $samplerValue;
 
     public function setUp()
     {
@@ -29,13 +31,17 @@ class CachedOpentracingTest extends TestCase
         $this->projectName = 'project name';
         $this->agentHost = 'agent host';
         $this->agentPort = '1234';
+        $this->samplerClass = 'Foo';
+        $this->samplerValue = true;
 
         $this->subject = new CachedOpentracing(
             $this->tracerFactory->reveal(),
             $this->logger->reveal(),
             $this->projectName,
             $this->agentHost,
-            $this->agentPort
+            $this->agentPort,
+            $this->samplerClass,
+            $this->samplerValue
         );
     }
 
@@ -43,7 +49,7 @@ class CachedOpentracingTest extends TestCase
     {
         $this->logger->debug(Argument::any())->shouldBeCalledOnce();
 
-        $this->tracerFactory->create($this->projectName, $this->agentHost, $this->agentPort)->willReturn(new MockTracer());
+        $this->tracerFactory->create($this->projectName, $this->agentHost, $this->agentPort, $this->samplerClass, $this->samplerValue)->willReturn(new MockTracer());
 
         $tracer1 = $this->subject->getTracerInstance();
         $tracer2 = $this->subject->getTracerInstance();

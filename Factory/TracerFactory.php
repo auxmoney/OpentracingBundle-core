@@ -8,5 +8,14 @@ use OpenTracing\Tracer;
 
 interface TracerFactory
 {
-    public function create(string $projectName, string $agentHost, string $agentPort): Tracer;
+    /**
+     * @param mixed $samplerValue
+     */
+    public function create(
+        string $projectName,
+        string $agentHost,
+        string $agentPort,
+        string $samplerClass,
+        $samplerValue
+    ): Tracer;
 }
