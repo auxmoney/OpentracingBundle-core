@@ -49,7 +49,7 @@ final class MockTracer implements Tracer
      */
     public function inject(SpanContext $spanContext, $format, &$carrier)
     {
-        $carrier = ['made_up_header' => '1:2:3:4'];
+        $carrier['made_up_header'] = '1:2:3:4';
     }
 
     public function extract($format, $carrier)
