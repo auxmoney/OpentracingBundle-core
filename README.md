@@ -90,6 +90,14 @@ If you do not use Guzzle, you need to inject the trace headers into every outgoi
 
 on the request and use the resulting request with your favorite request client.
 
+If you are using a request that is not PSR-7 compatible, you can inject the headers directly into an array using
+
+```php
+    Auxmoney\OpentracingBundle\Service\Tracing::injectTracingHeadersIntoCarrier(array $carrier): array
+```
+
+passing the array representing the headers of your request.
+
 ### Automatic tracing
 
 Out of the box, the bundle will trace some spans automatically:

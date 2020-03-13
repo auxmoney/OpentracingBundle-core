@@ -45,6 +45,19 @@ class TracingServiceTest extends TestCase
         self::assertSame($newRequest->reveal(), $injectedRequest);
     }
 
+    public function testInjectTracingHeadersIntoCarrierSuccess(): void
+    {
+        $this->mockTracer->startActiveSpan('test span');
+
+        $headers = [ 'abc' => '123' ];
+
+        $this->logger->warning(Argument::type('string'))->shouldNotBeCalled();
+
+        $newHeaders = $this->subject->injectTracingHeadersIntoCarrier($headers);
+        self::assertSame([ 'abc' => '123' ], $headers);
+        self::assertSame([ 'abc' => '123', 'made_up_header' => '1:2:3:4' ], $newHeaders);
+    }
+
     public function testInjectTracingHeadersNoActiveSpan(): void
     {
         $originalRequest = $this->prophesize(RequestInterface::class);
@@ -54,6 +67,19 @@ class TracingServiceTest extends TestCase
 
         $injectedRequest = $this->subject->injectTracingHeaders($originalRequest->reveal());
         self::assertSame($originalRequest->reveal(), $injectedRequest);
+    }
+
+    public function testInjectTracingHeadersIntoCarrierNoActiveSpan(): void
+    {
+        $originalRequest = $this->prophesize(RequestInterface::class);
+
+        $headers = [ 'abc' => '123' ];
+
+        $this->logger->warning(Argument::type('string'))->shouldBeCalled();
+
+        $newHeaders = $this->subject->injectTracingHeadersIntoCarrier($headers);
+        self::assertSame([ 'abc' => '123' ], $headers);
+        self::assertSame($headers, $newHeaders);
     }
 
     public function testStartActiveSpanWithoutOptionsSuccess(): void
