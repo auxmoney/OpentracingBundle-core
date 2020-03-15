@@ -7,7 +7,9 @@ namespace Auxmoney\OpentracingBundle\Service;
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
+use OpenTracing\Exceptions\UnsupportedFormat;
 use const OpenTracing\Formats\TEXT_MAP;
+use OpenTracing\Span;
 
 final class TracingService implements Tracing
 {
@@ -20,22 +22,33 @@ final class TracingService implements Tracing
         $this->logger = $logger;
     }
 
+    public function injectTracingHeadersIntoCarrier(array $carrier): array
+    {
+        $span = $this->tracer->getActiveSpan();
+
+        if (!$span) {
+            $this->logger->warning(self::class . ': could not inject tracing headers, missing active span');
+            return $carrier;
+        }
+
+        return $this->doInjectTracingHeadersIntoCarrier($span, $carrier);
+    }
+
     public function injectTracingHeaders(RequestInterface $request): RequestInterface
     {
-        if (!$this->tracer->getActiveSpan()) {
+        $span = $this->tracer->getActiveSpan();
+
+        if (!$span) {
             $this->logger->warning(self::class . ': could not inject tracing headers, missing active span');
             return $request;
         }
 
-        $headers = [];
-        $this->tracer->inject(
-            $this->tracer->getActiveSpan()->getContext(),
-            TEXT_MAP,
-            $headers
-        );
+        $headers = $this->doInjectTracingHeadersIntoCarrier($span, []);
+
         foreach ($headers as $headerKey => $headerValue) {
             $request = $request->withHeader($headerKey, $headerValue);
         }
+
         return $request;
     }
 
@@ -77,5 +90,18 @@ final class TracingService implements Tracing
         }
 
         $this->tracer->getScopeManager()->getActive()->close();
+    }
+
+    /**
+     * Injects necessary tracing headers into an array.
+     * @param array<mixed> $carrier
+     * @return array<mixed>
+     *
+     * @throws UnsupportedFormat when the format is not recognized by the tracer
+     */
+    private function doInjectTracingHeadersIntoCarrier(Span $span, array $carrier): array
+    {
+        $this->tracer->inject($span->getContext(), TEXT_MAP, $carrier);
+        return $carrier;
     }
 }

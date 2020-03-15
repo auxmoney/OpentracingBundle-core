@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.1...v0.4.2) (2020-03-13)
+
+
+### Features
+
+* add support for injecting into an array ([#23](https://github.com/auxmoney/OpentracingBundle-core/issues/23)) ([10417e6](https://github.com/auxmoney/OpentracingBundle-core/commit/10417e6bd12bf1cb4671d4562aa09787ee00350a))
+
 ### [0.4.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.0...v0.4.1) (2020-03-04)
 
 
