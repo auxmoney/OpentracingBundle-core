@@ -10,6 +10,7 @@ use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 
 class PersistenceServiceTest extends TestCase
 {
@@ -40,7 +41,6 @@ class PersistenceServiceTest extends TestCase
     {
         $mockTracer = $this->prophesize(MockTracer::class);
         $mockTracer->flush()->willThrow(new RuntimeException('exception happened'));
-        $mockTracer->reveal()->startActiveSpan('operation name');
 
         $this->opentracing->getTracerInstance()->willReturn($mockTracer->reveal());
         $this->logger->warning(Argument::type('string'))->shouldBeCalled();
