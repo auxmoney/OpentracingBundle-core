@@ -22,7 +22,7 @@ final class PersistenceService implements Persistence
         try {
             $this->tracer->flush();
         } catch (\Throwable $exception) {
-            $this->logger->warning('Failed to flush tracer : ' . $exception->getMessage());
+            $this->logger->warning(self::class . ': Failed to flush tracer : ' . $exception->getMessage());
         }
     }
 }
