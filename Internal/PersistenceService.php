@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\Internal;
 
+use Exception;
 use Psr\Log\LoggerInterface;
 
 final class PersistenceService implements Persistence
@@ -21,7 +22,7 @@ final class PersistenceService implements Persistence
     {
         try {
             $this->tracer->flush();
-        } catch (\Throwable $exception) {
+        } catch (Exception $exception) {
             $this->logger->warning(self::class . ': Failed to flush tracer : ' . $exception->getMessage());
         }
     }
