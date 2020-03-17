@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.2...v0.4.3) (2020-03-17)
+
+
+### Bug Fixes
+
+* Wrap calls to flush in try catch ([#26](https://github.com/auxmoney/OpentracingBundle-core/issues/26)) ([4ccfef0](https://github.com/auxmoney/OpentracingBundle-core/commit/4ccfef089a4b51dc65ef6f8e5ccddee6cd88bc72))
+
 ### [0.4.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.1...v0.4.2) (2020-03-13)
 
 

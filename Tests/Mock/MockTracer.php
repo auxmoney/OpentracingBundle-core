@@ -10,7 +10,7 @@ use OpenTracing\SpanContext;
 use OpenTracing\Tracer;
 use const OpenTracing\Formats\TEXT_MAP;
 
-final class MockTracer implements Tracer
+class MockTracer implements Tracer
 {
     private $mockTracer;
 
