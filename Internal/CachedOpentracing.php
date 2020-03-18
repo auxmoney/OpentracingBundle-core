@@ -17,19 +17,30 @@ final class CachedOpentracing implements Opentracing
     private $agentHost;
     private $agentPort;
     private $logger;
+    private $samplerClass;
 
+    /** @var mixed */
+    private $samplerValue;
+
+    /**
+     * @param mixed $samplerValue
+     */
     public function __construct(
         TracerFactory $tracerFactory,
         LoggerInterface $logger,
         string $projectName,
         string $agentHost,
-        string $agentPort
+        string $agentPort,
+        string $samplerClass,
+        $samplerValue
     ) {
         $this->tracerFactory = $tracerFactory;
         $this->logger = $logger;
         $this->projectName = $projectName;
         $this->agentHost = $agentHost;
         $this->agentPort = $agentPort;
+        $this->samplerClass = $samplerClass;
+        $this->samplerValue = $samplerValue;
     }
 
     public function getTracerInstance(): Tracer
@@ -38,7 +49,9 @@ final class CachedOpentracing implements Opentracing
             $this->tracerInstance = $this->tracerFactory->create(
                 $this->projectName,
                 $this->agentHost,
-                $this->agentPort
+                $this->agentPort,
+                $this->samplerClass,
+                $this->samplerValue
             );
 
             $this->logger->debug(
