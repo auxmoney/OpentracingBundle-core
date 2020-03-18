@@ -1,6 +1,5 @@
 # auxmoney OpentracingBundle
 
-![release](https://github.com/auxmoney/OpentracingBundle-core/workflows/release/badge.svg)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/auxmoney/OpentracingBundle-core)
 ![Travis (.org)](https://img.shields.io/travis/auxmoney/OpentracingBundle-core)
 ![Coveralls github](https://img.shields.io/coveralls/github/auxmoney/OpentracingBundle-core)
@@ -36,7 +35,7 @@ which will then use this library.
 * require the dependencies (unfortunately, neither `opentracing/opentracing` nor `jukylin/jaeger-php` are released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-jaeger:^0.3 opentracing/opentracing:1.0.0-beta5@beta jukylin/jaeger-php:dev-master@dev
+    composer req auxmoney/opentracing-bundle-jaeger:^0.3 opentracing/opentracing:1.0.0-beta5@beta jukylin/jaeger-php:2.1.1-beta@beta
 ```
 
 #### Zipkin
@@ -44,7 +43,7 @@ which will then use this library.
 * require the dependencies (unfortunately, `opentracing/opentracing` is not released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-zipkin^0.3 opentracing/opentracing:1.0.0-beta5@beta
+    composer req auxmoney/opentracing-bundle-zipkin:^0.3 opentracing/opentracing:1.0.0-beta5@beta
 ```
 
 ### Enable the bundle
