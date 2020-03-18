@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.3...v0.5.0) (2020-03-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* add sampler configuration (#24)
+
+### Features
+
+* add sampler configuration ([#24](https://github.com/auxmoney/OpentracingBundle-core/issues/24)) ([b8a120b](https://github.com/auxmoney/OpentracingBundle-core/commit/b8a120be43d5e52a7d74083b5bd7092ed14be5ba))
+
 ### [0.4.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.2...v0.4.3) (2020-03-17)
 
 
