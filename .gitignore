@@ -1,4 +1,5 @@
 composer.lock
+.php-version
 .phpunit.result.cache
 /build/
 /vendor/
