@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.5.0...v0.6.0) (2020-03-20)
+
+
+### Features
+
+* semantic release ([#28](https://github.com/auxmoney/OpentracingBundle-core/issues/28)) ([304fa86](https://github.com/auxmoney/OpentracingBundle-core/commit/304fa86ad972d83f545b0bee3d42c15353842129))
+
 ## [0.5.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.4.3...v0.5.0) (2020-03-18)
 
 
