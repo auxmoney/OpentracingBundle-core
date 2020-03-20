@@ -1,5 +1,6 @@
 # auxmoney OpentracingBundle
 
+![release](https://github.com/auxmoney/OpentracingBundle-core/workflows/release/badge.svg)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/auxmoney/OpentracingBundle-core)
 ![Travis (.org)](https://img.shields.io/travis/auxmoney/OpentracingBundle-core)
 ![Coveralls github](https://img.shields.io/coveralls/github/auxmoney/OpentracingBundle-core)
