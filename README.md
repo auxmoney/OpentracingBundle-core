@@ -18,11 +18,12 @@ to the agent as late as possible in the Symfony lifecycle.
 The core contains:
 * kernel/console event subscribers to automatically instrument the application, adding useful tags to root spans
 * convenience functions to create tracing spans manually, including logging messages and tagging spans
-* a convenience function for passing the tracing headers to PSR-7 requests manually
+* automatic tracing header propagation for PSR-18 clients
+* a convenience function for passing the tracing headers to PSR-7 requests or arrays manually
 
 Additional bundles contain:
 * [a monolog processor](https://github.com/auxmoney/OpentracingBundle-Monolog) to enrich log contexts with the current span context
-* [Guzzle client](https://github.com/auxmoney/OpentracingBundle-Guzzle) automatic spanning and header injection
+* [Guzzle client](https://github.com/auxmoney/OpentracingBundle-Guzzle) automatic spanning and header propagation
 * [Doctrine DBAL](https://github.com/auxmoney/OpentracingBundle-Doctrine-DBAL) automatic spanning
 
 ## Installation
@@ -91,9 +92,9 @@ If you cannot change environment variables in your project, you can alternativel
 
 ### Propagation of tracing headers
 
-For [PSR-18](https://www.php-fig.org/psr/psr-18/) compatible clients, this bundle provides automatic tracing header injection.
+For [PSR-18](https://www.php-fig.org/psr/psr-18/) compatible clients, this bundle provides automatic tracing header propagation.
 
-For [Guzzle](https://github.com/guzzle/guzzle) clients, the [Guzzle bundle](https://github.com/auxmoney/OpentracingBundle-Guzzle) provides automatic tracing header injection.
+For [Guzzle](https://github.com/guzzle/guzzle) clients, the [Guzzle bundle](https://github.com/auxmoney/OpentracingBundle-Guzzle) provides automatic tracing header propagation.
 
 #### Manual propagation of tracing headers
 
