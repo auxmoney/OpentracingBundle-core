@@ -18,11 +18,13 @@ to the agent as late as possible in the Symfony lifecycle.
 The core contains:
 * kernel/console event subscribers to automatically instrument the application, adding useful tags to root spans
 * convenience functions to create tracing spans manually, including logging messages and tagging spans
-* a convenience function for passing the tracing headers to PSR-7 requests manually
+* automatic tracing header propagation for PSR-18 clients
+* a convenience function for passing the tracing headers to PSR-7 requests or arrays manually
 
 Additional bundles contain:
 * [a monolog processor](https://github.com/auxmoney/OpentracingBundle-Monolog) to enrich log contexts with the current span context
-* [Guzzle client](https://github.com/auxmoney/OpentracingBundle-Guzzle) automatic header injection
+* [Guzzle client](https://github.com/auxmoney/OpentracingBundle-Guzzle) automatic spanning and header propagation
+* [Doctrine DBAL](https://github.com/auxmoney/OpentracingBundle-Doctrine-DBAL) automatic spanning
 
 ## Installation
 
@@ -36,16 +38,24 @@ which will then use this library.
 * require the dependencies (unfortunately, neither `opentracing/opentracing` nor `jukylin/jaeger-php` are released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-jaeger:^0.3 opentracing/opentracing:1.0.0-beta5@beta jukylin/jaeger-php:2.1.1-beta@beta
+    composer req auxmoney/opentracing-bundle-jaeger opentracing/opentracing:1.0.0-beta5@beta jukylin/jaeger-php:2.1.1-beta@beta
 ```
+
+* if not done already: spin up [development jaeger instance](https://www.jaegertracing.io/docs/latest/getting-started/) (All in One)
+
+Note: when setting up a reliable production environment, keep in mind using the agent approach, that Jaeger proposes. Especially having
+the jaeger agent ideally available on `localhost` will prevent you from experiencing trace or span loss due to UDP packet size limitations
+by the involved networks.
 
 #### Zipkin
 
 * require the dependencies (unfortunately, `opentracing/opentracing` is not released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-zipkin:^0.3 opentracing/opentracing:1.0.0-beta5@beta
+    composer req auxmoney/opentracing-bundle-zipkin opentracing/opentracing:1.0.0-beta5@beta
 ```
+
+* if not done already: spin up [development zipkin instance](https://zipkin.io/pages/quickstart) (Docker)
 
 ### Enable the bundle
 
@@ -75,14 +85,20 @@ If you cannot change environment variables in your project, you can alternativel
 | AUXMONEY_OPENTRACING_AGENT_HOST | auxmoney_opentracing.agent.host | `string` | `localhost` | hostname or IP of the agent |
 | AUXMONEY_OPENTRACING_AGENT_PORT | auxmoney_opentracing.agent.port | `string` | (depends on the chosen tracer) | port of the agent |
 | AUXMONEY_OPENTRACING_PROJECT_NAME | auxmoney_opentracing.project.name | `string` | `basename(kernel.project_dir)` |  passed to the tracer as tracer name / service name |
-
+| AUXMONEY_OPENTRACING_SAMPLER_CLASS | auxmoney_opentracing.sampler.class | `string` | (depends on the chosen tracer) | class of the using sampler |
+| AUXMONEY_OPENTRACING_SAMPLER_VALUE | auxmoney_opentracing.sampler.value | `string` | (depends on the chosen tracer and sampler) | must be a JSON decodable string, for the configuration of the chosen sampler |
+ 
 ## Usage
 
 ### Propagation of tracing headers
 
-For Guzzle clients, the [Guzzle bundle](https://github.com/auxmoney/OpentracingBundle-Guzzle) provides automatic tracing header injection.
+For [PSR-18](https://www.php-fig.org/psr/psr-18/) compatible clients, this bundle provides automatic tracing header propagation.
 
-If you do not use Guzzle, you need to inject the trace headers into every outgoing PSR-7 compatible request. To do so, simply use
+For [Guzzle](https://github.com/guzzle/guzzle) clients, the [Guzzle bundle](https://github.com/auxmoney/OpentracingBundle-Guzzle) provides automatic tracing header propagation.
+
+#### Manual propagation of tracing headers
+
+If you use neither PSR-18 nor Guzzle, you need to inject the trace headers into every outgoing [PSR-7](https://www.php-fig.org/psr/psr-7/) compatible request. To do so, simply use
 
 ```php
     Auxmoney\OpentracingBundle\Service\Tracing::injectTracingHeaders(Psr\Http\Message\RequestInterface $request): Psr\Http\Message\RequestInterface
@@ -96,7 +112,7 @@ If you are using a request that is not PSR-7 compatible, you can inject the head
     Auxmoney\OpentracingBundle\Service\Tracing::injectTracingHeadersIntoCarrier(array $carrier): array
 ```
 
-passing the array representing the headers of your request.
+passing the array representing the headers of your request and use the resulting array with your favorite request client.
 
 ### Automatic tracing
 

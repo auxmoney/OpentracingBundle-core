@@ -13,26 +13,4 @@
 
 ## Releasing
 
-### Setup
-
-* Install [NodeJS](https://nodejs.org/).
-* Obtain a [personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line#creating-a-token).
-* Add the token to your environment as `CONVENTIONAL_GITHUB_RELEASER_TOKEN`, e.g.:
-    ```bash
-    export CONVENTIONAL_GITHUB_RELEASER_TOKEN=63d0cea9d550e495fde1b81310951bd7
-    ```
-
-### Creating a release
-
-* Create a new release commit by executing:
-    ```bash
-    npx standard-version@7.1
-    ```
-* Review and push the commit (including the tag) to `origin`:
-    ```bash
-    git push --follow-tags origin master
-    ```
-* Create a release at GitHub by executing:
-    ```bash
-    npx conventional-github-releaser
-    ```
+Releases are published automatically with [semantic-release](https://github.com/semantic-release/semantic-release) run in [GitHub Actions](https://github.com/features/actions).
