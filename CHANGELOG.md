@@ -1,3 +1,10 @@
+## [0.6.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.1...v0.6.2) (2020-03-26)
+
+
+### Bug Fixes
+
+* finish span on kernel.response event only if kernel.controller started a span ([#32](https://github.com/auxmoney/OpentracingBundle-core/issues/32)) ([3218002](https://github.com/auxmoney/OpentracingBundle-core/commit/3218002433e5a13b9d1fb23a00d2120ed65cac96))
+
 ## [0.6.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.0...v0.6.1) (2020-03-23)
 
 
