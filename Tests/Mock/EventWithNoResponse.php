@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\Tests\Mock;
 
-use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EventWithResponseAndReflectionError
+final class EventWithNoResponse
 {
     private $request;
 
@@ -19,13 +18,5 @@ final class EventWithResponseAndReflectionError
     public function getRequest(): Request
     {
         return $this->request;
-    }
-    
-    /**
-     * @throws ReflectionException
-     */
-    public function getResponse(): void
-    {
-        throw new ReflectionException('could not get response!');
     }
 }
