@@ -39,8 +39,13 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
      */
     public function onResponse($event): void
     {
-        $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $this->getHttpStatusCode($event) ?? 'not determined');
-        $this->tracing->finishActiveSpan();
+        $attributes = $event->getRequest()->attributes;
+
+        // This check ensures there was a span started on a corresponding kernel.controller event for this request
+        if ($attributes->has('_controller')) {
+            $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $this->getHttpStatusCode($event) ?? 'not determined');
+            $this->tracing->finishActiveSpan();
+        }
     }
 
     /**
