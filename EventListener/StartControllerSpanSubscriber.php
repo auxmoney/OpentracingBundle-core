@@ -30,6 +30,7 @@ final class StartControllerSpanSubscriber implements EventSubscriberInterface
     public function onController(KernelEvent $event): void
     {
         $attributes = $event->getRequest()->attributes;
+        $attributes->set('_auxmoney_controller', true);
         $this->tracing->startActiveSpan(
             $attributes->get('_controller'),
             [

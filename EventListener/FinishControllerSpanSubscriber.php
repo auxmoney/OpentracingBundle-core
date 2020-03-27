@@ -42,7 +42,7 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
         $attributes = $event->getRequest()->attributes;
 
         // This check ensures there was a span started on a corresponding kernel.controller event for this request
-        if ($attributes->has('_controller')) {
+        if ($attributes->has('_auxmoney_controller')) {
             $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $this->getHttpStatusCode($event) ?? 'not determined');
             $this->tracing->finishActiveSpan();
         }
