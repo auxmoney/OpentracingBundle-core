@@ -1,3 +1,10 @@
+## [0.6.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.2...v0.6.3) (2020-03-27)
+
+
+### Bug Fixes
+
+* add _auxmoney_controller attribute ([#33](https://github.com/auxmoney/OpentracingBundle-core/issues/33)) ([6c47e8d](https://github.com/auxmoney/OpentracingBundle-core/commit/6c47e8df81ae3eed1c1c472f31e748627a6b06ac))
+
 ## [0.6.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.1...v0.6.2) (2020-03-26)
 
 
