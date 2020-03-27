@@ -41,7 +41,8 @@ class FinishControllerSpanSubscriberTest extends TestCase
             [
                 '_controller' => 'controller name',
                 '_route' => 'controller route',
-                '_route_params' => ['a route' => 'param', 'and' => 5]
+                '_route_params' => ['a route' => 'param', 'and' => 5],
+                '_auxmoney_controller' => true
             ]
         );
 
@@ -70,7 +71,8 @@ class FinishControllerSpanSubscriberTest extends TestCase
             [
                 '_controller' => 'controller name',
                 '_route' => 'controller route',
-                '_route_params' => ['a route' => 'param', 'and' => 5]
+                '_route_params' => ['a route' => 'param', 'and' => 5],
+                '_auxmoney_controller' => true
             ]
         );
 
@@ -88,7 +90,8 @@ class FinishControllerSpanSubscriberTest extends TestCase
             [
                 '_controller' => 'controller name',
                 '_route' => 'controller route',
-                '_route_params' => ['a route' => 'param', 'and' => 5]
+                '_route_params' => ['a route' => 'param', 'and' => 5],
+                '_auxmoney_controller' => true
             ]
         );
 
