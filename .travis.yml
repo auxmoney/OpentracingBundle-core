@@ -27,7 +27,7 @@ jobs:
         - wget https://get.symfony.com/cli/installer -O - | bash
         - sudo mv /home/travis/.symfony/bin/symfony /usr/local/bin/symfony
       script:
-        - composer run-script phpunit-functional
+        - composer run-script phpunit-functional-sf3
       after_success:
         - docker ps
     - stage: test-functional

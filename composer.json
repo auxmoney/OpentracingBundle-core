@@ -65,6 +65,14 @@
     "phpmd": "vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,Tests",
     "phpcs": "vendor/bin/phpcs",
     "phpunit": "phpdbg -qrr vendor/bin/phpunit --colors=never --testsuite=unit",
+    "phpunit-functional-sf3": [
+      "Tests/Functional/Scripts/checkEnvironment.sh",
+      "Tests/Functional/Scripts/setup.sh",
+      "Tests/Functional/Scripts/requireAdditionalVendors.sh",
+      "Tests/Functional/Scripts/createResetPoint.sh",
+      "vendor/bin/phpunit --colors=never --testsuite=functional-sf3 --no-coverage",
+      "Tests/Functional/Scripts/teardown.sh"
+    ],
     "phpunit-functional": [
       "Tests/Functional/Scripts/checkEnvironment.sh",
       "Tests/Functional/Scripts/setup.sh",

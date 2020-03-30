@@ -32,10 +32,7 @@ children:
         children:
           -
             operationName: 'App\Controller\TestController::error'
-            tags:
-              -
-                key: http.status_code
-                value: 500
+            tags: {  }
             logs:
               -
                 fields:
@@ -55,11 +52,3 @@ children:
                     key: message
                     type: string
                     value: 'something bad happened in the controller'
-            children:
-              -
-                operationName: error_controller
-                tags:
-                  -
-                    key: http.status_code
-                    value: 500
-                logs: {  }

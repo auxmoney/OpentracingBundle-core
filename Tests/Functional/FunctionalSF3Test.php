@@ -6,7 +6,7 @@ namespace Auxmoney\OpentracingBundle\Tests\Functional;
 
 use Symfony\Component\Process\Process;
 
-class FunctionalTest extends JaegerWebFunctionalTest
+class FunctionalSF3Test extends JaegerWebFunctionalTest
 {
     /**
      * tested features:
@@ -30,7 +30,7 @@ class FunctionalTest extends JaegerWebFunctionalTest
         self::assertCount(4, $spans);
 
         $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\'].{key: key, value: value}}');
-        self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.allFeatures.expected.yaml', $traceAsYAML);
+        self::assertStringEqualsFile(__DIR__ . '/FunctionalSF3Test.allFeatures.expected.yaml', $traceAsYAML);
     }
 
     public function testWebException(): void
@@ -44,10 +44,10 @@ class FunctionalTest extends JaegerWebFunctionalTest
         self::assertNotEmpty($traceId);
 
         $spans = $this->getSpansFromTrace($this->getTraceFromJaegerAPI($traceId));
-        self::assertCount(5, $spans);
+        self::assertCount(4, $spans);
 
         $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields[?key==\'error.kind\' || key==\'event\' || key==\'error.object\' || key==\'message\']}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\'].{key: key, value: value}}');
-        self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.webException.expected.yaml', $traceAsYAML);
+        self::assertStringEqualsFile(__DIR__ . '/FunctionalSF3Test.webException.expected.yaml', $traceAsYAML);
     }
 
     public function testCommandException(): void
@@ -67,6 +67,6 @@ class FunctionalTest extends JaegerWebFunctionalTest
         self::assertCount(1, $spans);
 
         $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields[?key==\'error.kind\' || key==\'event\' || key==\'error.object\' || key==\'message\']}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\'].{key: key, value: value}}');
-        self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.cmdException.expected.yaml', $traceAsYAML);
+        self::assertStringEqualsFile(__DIR__ . '/FunctionalSF3Test.cmdException.expected.yaml', $traceAsYAML);
     }
 }
