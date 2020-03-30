@@ -14,7 +14,7 @@ class TestController extends AbstractController
     public function index(Tracing $tracing): JsonResponse
     {
         $tracing->setTagOfActiveSpan('tag.from.controller', true);
-        $tracing->logInActiveSpan(['log message from controller']);
+        $tracing->logInActiveSpan(['message' => 'log message from controller']);
         return new JsonResponse(['reply' => true]);
     }
 

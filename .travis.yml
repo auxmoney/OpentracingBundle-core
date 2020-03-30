@@ -17,6 +17,45 @@ jobs:
       env: SYMFONY_VERSION="5.0.*"
     - php: '7.4'
       env: SYMFONY_VERSION="5.0.*"
+    - stage: test-functional
+      php: '7.4'
+      env:
+        - SYMFONY_VERSION="3.4.*"
+        - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+      services: docker
+      before_script:
+        - wget https://get.symfony.com/cli/installer -O - | bash
+        - sudo mv /home/travis/.symfony/bin/symfony /usr/local/bin/symfony
+      script:
+        - composer run-script phpunit-functional
+      after_success:
+        - docker ps
+    - stage: test-functional
+      php: '7.4'
+      env:
+        - SYMFONY_VERSION="4.4.*"
+        - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+      services: docker
+      before_script:
+        - wget https://get.symfony.com/cli/installer -O - | bash
+        - sudo mv /home/travis/.symfony/bin/symfony /usr/local/bin/symfony
+      script:
+        - composer run-script phpunit-functional
+      after_success:
+        - docker ps
+    - stage: test-functional
+      php: '7.4'
+      env:
+        - SYMFONY_VERSION="5.0.*"
+        - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+      services: docker
+      before_script:
+        - wget https://get.symfony.com/cli/installer -O - | bash
+        - sudo mv /home/travis/.symfony/bin/symfony /usr/local/bin/symfony
+      script:
+        - composer run-script phpunit-functional
+      after_success:
+        - docker ps
 
 before_install:
   - composer global require hirak/prestissimo
