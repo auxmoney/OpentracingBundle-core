@@ -28,7 +28,10 @@
     "symfony/dependency-injection": "^3.4|^4.2|^5.0",
     "symfony/config": "^3.4|^4.2|^5.0",
     "symfony/console": "^3.4|^4.2|^5.0",
-    "symfony/yaml": "^3.4|^4.2|^5.0"
+    "symfony/yaml": "^3.4|^4.2|^5.0",
+    "php-http/curl-client": "^2.1",
+    "nyholm/psr7": "^1.2",
+    "webmozart/assert": "^1.7"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
@@ -71,5 +74,10 @@
       "Tests/Functional/Scripts/teardown.sh"
     ],
     "phpstan": "vendor/bin/phpstan analyse --no-progress"
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": "true"
+    }
   }
 }
