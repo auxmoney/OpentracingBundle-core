@@ -16,7 +16,7 @@ mkdir -p build/
 cd build/
 symfony new --version=${SYMFONY_VERSION} testproject
 cd testproject/
-composer config minimum-stability dev # TODO: remove as soon as all dependencies  (opentracing, jaeger-php) are released as stable version
-composer config prefer-stable true    # TODO: remove as soon as all dependencies  (opentracing, jaeger-php) are released as stable version
+composer config minimum-stability dev
+composer config prefer-stable true
 composer require auxmoney/opentracing-bundle-jaeger
 cd ../../
