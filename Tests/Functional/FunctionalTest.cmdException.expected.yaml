@@ -1,0 +1,24 @@
+operationName: 'test:error:cmd'
+tags:
+  -
+    key: command.exit-code
+    value: 1
+logs:
+  -
+    fields:
+      -
+        key: event
+        type: string
+        value: error
+      -
+        key: error.kind
+        type: string
+        value: Exception
+      -
+        key: error.object
+        type: string
+        value: Exception
+      -
+        key: message
+        type: string
+        value: 'unhandled command exception'

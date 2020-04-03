@@ -1,0 +1,11 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+
+  Psr\Http\Message\RequestFactoryInterface:
+    class: Nyholm\Psr7\Factory\Psr17Factory
+
+  Psr\Http\Client\ClientInterface:
+    class: Http\Client\Curl\Client

@@ -22,8 +22,13 @@
             <directory>./Tests/</directory>
             <exclude>./Tests/Functional</exclude>
         </testsuite>
+        <testsuite name="functional-sf3">
+            <file>./Tests/Functional/FunctionalSF3Test.php</file>
+            <exclude>./Tests/Functional/Scripts</exclude>
+            <exclude>./Tests/Functional/TestProjectFiles</exclude>
+        </testsuite>
         <testsuite name="functional">
-            <directory>./Tests/Functional/</directory>
+            <file>./Tests/Functional/FunctionalTest.php</file>
             <exclude>./Tests/Functional/Scripts</exclude>
             <exclude>./Tests/Functional/TestProjectFiles</exclude>
         </testsuite>

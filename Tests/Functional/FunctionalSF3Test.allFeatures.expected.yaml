@@ -1,0 +1,45 @@
+operationName: 'test:all-features'
+tags:
+  -
+    key: command.exit-code
+    value: 0
+logs: {  }
+children:
+  -
+    operationName: 'sending HTTP request'
+    tags:
+      -
+        key: http.method
+        value: GET
+      -
+        key: http.url
+        value: 'http://localhost:8000/'
+      -
+        key: http.status_code
+        value: 200
+    logs: {  }
+    children:
+      -
+        operationName: 'http://localhost:8000/'
+        tags:
+          -
+            key: http.method
+            value: GET
+          -
+            key: http.url
+            value: 'http://localhost:8000/'
+        logs: {  }
+        children:
+          -
+            operationName: 'App\Controller\TestController::index'
+            tags:
+              -
+                key: http.status_code
+                value: 200
+            logs:
+              -
+                fields:
+                  -
+                    key: message
+                    type: string
+                    value: 'log message from controller'

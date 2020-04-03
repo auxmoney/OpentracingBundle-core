@@ -1,0 +1,7 @@
+index:
+  path: /
+  controller: App\Controller\TestController::index
+
+error:
+  path: /error
+  controller: App\Controller\TestController::error
