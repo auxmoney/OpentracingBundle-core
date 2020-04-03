@@ -10,6 +10,7 @@ use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use const OpenTracing\Tags\ERROR;
 use const OpenTracing\Tags\HTTP_STATUS_CODE;
 
 final class FinishControllerSpanSubscriber implements EventSubscriberInterface
@@ -43,7 +44,11 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
 
         // This check ensures there was a span started on a corresponding kernel.controller event for this request
         if ($attributes->has('_auxmoney_controller')) {
-            $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $this->getHttpStatusCode($event) ?? 'not determined');
+            $responseStatusCode = $this->getHttpStatusCode($event);
+            $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $responseStatusCode ?? 'not determined');
+            if ($responseStatusCode && $responseStatusCode >= 400) {
+                $this->tracing->setTagOfActiveSpan(ERROR, true);
+            }
             $this->tracing->finishActiveSpan();
         }
     }

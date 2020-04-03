@@ -8,6 +8,7 @@ use Auxmoney\OpentracingBundle\Internal\Persistence;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use const OpenTracing\Tags\ERROR;
 
 final class FinishCommandSpanSubscriber implements EventSubscriberInterface
 {
@@ -32,7 +33,11 @@ final class FinishCommandSpanSubscriber implements EventSubscriberInterface
 
     public function onTerminate(ConsoleTerminateEvent $event): void
     {
-        $this->tracing->setTagOfActiveSpan('command.exit-code', $event->getExitCode());
+        $exitCode = $event->getExitCode();
+        $this->tracing->setTagOfActiveSpan('command.exit-code', $exitCode);
+        if ($exitCode != 0) {
+            $this->tracing->setTagOfActiveSpan(ERROR, true);
+        }
         $this->tracing->finishActiveSpan();
         $this->persistence->flush();
     }
