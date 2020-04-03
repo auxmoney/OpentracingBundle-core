@@ -1,3 +1,10 @@
+## [0.6.4](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.3...v0.6.4) (2020-04-03)
+
+
+### Bug Fixes
+
+* add functional tests ([#34](https://github.com/auxmoney/OpentracingBundle-core/issues/34)) ([a72dc8c](https://github.com/auxmoney/OpentracingBundle-core/commit/a72dc8c1f809b512b557cc6d9fdb4d0fa657b6e1))
+
 ## [0.6.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.2...v0.6.3) (2020-03-27)
 
 
