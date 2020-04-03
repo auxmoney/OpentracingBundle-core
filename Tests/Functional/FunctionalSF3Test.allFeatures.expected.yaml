@@ -1,4 +1,4 @@
-operationName: 'test:everything'
+operationName: 'test:all-features'
 tags:
   -
     key: command.exit-code

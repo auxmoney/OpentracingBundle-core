@@ -20,7 +20,7 @@ class FunctionalTest extends JaegerWebFunctionalTest
     {
         $this->setUpTestProject('default');
 
-        $process = new Process(['symfony', 'console', 'test:everything'], 'build/testproject');
+        $process = new Process(['symfony', 'console', 'test:all-features'], 'build/testproject');
         $process->mustRun();
         $output = $process->getOutput();
         $traceId = substr($output, 0, strpos($output, ':'));

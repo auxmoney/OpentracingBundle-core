@@ -23,7 +23,7 @@ class TestCommand extends Command
 
     public function __construct(Opentracing $opentracing, Tracing $tracing, ClientInterface $client, RequestFactoryInterface $requestFactory)
     {
-        parent::__construct('test:everything');
+        parent::__construct('test:all-features');
         $this->setDescription('some fancy command description');
         $this->opentracing = $opentracing;
         $this->tracing = $tracing;
