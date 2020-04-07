@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Internal\Decorator;
 
 use Auxmoney\OpentracingBundle\Service\Tracing;
+use const OpenTracing\Tags\ERROR;
 use const OpenTracing\Tags\HTTP_METHOD;
 use const OpenTracing\Tags\HTTP_STATUS_CODE;
 use const OpenTracing\Tags\HTTP_URL;
@@ -31,5 +32,8 @@ final class RequestSpanningService implements RequestSpanning
     public function finish(int $responseStatusCode): void
     {
         $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $responseStatusCode);
+        if ($responseStatusCode >= 400) {
+            $this->tracing->setTagOfActiveSpan(ERROR, true);
+        }
     }
 }

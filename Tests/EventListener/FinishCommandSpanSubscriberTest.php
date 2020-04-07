@@ -12,6 +12,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use const OpenTracing\Tags\ERROR;
 
 class FinishCommandSpanSubscriberTest extends TestCase
 {
@@ -41,6 +42,7 @@ class FinishCommandSpanSubscriberTest extends TestCase
         $event = new ConsoleTerminateEvent($command->reveal(), $input->reveal(), $output->reveal(), 253);
 
         $this->tracing->setTagOfActiveSpan('command.exit-code', 253)->shouldBeCalled();
+        $this->tracing->setTagOfActiveSpan(ERROR, true)->shouldBeCalledOnce();
         $this->tracing->finishActiveSpan()->shouldBeCalledOnce();
         $this->persistence->flush()->shouldBeCalledOnce();
 
