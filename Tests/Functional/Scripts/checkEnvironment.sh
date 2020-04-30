@@ -10,6 +10,11 @@ then
     echo "\$SYMFONY_VERSION is empty, please set it to the target symfony version you want to test against";
     exit 2;
 fi
+if [[ -z ${PR_ORIGIN} ]]
+then
+    echo "\$PR_ORIGIN is empty, please set it to the current 'owner/repo' slug you want to test against";
+    exit 3;
+fi
 
 php -v
 composer --version
