@@ -22,7 +22,7 @@ jobs:
       env:
         - SYMFONY_VERSION="3.4.*"
         - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-        - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-TRAVIS_REPO_SLUG}
+        - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
       services: docker
       before_script:
         - wget https://get.symfony.com/cli/installer -O - | bash
@@ -36,7 +36,7 @@ jobs:
       env:
         - SYMFONY_VERSION="4.4.*"
         - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-        - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-TRAVIS_REPO_SLUG}
+        - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
       services: docker
       before_script:
         - wget https://get.symfony.com/cli/installer -O - | bash
@@ -50,7 +50,7 @@ jobs:
       env:
         - SYMFONY_VERSION="5.0.*"
         - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-        - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-TRAVIS_REPO_SLUG}
+        - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
       services: docker
       before_script:
         - wget https://get.symfony.com/cli/installer -O - | bash
