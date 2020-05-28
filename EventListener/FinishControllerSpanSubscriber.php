@@ -44,7 +44,8 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
 
         // This check ensures there was a span started on a corresponding kernel.controller event for this request
         if ($attributes->has('_auxmoney_controller')) {
-            $responseStatusCode = $this->getHttpStatusCode($event);
+            $response = $this->getResponse($event);
+            $responseStatusCode = $response ? $response->getStatusCode() : null;
             $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $responseStatusCode ?? 'not determined');
             if ($responseStatusCode && $responseStatusCode >= 400) {
                 $this->tracing->setTagOfActiveSpan(ERROR, true);
@@ -57,21 +58,20 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
      * TODO: when Symfony 3.4 is unmaintained (November 2021), refactor to `ResponseEvent $event` and remove reflection
      * @param mixed $event FilterResponseEvent until Symfony 4.4, ResponseEvent since Symfony 4.3
      */
-    private function getHttpStatusCode($event): ?int
+    private function getResponse($event): ?Response
     {
-        $statusCode = null;
+        $response = null;
 
         try {
             $reflectionClass = new ReflectionClass($event);
             if ($reflectionClass->hasMethod('getResponse')) {
                 /** @var Response $response */
                 $response = $reflectionClass->getMethod('getResponse')->invoke($event);
-                $statusCode = $response->getStatusCode();
             }
         } catch (ReflectionException $exception) {
             $this->logger->error($exception->getMessage());
         }
 
-        return $statusCode;
+        return $response;
     }
 }
