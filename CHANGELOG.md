@@ -1,3 +1,10 @@
+## [0.6.6](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.5...v0.6.6) (2020-05-28)
+
+
+### Bug Fixes
+
+* preparation for trace id response header ([#38](https://github.com/auxmoney/OpentracingBundle-core/issues/38)) ([de146e1](https://github.com/auxmoney/OpentracingBundle-core/commit/de146e1d0b40abaa8e0c8b2ae48ec7b0f3c044ea))
+
 ## [0.6.5](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.4...v0.6.5) (2020-04-07)
 
 
