@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\EventListener;
 
+use Auxmoney\OpentracingBundle\Internal\TracingId;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
@@ -17,11 +18,13 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
 {
     private $tracing;
     private $logger;
+    private $tracingId;
 
-    public function __construct(Tracing $tracing, LoggerInterface $logger)
+    public function __construct(Tracing $tracing, TracingId $tracingId, LoggerInterface $logger)
     {
         $this->tracing = $tracing;
         $this->logger = $logger;
+        $this->tracingId = $tracingId;
     }
 
     /**
@@ -50,6 +53,8 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
             if ($responseStatusCode && $responseStatusCode >= 400) {
                 $this->tracing->setTagOfActiveSpan(ERROR, true);
             }
+            // FIXME: make configurable
+            $response->headers->set('X-Auxmoney-Opentracing-Trace-Id', $this->tracingId->getAsString());
             $this->tracing->finishActiveSpan();
         }
     }
