@@ -34,7 +34,8 @@ class FinishControllerSpanSubscriberTest extends TestCase
         $this->subject = new FinishControllerSpanSubscriber(
             $this->tracing->reveal(),
             $this->tracingId->reveal(),
-            $this->logger->reveal()
+            $this->logger->reveal(),
+            'true'
         );
     }
 
@@ -96,6 +97,36 @@ class FinishControllerSpanSubscriberTest extends TestCase
         $this->tracing->finishActiveSpan()->shouldBeCalledOnce();
 
         $this->subject->onResponse(new EventWithResponseAndReflectionError($request));
+    }
+
+    public function testOnTerminateSuccessWithoutTraceId(): void
+    {
+        $this->subject = new FinishControllerSpanSubscriber(
+            $this->tracing->reveal(),
+            $this->tracingId->reveal(),
+            $this->logger->reveal(),
+            'false'
+        );
+
+        $request = new Request();
+        $request->attributes->add(
+            [
+                '_controller' => 'controller name',
+                '_route' => 'controller route',
+                '_route_params' => ['a route' => 'param', 'and' => 5],
+                '_auxmoney_controller' => true
+            ]
+        );
+
+        $this->logger->error(Argument::any())->shouldNotBeCalled();
+        $this->tracingId->getAsString()->shouldNotBeCalled();
+        $this->tracing->setTagOfActiveSpan('http.status_code', 200)->shouldBeCalledOnce();
+        $this->tracing->finishActiveSpan()->shouldBeCalledOnce();
+
+        $event = new EventWithResponse($request);
+        $this->subject->onResponse($event);
+
+        self::assertFalse($event->getResponse()->headers->has('X-Auxmoney-Opentracing-Trace-Id'));
     }
 
     public function testOnTerminateSuccess(): void

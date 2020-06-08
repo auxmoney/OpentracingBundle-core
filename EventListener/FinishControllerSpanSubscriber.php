@@ -19,12 +19,22 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
     private $tracing;
     private $logger;
     private $tracingId;
+    private $returnTraceId;
 
-    public function __construct(Tracing $tracing, TracingId $tracingId, LoggerInterface $logger)
-    {
+    public function __construct(
+        Tracing $tracing,
+        TracingId $tracingId,
+        LoggerInterface $logger,
+        string $returnTraceId
+    ) {
         $this->tracing = $tracing;
         $this->logger = $logger;
         $this->tracingId = $tracingId;
+        $this->returnTraceId = filter_var(
+            $returnTraceId,
+            FILTER_VALIDATE_BOOLEAN,
+            FILTER_NULL_ON_FAILURE
+        ) ?? true;
     }
 
     /**
@@ -53,8 +63,7 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
             if ($responseStatusCode && $responseStatusCode >= 400) {
                 $this->tracing->setTagOfActiveSpan(ERROR, true);
             }
-            // FIXME: make configurable
-            if ($response) {
+            if ($response && $this->returnTraceId) {
                 $response->headers->set('X-Auxmoney-Opentracing-Trace-Id', $this->tracingId->getAsString());
             }
             $this->tracing->finishActiveSpan();
