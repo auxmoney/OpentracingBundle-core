@@ -10,10 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 final class EventWithResponse
 {
     private $request;
+    private $response;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $this->response = new Response();
     }
 
     public function getRequest(): Request
@@ -23,6 +25,6 @@ final class EventWithResponse
 
     public function getResponse(): Response
     {
-        return new Response();
+        return $this->response;
     }
 }

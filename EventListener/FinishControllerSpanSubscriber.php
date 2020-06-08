@@ -54,7 +54,9 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
                 $this->tracing->setTagOfActiveSpan(ERROR, true);
             }
             // FIXME: make configurable
-            $response->headers->set('X-Auxmoney-Opentracing-Trace-Id', $this->tracingId->getAsString());
+            if ($response) {
+                $response->headers->set('X-Auxmoney-Opentracing-Trace-Id', $this->tracingId->getAsString());
+            }
             $this->tracing->finishActiveSpan();
         }
     }
