@@ -34,7 +34,7 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
             $returnTraceId,
             FILTER_VALIDATE_BOOLEAN,
             FILTER_NULL_ON_FAILURE
-        ) ?? false;
+        ) ?? true;
     }
 
     /**
