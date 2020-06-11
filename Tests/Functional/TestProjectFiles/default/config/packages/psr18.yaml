@@ -9,3 +9,6 @@ services:
 
   Psr\Http\Client\ClientInterface:
     class: Http\Client\Curl\Client
+
+  logger:
+    class: Psr\Log\NullLogger
