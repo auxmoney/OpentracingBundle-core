@@ -6,19 +6,17 @@ namespace Auxmoney\OpentracingBundle\Tests\EventListener;
 
 use Auxmoney\OpentracingBundle\EventListener\FinishControllerSpanSubscriber;
 use Auxmoney\OpentracingBundle\Internal\TracingId;
+use Auxmoney\OpentracingBundle\Service\Tracing;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithNoResponse;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithResponse;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithResponseAndReflectionError;
-use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class FinishControllerSpanSubscriberTest extends TestCase
 {
-    /** @var TracingId|ObjectProphecy */
     private $tracingId;
     private $logger;
     private $tracing;
