@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.6...v0.7.0) (2020-06-14)
+
+
+### Features
+
+* add trace id header ([#39](https://github.com/auxmoney/OpentracingBundle-core/issues/39)) ([04e9d28](https://github.com/auxmoney/OpentracingBundle-core/commit/04e9d28d1869c6b9f4816cb1f6ef44017c0c8138))
+
 ## [0.6.6](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.5...v0.6.6) (2020-05-28)
 
 
