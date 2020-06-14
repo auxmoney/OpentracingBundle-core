@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\EventListener;
 
+use Auxmoney\OpentracingBundle\Internal\Constant;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
@@ -37,6 +38,7 @@ final class StartControllerSpanSubscriber implements EventSubscriberInterface
                 'tags' => [
                     'route' => $attributes->get('_route'),
                     'route_params' => json_encode($attributes->get('_route_params')),
+                    Constant::SPAN_ORIGIN => 'core:controller',
                 ]
             ]
         );

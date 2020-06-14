@@ -47,7 +47,8 @@ class StartRootSpanSubscriberTest extends TestCase
                 'tags' => [
                     'http.method' => 'GET',
                     'http.url' => 'http://some.uri.test/',
-                    'span.kind' => 'server'
+                    'span.kind' => 'server',
+                    'auxmoney-opentracing-bundle.span-origin' => 'core:request'
                 ]
             ]
         )->shouldBeCalledOnce();

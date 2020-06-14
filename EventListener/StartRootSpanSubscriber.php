@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\EventListener;
 
 use Auxmoney\OpentracingBundle\Factory\SpanOptionsFactory;
+use Auxmoney\OpentracingBundle\Internal\Constant;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
@@ -47,6 +48,7 @@ final class StartRootSpanSubscriber implements EventSubscriberInterface
         $options['tags'][HTTP_METHOD] = $request->getMethod();
         $options['tags'][HTTP_URL] = $request->getUri();
         $options['tags'][SPAN_KIND] = SPAN_KIND_RPC_SERVER;
+        $options['tags'][Constant::SPAN_ORIGIN] = 'core:request';
 
         $this->tracing->startActiveSpan(
             $request->getUri(),

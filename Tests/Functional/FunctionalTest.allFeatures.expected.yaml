@@ -3,6 +3,9 @@ tags:
   -
     key: command.exit-code
     value: 0
+  -
+    key: auxmoney-opentracing-bundle.span-origin
+    value: core:command
 logs: {  }
 children:
   -
@@ -17,6 +20,9 @@ children:
       -
         key: http.status_code
         value: 200
+      -
+        key: auxmoney-opentracing-bundle.span-origin
+        value: core:psr-18
     logs: {  }
     children:
       -
@@ -28,6 +34,9 @@ children:
           -
             key: http.url
             value: 'http://localhost:8000/'
+          -
+            key: auxmoney-opentracing-bundle.span-origin
+            value: core:request
         logs: {  }
         children:
           -
@@ -36,6 +45,9 @@ children:
               -
                 key: http.status_code
                 value: 200
+              -
+                key: auxmoney-opentracing-bundle.span-origin
+                value: core:controller
             logs:
               -
                 fields:

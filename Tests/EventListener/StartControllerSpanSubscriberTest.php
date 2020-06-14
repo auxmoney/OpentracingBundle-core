@@ -43,7 +43,7 @@ class StartControllerSpanSubscriberTest extends TestCase
 
         $this->tracing->startActiveSpan(
             'controller name',
-            ['tags' => ['route' => 'controller route', 'route_params' => '{"a route":"param","and":5}']]
+            ['tags' => ['route' => 'controller route', 'route_params' => '{"a route":"param","and":5}', 'auxmoney-opentracing-bundle.span-origin' => 'core:controller']]
         )->shouldBeCalledOnce();
 
         $this->subject->onController($event->reveal());
