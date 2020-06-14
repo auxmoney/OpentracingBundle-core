@@ -5,6 +5,7 @@ parameters:
   env(AUXMONEY_OPENTRACING_PROJECT_NAME): 'default will be provided by extension (basename(kernel.project_dir))'
   # env(AUXMONEY_OPENTRACING_SAMPLER_CLASS) will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation
   # env(AUXMONEY_OPENTRACING_SAMPLER_VALUE) will be provided by packages which provide auxmoney/opentracing-bundle-tracer-implementation
+  env(AUXMONEY_OPENTRACING_RESPONSE_HEADER): 'true'
 
   auxmoney_opentracing.hostname: '%env(HOSTNAME)%'
   auxmoney_opentracing.agent.host: '%env(AUXMONEY_OPENTRACING_AGENT_HOST)%'
@@ -12,6 +13,7 @@ parameters:
   auxmoney_opentracing.project.name: '%env(AUXMONEY_OPENTRACING_PROJECT_NAME)%'
   auxmoney_opentracing.sampler.class: '%env(AUXMONEY_OPENTRACING_SAMPLER_CLASS)%'
   auxmoney_opentracing.sampler.value: '%env(AUXMONEY_OPENTRACING_SAMPLER_VALUE)%'
+  auxmoney_opentracing.response.header: '%env(AUXMONEY_OPENTRACING_RESPONSE_HEADER)%'
 
 
 services:
@@ -65,7 +67,9 @@ services:
   Auxmoney\OpentracingBundle\EventListener\StartRootSpanSubscriber: ~
   Auxmoney\OpentracingBundle\EventListener\FinishRootSpanSubscriber: ~
   Auxmoney\OpentracingBundle\EventListener\StartControllerSpanSubscriber: ~
-  Auxmoney\OpentracingBundle\EventListener\FinishControllerSpanSubscriber: ~
+  Auxmoney\OpentracingBundle\EventListener\FinishControllerSpanSubscriber:
+    arguments:
+      $returnTraceId: '%auxmoney_opentracing.response.header%'
   Auxmoney\OpentracingBundle\EventListener\StartCommandSpanSubscriber: ~
   Auxmoney\OpentracingBundle\EventListener\FinishCommandSpanSubscriber: ~
   Auxmoney\OpentracingBundle\EventListener\ExceptionLogSubscriber: ~

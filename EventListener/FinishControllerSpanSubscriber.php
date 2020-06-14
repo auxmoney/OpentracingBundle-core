@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\EventListener;
 
+use Auxmoney\OpentracingBundle\Internal\TracingId;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
@@ -17,11 +18,23 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
 {
     private $tracing;
     private $logger;
+    private $tracingId;
+    private $returnTraceId;
 
-    public function __construct(Tracing $tracing, LoggerInterface $logger)
-    {
+    public function __construct(
+        Tracing $tracing,
+        TracingId $tracingId,
+        LoggerInterface $logger,
+        string $returnTraceId
+    ) {
         $this->tracing = $tracing;
         $this->logger = $logger;
+        $this->tracingId = $tracingId;
+        $this->returnTraceId = filter_var(
+            $returnTraceId,
+            FILTER_VALIDATE_BOOLEAN,
+            FILTER_NULL_ON_FAILURE
+        ) ?? true;
     }
 
     /**
@@ -45,11 +58,11 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
         // This check ensures there was a span started on a corresponding kernel.controller event for this request
         if ($attributes->has('_auxmoney_controller')) {
             $response = $this->getResponse($event);
-            $responseStatusCode = $response ? $response->getStatusCode() : null;
-            $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $responseStatusCode ?? 'not determined');
-            if ($responseStatusCode && $responseStatusCode >= 400) {
-                $this->tracing->setTagOfActiveSpan(ERROR, true);
-            }
+
+            $this->addTagsFromStatusCode($response);
+
+            $this->addTraceIdHeader($response);
+
             $this->tracing->finishActiveSpan();
         }
     }
@@ -73,5 +86,21 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
         }
 
         return $response;
+    }
+
+    private function addTagsFromStatusCode(?Response $response): void
+    {
+        $responseStatusCode = $response ? $response->getStatusCode() : 'not determined';
+        $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $responseStatusCode);
+        if ($responseStatusCode && $responseStatusCode >= 400) {
+            $this->tracing->setTagOfActiveSpan(ERROR, true);
+        }
+    }
+
+    private function addTraceIdHeader(?Response $response): void
+    {
+        if ($response && $this->returnTraceId) {
+            $response->headers->set('X-Auxmoney-Opentracing-Trace-Id', $this->tracingId->getAsString());
+        }
     }
 }

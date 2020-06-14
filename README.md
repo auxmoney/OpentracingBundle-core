@@ -87,7 +87,8 @@ If you cannot change environment variables in your project, you can alternativel
 | AUXMONEY_OPENTRACING_PROJECT_NAME | auxmoney_opentracing.project.name | `string` | `basename(kernel.project_dir)` |  passed to the tracer as tracer name / service name |
 | AUXMONEY_OPENTRACING_SAMPLER_CLASS | auxmoney_opentracing.sampler.class | `string` | (depends on the chosen tracer) | class of the using sampler |
 | AUXMONEY_OPENTRACING_SAMPLER_VALUE | auxmoney_opentracing.sampler.value | `string` | (depends on the chosen tracer and sampler) | must be a JSON decodable string, for the configuration of the chosen sampler |
- 
+| AUXMONEY_OPENTRACING_RESPONSE_HEADER | auxmoney_opentracing.response.header | `string` | `true` | if HTTP responses should ship the trace id as header; set to `false` (as string) to deactivate |
+
 ## Usage
 
 ### Propagation of tracing headers
