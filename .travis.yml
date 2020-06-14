@@ -14,9 +14,9 @@ jobs:
     - php: '7.4'
       env: SYMFONY_VERSION="4.4.*"
     - php: '7.2'
-      env: SYMFONY_VERSION="5.0.*"
+      env: SYMFONY_VERSION="5.1.*"
     - php: '7.4'
-      env: SYMFONY_VERSION="5.0.*"
+      env: SYMFONY_VERSION="5.1.*"
     - stage: test-functional
       php: '7.4'
       env:
@@ -48,7 +48,7 @@ jobs:
     - stage: test-functional
       php: '7.4'
       env:
-        - SYMFONY_VERSION="5.0.*"
+        - SYMFONY_VERSION="5.1.*"
         - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
         - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
       services: docker
