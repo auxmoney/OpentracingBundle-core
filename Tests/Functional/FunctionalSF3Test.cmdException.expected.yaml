@@ -1,11 +1,11 @@
 operationName: 'test:error:cmd'
 tags:
   -
+    key: auxmoney-opentracing-bundle.span-origin
+    value: 'core:command'
+  -
     key: command.exit-code
     value: 1
-  -
-    key: auxmoney-opentracing-bundle.span-origin
-    value: core:command
 logs:
   -
     fields:

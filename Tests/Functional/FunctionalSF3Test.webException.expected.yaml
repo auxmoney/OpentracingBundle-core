@@ -1,42 +1,42 @@
 operationName: 'test:error:web'
 tags:
   -
+    key: auxmoney-opentracing-bundle.span-origin
+    value: 'core:command'
+  -
     key: command.exit-code
     value: 0
-  -
-    key: auxmoney-opentracing-bundle.span-origin
-    value: core:command
 logs: {  }
 children:
   -
     operationName: 'sending HTTP request'
     tags:
       -
+        key: auxmoney-opentracing-bundle.span-origin
+        value: 'core:psr-18'
+      -
         key: http.method
         value: GET
-      -
-        key: http.url
-        value: 'http://localhost:8000/error'
       -
         key: http.status_code
         value: 500
       -
-        key: auxmoney-opentracing-bundle.span-origin
-        value: core:psr-18
+        key: http.url
+        value: 'http://localhost:8000/error'
     logs: {  }
     children:
       -
         operationName: 'http://localhost:8000/error'
         tags:
           -
+            key: auxmoney-opentracing-bundle.span-origin
+            value: 'core:request'
+          -
             key: http.method
             value: GET
           -
             key: http.url
             value: 'http://localhost:8000/error'
-          -
-            key: auxmoney-opentracing-bundle.span-origin
-            value: core:request
         logs: {  }
         children:
           -
@@ -44,7 +44,7 @@ children:
             tags:
               -
                 key: auxmoney-opentracing-bundle.span-origin
-                value: core:controller
+                value: 'core:controller'
             logs:
               -
                 fields:

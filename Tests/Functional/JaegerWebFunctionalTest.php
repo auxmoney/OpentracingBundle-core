@@ -75,6 +75,9 @@ abstract class JaegerWebFunctionalTest extends TestCase
             $node->startTime = $data['startTime'];
             if (isset($data['tags'])) {
                 $node->tags = $data['tags'];
+                usort($node->tags, function($a, $b) {
+                    return strcmp($a['key'], $b['key']);
+                });
             }
             if (isset($data['logs'])) {
                 $node->logs = $data['logs'];
