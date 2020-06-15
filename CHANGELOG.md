@@ -1,3 +1,10 @@
+## [0.7.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.0...v0.7.1) (2020-06-15)
+
+
+### Bug Fixes
+
+* add span origin tag ([#40](https://github.com/auxmoney/OpentracingBundle-core/issues/40)) ([df80969](https://github.com/auxmoney/OpentracingBundle-core/commit/df809690375a892f1d3d70e95ac923d779767b37))
+
 # [0.7.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.6.6...v0.7.0) (2020-06-14)
 
 
