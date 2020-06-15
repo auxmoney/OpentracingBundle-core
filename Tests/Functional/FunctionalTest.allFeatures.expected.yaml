@@ -1,6 +1,9 @@
 operationName: 'test:all-features'
 tags:
   -
+    key: auxmoney-opentracing-bundle.span-origin
+    value: 'core:command'
+  -
     key: command.exit-code
     value: 0
 logs: {  }
@@ -9,19 +12,25 @@ children:
     operationName: 'sending HTTP request'
     tags:
       -
+        key: auxmoney-opentracing-bundle.span-origin
+        value: 'core:psr-18'
+      -
         key: http.method
         value: GET
       -
-        key: http.url
-        value: 'http://localhost:8000/'
-      -
         key: http.status_code
         value: 200
+      -
+        key: http.url
+        value: 'http://localhost:8000/'
     logs: {  }
     children:
       -
         operationName: 'http://localhost:8000/'
         tags:
+          -
+            key: auxmoney-opentracing-bundle.span-origin
+            value: 'core:request'
           -
             key: http.method
             value: GET
@@ -33,6 +42,9 @@ children:
           -
             operationName: 'App\Controller\TestController::index'
             tags:
+              -
+                key: auxmoney-opentracing-bundle.span-origin
+                value: 'core:controller'
               -
                 key: http.status_code
                 value: 200

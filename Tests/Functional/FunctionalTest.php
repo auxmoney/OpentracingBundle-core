@@ -29,7 +29,7 @@ class FunctionalTest extends JaegerWebFunctionalTest
         $spans = $this->getSpansFromTrace($this->getTraceFromJaegerAPI($traceId));
         self::assertCount(4, $spans);
 
-        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\'].{key: key, value: value}}');
+        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\' || key==\'auxmoney-opentracing-bundle.span-origin\'].{key: key, value: value}}');
         self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.allFeatures.expected.yaml', $traceAsYAML);
     }
 
@@ -46,7 +46,7 @@ class FunctionalTest extends JaegerWebFunctionalTest
         $spans = $this->getSpansFromTrace($this->getTraceFromJaegerAPI($traceId));
         self::assertCount(5, $spans);
 
-        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields[?key==\'error.kind\' || key==\'event\' || key==\'error.object\' || key==\'message\']}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\'].{key: key, value: value}}');
+        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields[?key==\'error.kind\' || key==\'event\' || key==\'error.object\' || key==\'message\']}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\' || key==\'auxmoney-opentracing-bundle.span-origin\'].{key: key, value: value}}');
         self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.webException.expected.yaml', $traceAsYAML);
     }
 
@@ -66,7 +66,7 @@ class FunctionalTest extends JaegerWebFunctionalTest
         $spans = $this->getSpansFromTrace($this->getTraceFromJaegerAPI($traceId));
         self::assertCount(1, $spans);
 
-        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields[?key==\'error.kind\' || key==\'event\' || key==\'error.object\' || key==\'message\']}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\'].{key: key, value: value}}');
+        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields[?key==\'error.kind\' || key==\'event\' || key==\'error.object\' || key==\'message\']}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\' || key==\'auxmoney-opentracing-bundle.span-origin\'].{key: key, value: value}}');
         self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.cmdException.expected.yaml', $traceAsYAML);
     }
 }

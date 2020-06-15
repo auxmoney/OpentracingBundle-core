@@ -48,6 +48,7 @@ class PSR18ClientDecoratorTest extends TestCase
         $this->decoratedClient->sendRequest($request->reveal())->willThrow(new RuntimeException('exception happened'));
         $this->requestSpanning->start('HEAD', 'a service uri')->shouldBeCalled();
         $this->requestSpanning->finish(Argument::any())->shouldNotBeCalled();
+        $this->tracing->setTagOfActiveSpan('auxmoney-opentracing-bundle.span-origin', 'core:psr-18')->shouldBeCalled();
         $this->tracing->injectTracingHeaders($request->reveal())->willReturn($request->reveal());
         $this->tracing->finishActiveSpan()->shouldBeCalled();
 
@@ -70,6 +71,7 @@ class PSR18ClientDecoratorTest extends TestCase
         $this->decoratedClient->sendRequest($request->reveal())->willReturn($response->reveal());
         $this->requestSpanning->start('HEAD', 'a service uri')->shouldBeCalled();
         $this->requestSpanning->finish(123)->shouldBeCalled();
+        $this->tracing->setTagOfActiveSpan('auxmoney-opentracing-bundle.span-origin', 'core:psr-18')->shouldBeCalled();
         $this->tracing->injectTracingHeaders($request->reveal())->willReturn($request->reveal());
         $this->tracing->finishActiveSpan()->shouldBeCalled();
 

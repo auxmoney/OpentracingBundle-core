@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\Internal\Decorator;
 
+use Auxmoney\OpentracingBundle\Internal\Constant;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -27,6 +28,8 @@ final class PSR18ClientDecorator implements ClientInterface
         $this->requestSpanning->start($request->getMethod(), $request->getUri()->__toString());
 
         try {
+            $this->tracing->setTagOfActiveSpan(Constant::SPAN_ORIGIN, 'core:psr-18');
+
             $request = $this->tracing->injectTracingHeaders($request);
 
             $response = $this->decoratedClient->sendRequest($request);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\EventListener;
 
 use Auxmoney\OpentracingBundle\Factory\SpanOptionsFactory;
+use Auxmoney\OpentracingBundle\Internal\Constant;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleEvent;
@@ -43,6 +44,7 @@ final class StartCommandSpanSubscriber implements EventSubscriberInterface
         $options['tags']['command.name'] = $commandName;
         $options['tags']['command.description'] = $command->getDescription();
         $options['tags'][SPAN_KIND] = SPAN_KIND_RPC_CLIENT;
+        $options['tags'][Constant::SPAN_ORIGIN] = 'core:command';
 
         $this->tracing->startActiveSpan(
             $commandName,
