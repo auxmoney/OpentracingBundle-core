@@ -25,6 +25,7 @@ Additional bundles contain:
 * [a monolog processor](https://github.com/auxmoney/OpentracingBundle-Monolog) to enrich log contexts with the current span context
 * [Guzzle client](https://github.com/auxmoney/OpentracingBundle-Guzzle) automatic spanning and header propagation
 * [Doctrine DBAL](https://github.com/auxmoney/OpentracingBundle-Doctrine-DBAL) automatic spanning
+* [RabbitMQ](https://github.com/auxmoney/OpentracingBundle-amqplib-RabbitMq) automatic spanning and header propagation
 
 ## Installation
 
