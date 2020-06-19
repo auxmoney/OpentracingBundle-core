@@ -36,10 +36,10 @@ which will then use this library.
 
 #### Jaeger
 
-* require the dependencies (unfortunately, neither `opentracing/opentracing` nor `jukylin/jaeger-php` are released in a stable version right now):
+* require the dependencies (unfortunately, `opentracing/opentracing` is not released in a stable version right now):
 
 ```bash
-    composer req auxmoney/opentracing-bundle-jaeger opentracing/opentracing:1.0.0-beta5@beta jukylin/jaeger-php:2.1.1-beta@beta
+    composer req auxmoney/opentracing-bundle-jaeger opentracing/opentracing:1.0.0-beta5@beta
 ```
 
 * if not done already: spin up [development jaeger instance](https://www.jaegertracing.io/docs/latest/getting-started/) (All in One)
