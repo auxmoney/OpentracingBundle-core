@@ -145,7 +145,7 @@ and
 
 respectively.
 
-`$operationName` ist the displayed name of the trace operation, `$options` is an associative array of tracing options; the main usage is 
+`$operationName` is the displayed name of the trace operation, `$options` is an associative array of tracing options; the main usage is 
 `$options['tags']`, which is an associative array of user defined tags (key value pairs). See the
 [documentation for starting spans](https://github.com/opentracing/opentracing-php#using-startspanoptions) for more information.
 
