@@ -32,14 +32,20 @@ final class StartControllerSpanSubscriber implements EventSubscriberInterface
     {
         $attributes = $event->getRequest()->attributes;
         $attributes->set('_auxmoney_controller', true);
+
+        $tags = [
+            Constant::SPAN_ORIGIN => 'core:controller',
+        ];
+
+        if ($attributes->get('_route')) {
+            $tags['route'] = $attributes->get('_route');
+            $tags['route_params'] = json_encode($attributes->get('_route_params'));
+        }
+
         $this->tracing->startActiveSpan(
             $attributes->get('_controller'),
             [
-                'tags' => [
-                    'route' => $attributes->get('_route'),
-                    'route_params' => json_encode($attributes->get('_route_params')),
-                    Constant::SPAN_ORIGIN => 'core:controller',
-                ]
+                'tags' => $tags
             ]
         );
     }

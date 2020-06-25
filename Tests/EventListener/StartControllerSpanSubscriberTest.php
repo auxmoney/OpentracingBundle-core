@@ -48,4 +48,23 @@ class StartControllerSpanSubscriberTest extends TestCase
 
         $this->subject->onController($event->reveal());
     }
+
+    public function testOnControllerWithoutRoute(): void
+    {
+        $request = new Request();
+        $request->attributes->add(
+            [
+                '_controller' => 'controller name',
+            ]
+        );
+        $event = $this->prophesize(KernelEvent::class);
+        $event->getRequest()->willReturn($request);
+
+        $this->tracing->startActiveSpan(
+            'controller name',
+            ['tags' => ['auxmoney-opentracing-bundle.span-origin' => 'core:controller']]
+        )->shouldBeCalledOnce();
+
+        $this->subject->onController($event->reveal());
+    }
 }
