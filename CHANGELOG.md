@@ -1,3 +1,10 @@
+## [0.7.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.1...v0.7.2) (2020-06-25)
+
+
+### Bug Fixes
+
+* route tag can be omitted with render_controller functions ([#44](https://github.com/auxmoney/OpentracingBundle-core/issues/44)) ([c1235ab](https://github.com/auxmoney/OpentracingBundle-core/commit/c1235abbe5dc9974f7eb614b96a388abada6b9e9))
+
 ## [0.7.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.0...v0.7.1) (2020-06-15)
 
 
