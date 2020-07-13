@@ -150,4 +150,37 @@ class FinishControllerSpanSubscriberTest extends TestCase
         self::assertTrue($event->getResponse()->headers->has('X-Auxmoney-Opentracing-Trace-Id'));
         self::assertSame('tracing id', $event->getResponse()->headers->get('X-Auxmoney-Opentracing-Trace-Id'));
     }
+
+    public function testOnTerminateSuccessWith404(): void
+    {
+        $this->subject = new FinishControllerSpanSubscriber(
+            $this->tracing->reveal(),
+            $this->tracingId->reveal(),
+            $this->logger->reveal(),
+            'invalid bool'
+        );
+
+        $request = new Request();
+        $request->attributes->add(
+            [
+                '_controller' => 'controller name',
+                '_route' => 'controller route',
+                '_route_params' => ['a route' => 'param', 'and' => 5],
+                '_auxmoney_controller' => true
+            ]
+        );
+
+        $this->logger->error(Argument::any())->shouldNotBeCalled();
+        $this->tracingId->getAsString()->shouldBeCalledOnce()->willReturn('tracing id');
+        $this->tracing->setTagOfActiveSpan('http.status_code', 404)->shouldBeCalledOnce();
+        $this->tracing->setTagOfActiveSpan('error', true)->shouldBeCalledOnce();
+        $this->tracing->finishActiveSpan()->shouldBeCalledOnce();
+
+        $event = new EventWithResponse($request);
+        $event->getResponse()->setStatusCode(404);
+        $this->subject->onResponse($event);
+
+        self::assertTrue($event->getResponse()->headers->has('X-Auxmoney-Opentracing-Trace-Id'));
+        self::assertSame('tracing id', $event->getResponse()->headers->get('X-Auxmoney-Opentracing-Trace-Id'));
+    }
 }
