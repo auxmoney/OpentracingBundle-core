@@ -15,7 +15,6 @@ use Psr\Log\LoggerInterface;
 
 class TracingServiceTest extends TestCase
 {
-    private $opentracing;
     private $logger;
     private $mockTracer;
     private $subject;
@@ -24,11 +23,11 @@ class TracingServiceTest extends TestCase
     {
         parent::setUp();
         $this->mockTracer = new MockTracer();
-        $this->opentracing = $this->prophesize(Opentracing::class);
-        $this->opentracing->getTracerInstance()->willReturn($this->mockTracer);
+        $opentracing = $this->prophesize(Opentracing::class);
+        $opentracing->getTracerInstance()->willReturn($this->mockTracer);
         $this->logger = $this->prophesize(LoggerInterface::class);
 
-        $this->subject = new TracingService($this->opentracing->reveal(), $this->logger->reveal());
+        $this->subject = new TracingService($opentracing->reveal(), $this->logger->reveal());
     }
 
     public function testInjectTracingHeadersSuccess(): void
@@ -71,7 +70,7 @@ class TracingServiceTest extends TestCase
 
     public function testInjectTracingHeadersIntoCarrierNoActiveSpan(): void
     {
-        $originalRequest = $this->prophesize(RequestInterface::class);
+        $this->prophesize(RequestInterface::class);
 
         $headers = [ 'abc' => '123' ];
 
@@ -185,5 +184,38 @@ class TracingServiceTest extends TestCase
         /** @var MockSpan $activeSpan */
         $activeSpan = $this->mockTracer->getActiveSpan();
         self::assertNull($activeSpan);
+    }
+
+    public function testSetBaggageItemNoActiveSpan(): void
+    {
+        $this->logger->warning(Argument::type('string'))->shouldBeCalled();
+
+        $this->subject->setBaggageItem('key 1', 'value 1');
+
+        /** @var MockSpan $activeSpan */
+        $activeSpan = $this->mockTracer->getActiveSpan();
+        self::assertNull($activeSpan);
+    }
+
+    public function testGetBaggageItemNoActiveSpan(): void
+    {
+        $this->logger->warning(Argument::type('string'))->shouldBeCalled();
+
+        self::assertNull($this->subject->getBaggageItem('key 1'));
+
+        /** @var MockSpan $activeSpan */
+        $activeSpan = $this->mockTracer->getActiveSpan();
+        self::assertNull($activeSpan);
+    }
+
+    public function testSetGetBaggageItem(): void
+    {
+        $this->subject->startActiveSpan('operation name');
+        $this->subject->setBaggageItem('key 1', 'value 1');
+
+        $this->logger->warning(Argument::type('string'))->shouldNotBeCalled();
+
+        self::assertSame('value 1', $this->subject->getBaggageItem('key 1'));
+        self::assertNull($this->subject->getBaggageItem('unknown key'));
     }
 }
