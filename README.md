@@ -172,6 +172,23 @@ You can always attach logs (key value pairs) to the currently active span with
 You should respect the [log conventions of the opentracing project](https://github.com/opentracing/specification/blob/master/semantic_conventions.md#log-fields-table)
 when logging fields.
 
+#### Baggage items
+
+You can propagate baggage items (key value pairs) in-band across process boundaries with
+
+```php
+    Auxmoney\OpentracingBundle\Service\Tracing::setBaggageItem(string $key, string $value): void
+```
+
+and retrieve them with 
+
+```php
+    Auxmoney\OpentracingBundle\Service\Tracing::getBaggageItem(string $key): ?string
+```
+
+You should use this feature thoughtfully and with care. Every key and value is copied into every local and remote
+child of the associated Span, and that can add up to a lot of network and cpu overhead.
+
 ## Development
 
 Be sure to run
