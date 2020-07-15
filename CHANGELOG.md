@@ -1,3 +1,10 @@
+## [0.7.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.2...v0.7.3) (2020-07-15)
+
+
+### Bug Fixes
+
+* add baggage item support ([#45](https://github.com/auxmoney/OpentracingBundle-core/issues/45)) ([4f72275](https://github.com/auxmoney/OpentracingBundle-core/commit/4f722757aae316efe3379a4169e4c9ccfd3b2773))
+
 ## [0.7.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.1...v0.7.2) (2020-06-25)
 
 
