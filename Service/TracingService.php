@@ -107,21 +107,38 @@ final class TracingService implements Tracing
 
     public function setBaggageItem(string $key, string $value): void
     {
-        if (!$this->tracer->getActiveSpan()) {
+        $activeSpan = $this->tracer->getActiveSpan();
+        if (!$activeSpan) {
             $this->logger->warning(self::class . ': could not set baggage items to active span, missing active span');
             return;
         }
 
-        $this->tracer->getActiveSpan()->addBaggageItem($key, $value);
+        $activeSpan->addBaggageItem($key, $value);
+        $activeSpan->log(
+            [
+                'event' => 'baggage.set',
+                'key' => $key,
+                'value' => $value,
+            ]
+        );
     }
 
     public function getBaggageItem(string $key): ?string
     {
-        if (!$this->tracer->getActiveSpan()) {
+        $activeSpan = $this->tracer->getActiveSpan();
+        if (!$activeSpan) {
             $this->logger->warning(self::class . ': could not get baggage items from active span, missing active span');
             return null;
         }
 
-        return $this->tracer->getActiveSpan()->getBaggageItem($key);
+        $baggageItem = $activeSpan->getBaggageItem($key);
+        $activeSpan->log(
+            [
+                'event' => 'baggage.get',
+                'key' => $key,
+                'value' => $baggageItem,
+            ]
+        );
+        return $baggageItem;
     }
 }

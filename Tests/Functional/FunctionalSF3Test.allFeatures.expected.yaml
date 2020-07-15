@@ -12,6 +12,20 @@ logs:
       -
         key: event
         type: string
+        value: baggage.set
+      -
+        key: key
+        type: string
+        value: baggage-item
+      -
+        key: value
+        type: string
+        value: 'some baggage value'
+  -
+    fields:
+      -
+        key: event
+        type: string
         value: baggage
       -
         key: key
@@ -69,6 +83,20 @@ children:
                 key: value.of.baggage.item
                 value: 'some baggage value'
             logs:
+              -
+                fields:
+                  -
+                    key: event
+                    type: string
+                    value: baggage.get
+                  -
+                    key: key
+                    type: string
+                    value: baggage-item
+                  -
+                    key: value
+                    type: string
+                    value: 'some baggage value'
               -
                 fields:
                   -

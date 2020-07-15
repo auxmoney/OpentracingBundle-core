@@ -217,5 +217,23 @@ class TracingServiceTest extends TestCase
 
         self::assertSame('value 1', $this->subject->getBaggageItem('key 1'));
         self::assertNull($this->subject->getBaggageItem('unknown key'));
+
+        /** @var MockSpan $activeSpan */
+        $activeSpan = $this->mockTracer->getActiveSpan();
+        self::assertNotNull($activeSpan);
+        self::assertSame('operation name', $activeSpan->getOperationName());
+        self::assertCount(3, $activeSpan->getLogs());
+        self::assertSame(
+            ['event' => 'baggage.set', 'key' => 'key 1', 'value' => 'value 1'],
+            $activeSpan->getLogs()[0]['fields']
+        );
+        self::assertSame(
+            ['event' => 'baggage.get', 'key' => 'key 1', 'value' => 'value 1'],
+            $activeSpan->getLogs()[1]['fields']
+        );
+        self::assertSame(
+            ['event' => 'baggage.get', 'key' => 'unknown key', 'value' => null],
+            $activeSpan->getLogs()[2]['fields']
+        );
     }
 }
