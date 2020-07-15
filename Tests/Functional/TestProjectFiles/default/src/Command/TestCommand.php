@@ -34,6 +34,7 @@ class TestCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->tracing->setTagOfActiveSpan('tag.from.command', true);
+        $this->tracing->setBaggageItem('baggage-item', 'some baggage value');
 
         $request = $this->requestFactory->createRequest('GET', 'http://localhost:8000/');
         $response = $this->client->sendRequest($request);

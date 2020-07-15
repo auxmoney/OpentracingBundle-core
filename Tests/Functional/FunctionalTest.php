@@ -29,7 +29,7 @@ class FunctionalTest extends JaegerWebFunctionalTest
         $spans = $this->getSpansFromTrace($this->getTraceFromJaegerAPI($traceId));
         self::assertCount(4, $spans);
 
-        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\' || key==\'auxmoney-opentracing-bundle.span-origin\'].{key: key, value: value}}');
+        $traceAsYAML = $this->getSpansAsYAML($spans, '[].{operationName: operationName, startTime: startTime, spanID: spanID, references: references, logs: logs[].{fields: fields}, tags: tags[?key==\'http.status_code\' || key==\'command.exit-code\' || key==\'http.url\' || key==\'http.method\' || key==\'auxmoney-opentracing-bundle.span-origin\' || key==\'tag.from.controller\' || key==\'value.of.baggage.item\'].{key: key, value: value}}');
         self::assertStringEqualsFile(__DIR__ . '/FunctionalTest.allFeatures.expected.yaml', $traceAsYAML);
     }
 

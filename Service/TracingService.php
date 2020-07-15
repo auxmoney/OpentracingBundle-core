@@ -104,4 +104,41 @@ final class TracingService implements Tracing
         $this->tracer->inject($span->getContext(), TEXT_MAP, $carrier);
         return $carrier;
     }
+
+    public function setBaggageItem(string $key, string $value): void
+    {
+        $activeSpan = $this->tracer->getActiveSpan();
+        if (!$activeSpan) {
+            $this->logger->warning(self::class . ': could not set baggage items to active span, missing active span');
+            return;
+        }
+
+        $activeSpan->addBaggageItem($key, $value);
+        $activeSpan->log(
+            [
+                'event' => 'baggage.set',
+                'key' => $key,
+                'value' => $value,
+            ]
+        );
+    }
+
+    public function getBaggageItem(string $key): ?string
+    {
+        $activeSpan = $this->tracer->getActiveSpan();
+        if (!$activeSpan) {
+            $this->logger->warning(self::class . ': could not get baggage items from active span, missing active span');
+            return null;
+        }
+
+        $baggageItem = $activeSpan->getBaggageItem($key);
+        $activeSpan->log(
+            [
+                'event' => 'baggage.get',
+                'key' => $key,
+                'value' => $baggageItem,
+            ]
+        );
+        return $baggageItem;
+    }
 }

@@ -7,6 +7,7 @@ namespace Auxmoney\OpentracingBundle\Tests\Internal\Decorator;
 use Auxmoney\OpentracingBundle\Internal\Decorator\RequestSpanningService;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
+use const OpenTracing\Tags\ERROR;
 use const OpenTracing\Tags\HTTP_METHOD;
 use const OpenTracing\Tags\HTTP_STATUS_CODE;
 use const OpenTracing\Tags\HTTP_URL;
@@ -42,5 +43,13 @@ class RequestSpanningServiceTest extends TestCase
         $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, 123)->shouldBeCalled();
 
         $this->subject->finish(123);
+    }
+
+    public function testFinishWith404(): void
+    {
+        $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, 404)->shouldBeCalled();
+        $this->tracing->setTagOfActiveSpan(ERROR, true)->shouldBeCalled();
+
+        $this->subject->finish(404);
     }
 }

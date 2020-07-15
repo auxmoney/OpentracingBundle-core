@@ -6,7 +6,35 @@ tags:
   -
     key: command.exit-code
     value: 0
-logs: {  }
+logs:
+  -
+    fields:
+      -
+        key: event
+        type: string
+        value: baggage
+      -
+        key: key
+        type: string
+        value: baggage-item
+      -
+        key: value
+        type: string
+        value: 'some baggage value'
+  -
+    fields:
+      -
+        key: event
+        type: string
+        value: baggage.set
+      -
+        key: key
+        type: string
+        value: baggage-item
+      -
+        key: value
+        type: string
+        value: 'some baggage value'
 children:
   -
     operationName: 'sending HTTP request'
@@ -48,7 +76,27 @@ children:
               -
                 key: http.status_code
                 value: 200
+              -
+                key: tag.from.controller
+                value: true
+              -
+                key: value.of.baggage.item
+                value: 'some baggage value'
             logs:
+              -
+                fields:
+                  -
+                    key: event
+                    type: string
+                    value: baggage.get
+                  -
+                    key: key
+                    type: string
+                    value: baggage-item
+                  -
+                    key: value
+                    type: string
+                    value: 'some baggage value'
               -
                 fields:
                   -

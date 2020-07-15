@@ -60,4 +60,21 @@ interface Tracing
      * The user is responsible for finishing *exactly* as many Spans as he started.
      */
     public function finishActiveSpan(): void;
+
+    /**
+     * Sets a baggage item (key value pair of strings) to the active span.
+     *
+     * If there is a pre-existing tag set for key, it is overwritten.
+     *
+     * Use this feature thoughtfully and with care. Every key and value is copied into every local and remote child of
+     * the associated Span, and that can add up to a lot of network and cpu overhead.
+     */
+    public function setBaggageItem(string $key, string $value): void;
+
+    /**
+     * Returns the value of a baggage item based on its key.
+     *
+     * If there is no value with such key it will return null.
+     */
+    public function getBaggageItem(string $key): ?string;
 }
