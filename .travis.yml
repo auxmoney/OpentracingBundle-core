@@ -66,6 +66,7 @@ before_install:
 
 install:
   - composer require symfony/flex --no-update # adds flex, suppress composer.lock
+  - composer install                          # create a lock file
   - composer update symfony/*                 # updates to SYMFONY_VERSION, but runs recipes
   - git reset --hard                          # reset tracked files
   - git clean -df                             # clean up recipe generated files and folders
