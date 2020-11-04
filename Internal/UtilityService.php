@@ -18,6 +18,10 @@ final class UtilityService implements Utility
 
     public function extractSpanContext(array $headers): ?SpanContext
     {
+        foreach ($headers as $key => $value) {
+            $carrier[$key] = is_array($headers[$key]) ? $headers[$key][0] : $headers[$key];
+        }
+
         return $this->tracer->extract(TEXT_MAP, $headers);
     }
 }
