@@ -23,7 +23,7 @@
     "psr/http-message": "^1.0",
     "psr/http-client": "^1.0",
     "opentracing/opentracing": "1.0.0-beta5@beta",
-    "ocramius/package-versions": "^1.4",
+    "composer/package-versions-deprecated": "^1.11.99",
     "symfony/http-kernel": "^3.4|^4.2|^5.0",
     "symfony/dependency-injection": "^3.4|^4.2|^5.0",
     "symfony/config": "^3.4|^4.2|^5.0",
@@ -39,7 +39,6 @@
     "php-coveralls/php-coveralls": "^2.2",
     "symfony/filesystem": "*",
     "symfony/process": "*",
-    "symfony/yaml": "*",
     "mtdowling/jmespath.php": "^2.5"
   },
   "autoload": {
