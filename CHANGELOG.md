@@ -1,3 +1,10 @@
+## [0.7.4](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.3...v0.7.4) (2020-11-05)
+
+
+### Bug Fixes
+
+* update to composer v2 ([#47](https://github.com/auxmoney/OpentracingBundle-core/issues/47)) ([de7d24f](https://github.com/auxmoney/OpentracingBundle-core/commit/de7d24f63673e552b661a631972e714179b5ee90))
+
 ## [0.7.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.2...v0.7.3) (2020-07-15)
 
 
