@@ -7,6 +7,8 @@ namespace Auxmoney\OpentracingBundle\Tests\Internal;
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
 use Auxmoney\OpentracingBundle\Internal\UtilityService;
 use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
+use OpenTracing\NoopSpanContext;
+use OpenTracing\SpanContext;
 use OpenTracing\Tracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -37,6 +39,18 @@ class UtilityServiceTest extends TestCase
     public function testExtractSpanContextSuccess(): void
     {
         $this->opentracing->getTracerInstance()->willReturn(new MockTracer());
+
+        $subject = new UtilityService($this->opentracing->reveal());
+
+        $extractedSpanContext = $subject->extractSpanContext(['input' => 'headers']);
+        self::assertNotNull($extractedSpanContext);
+    }
+
+    public function testExtractingHeaderIfIsArray() : void
+    {
+        $tracer = $this->prophesize(Tracer::class);
+        $tracer->extract(TEXT_MAP, ['input' => 'headers'])->willReturn(NoopSpanContext::create());
+        $this->opentracing->getTracerInstance()->willReturn($tracer->reveal());
 
         $subject = new UtilityService($this->opentracing->reveal());
 
