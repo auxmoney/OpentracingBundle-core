@@ -20,7 +20,7 @@ final class UtilityService implements Utility
     {
         $textMapHeaders = [];
         foreach ($headers as $key => $value) {
-            $textMapHeaders[$key] = is_array($headers[$key]) ? $headers[$key][0] : $headers[$key];
+            $textMapHeaders[$key] = is_array($headers[$key]) ? $headers[$key][0] : $value;
         }
 
         return $this->tracer->extract(TEXT_MAP, $textMapHeaders);
