@@ -12,7 +12,7 @@ use Throwable;
 
 final class ExceptionLogSubscriber implements EventSubscriberInterface
 {
-    const DEFAULT_ERROR_MESSAGE = "No error message given";
+    private const DEFAULT_ERROR_MESSAGE = "No error message given";
 
     private $tracing;
 
