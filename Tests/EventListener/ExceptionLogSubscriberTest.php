@@ -104,7 +104,7 @@ class ExceptionLogSubscriberTest extends TestCase
     {
         $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
             self::assertArrayHasKey('message', $argument);
-            self::assertEquals(ExceptionLogSubscriber::DEFAULT_ERROR_MESSAGE, $argument['message']);
+            self::assertEquals("No error message given", $argument['message']);
             return true;
         }))->shouldBeCalledOnce();
 
