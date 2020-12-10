@@ -44,7 +44,7 @@ final class ExceptionLogSubscriber implements EventSubscriberInterface
                 'event' => 'error',
                 'error.kind' => 'Exception',
                 'error.object' => get_class($exception),
-                'message' => $exception->getMessage() ? $exception->getMessage() : self::DEFAULT_ERROR_MESSAGE,
+                'message' => $exception->getMessage() ?: self::DEFAULT_ERROR_MESSAGE,
                 'stack' => $exception->getTraceAsString(),
             ]
         );
