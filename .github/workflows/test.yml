@@ -62,7 +62,6 @@ jobs:
           command: update
           args: symfony/*
       - name: clean local git repository
-        uses: actions/checkout@v2
         run: |
           # reset tracked files
           git reset --hard
