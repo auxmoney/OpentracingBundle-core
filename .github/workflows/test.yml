@@ -25,12 +25,55 @@ jobs:
           - php: '7.4'
             symfony: '5.1.*'
     steps:
-      - name: Print a greeting
-        env:
-          SYMFONY_VERSION: ${{ matrix.symfony }}
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: use correct symfony version
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+          command: config
+          args: extra.symfony.require "${{ matrix.symfony }}"
+      - name: use correct symfony version
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+          command: config
+          args: extra.symfony.require "${{ matrix.symfony }}"
+      - name: add flex, suppress composer.lock
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+          command: require
+          args: symfony/flex --no-update
+      - name: install and create a lock file
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+      - name: updates to SYMFONY_VERSION, but runs recipes
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+          command: update
+          args: symfony/*
+      - name: updates to SYMFONY_VERSION, but runs recipes
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+          command: update
+          args: symfony/*
+      - name: clean local git repository
+        uses: actions/checkout@v2
         run: |
-          echo "php version: ${{ matrix.php }}"
-          echo "symfony version: ${SYMFONY_VERSION}"
+          # reset tracked files
+          git reset --hard
+          # clean up recipe generated files and folders
+          git clean -df
+      - name: execute unit tests
+        uses: php-actions/composer@v4
+        with:
+          php_version: ${{ matrix.php }}
+          command: run-script
+          args: quality
 
   test_functional:
     name: Functional Tests
