@@ -1,0 +1,43 @@
+name: test
+
+on:
+  push:
+    branches:
+      - *
+
+jobs:
+  test_unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - php: '7.1'
+            symfony: '3.4.*'
+          - php: '7.4'
+            symfony: '3.4.*'
+          - php: '7.2'
+            symfony: '4.4.*'
+          - php: '7.4'
+            symfony: '4.4.*'
+          - php: '7.2'
+            symfony: '5.1.*'
+          - php: '7.4'
+            symfony: '5.1.*'
+    steps:
+      - name: Print a greeting
+        env:
+          SYMFONY_VERSION: ${{ matrix.symfony }}
+        run: |
+          echo "php version: ${{ matrix.php }}"
+          echo "symfony version: ${SYMFONY_VERSION}"
+
+  test_functional:
+    name: Functional Tests
+    needs:
+      - test_unit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a greeting
+        run: |
+          echo "functional tests"
