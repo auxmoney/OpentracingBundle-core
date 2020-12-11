@@ -28,7 +28,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: setup php
-        uses: nanasess/setup-php@v3
+        uses: nanasess/setup-php@v3.0.6
         with:
           php-version: ${{ matrix.php }}
       - name: prepare test environment
