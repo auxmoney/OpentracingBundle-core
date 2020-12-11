@@ -48,6 +48,10 @@ jobs:
           git clean -df
       - name: execute unit tests
         run: composer run-script quality
+      - name: output tool versions
+        run: |
+          php -v
+          composer --version
 
   test_functional:
     name: Functional Tests
