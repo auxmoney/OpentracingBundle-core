@@ -6,31 +6,73 @@ on:
       - '*'
 
 jobs:
-  test_unit:
-    name: Unit Tests
+#  test_unit:
+#    name: Unit Tests
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        include:
+#          - php: '7.1'
+#            symfony: '3.4.*'
+#          - php: '7.4'
+#            symfony: '3.4.*'
+#          - php: '7.2'
+#            symfony: '4.4.*'
+#          - php: '7.4'
+#            symfony: '4.4.*'
+#          - php: '7.2'
+#            symfony: '5.1.*'
+#          - php: '7.4'
+#            symfony: '5.1.*'
+#    steps:
+#      - name: checkout
+#        uses: actions/checkout@v2
+#      - name: setup php
+#        uses: nanasess/setup-php@v3.0.6
+#        with:
+#          php-version: ${{ matrix.php }}
+#      - name: prepare test environment
+#        run: |
+#          .github/workflows/download-composer.sh
+#          composer config extra.symfony.require "${{ matrix.symfony }}"
+#          composer config extra.symfony.allow-contrib true
+#          # adds flex, suppress composer.lock
+#          composer require symfony/flex --no-update
+#          # create a lock file
+#          composer install
+#          # updates to SYMFONY_VERSION, but runs recipes
+#          composer update symfony/*
+#          # reset tracked files
+#          git reset --hard
+#          # clean up recipe generated files and folders
+#          git clean -df
+#      - name: execute unit tests
+#        run: composer run-script quality
+#      - name: upload coverage
+#        run: php vendor/bin/php-coveralls
+#      - name: output tool versions
+#        run: |
+#          php -v
+#          composer --version
+
+  test_functional:
+    name: Functional Tests
+#    needs:
+#      - test_unit
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - php: '7.1'
-            symfony: '3.4.*'
-          - php: '7.4'
-            symfony: '3.4.*'
-          - php: '7.2'
-            symfony: '4.4.*'
-          - php: '7.4'
-            symfony: '4.4.*'
-          - php: '7.2'
-            symfony: '5.1.*'
-          - php: '7.4'
-            symfony: '5.1.*'
+        symfony:
+          - '3.4.*'
+          - '4.4.*'
+          - '5.1.*'
     steps:
       - name: checkout
         uses: actions/checkout@v2
       - name: setup php
         uses: nanasess/setup-php@v3.0.6
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '7.4'
       - name: prepare test environment
         run: |
           .github/workflows/download-composer.sh
@@ -46,19 +88,25 @@ jobs:
           git reset --hard
           # clean up recipe generated files and folders
           git clean -df
-      - name: execute unit tests
-        run: composer run-script quality
+      - name: install symfony cli
+        run: |
+          wget https://get.symfony.com/cli/installer -O - | bash
+          sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
+#      - name: execute unit tests
+#        run: run-script phpunit-functional-sf3
+      - name: show running containers
+        run: docker ps
       - name: output tool versions
         run: |
           php -v
           composer --version
+          symfony -V
 
-  test_functional:
-    name: Functional Tests
-    needs:
-      - test_unit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print a greeting
-        run: |
-          echo "functional tests"
+
+#
+#
+#        env:
+#          - SYMFONY_VERSION="3.4.*"
+#          - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+#          - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
+#        services: docker
