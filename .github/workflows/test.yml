@@ -27,52 +27,27 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: use correct symfony version
-        uses: php-actions/composer@v4
+      - name: setup php
+        uses: nanasess/setup-php@v3
         with:
-          php_version: ${{ matrix.php }}
-          command: config
-          args: extra.symfony.require "${{ matrix.symfony }}"
-      - name: use correct symfony version
-        uses: php-actions/composer@v4
-        with:
-          php_version: ${{ matrix.php }}
-          command: config
-          args: extra.symfony.require "${{ matrix.symfony }}"
-      - name: add flex, suppress composer.lock
-        uses: php-actions/composer@v4
-        with:
-          php_version: ${{ matrix.php }}
-          command: require
-          args: symfony/flex --no-update
-      - name: install and create a lock file
-        uses: php-actions/composer@v4
-        with:
-          php_version: ${{ matrix.php }}
-      - name: updates to SYMFONY_VERSION, but runs recipes
-        uses: php-actions/composer@v4
-        with:
-          php_version: ${{ matrix.php }}
-          command: update
-          args: symfony/*
-      - name: updates to SYMFONY_VERSION, but runs recipes
-        uses: php-actions/composer@v4
-        with:
-          php_version: ${{ matrix.php }}
-          command: update
-          args: symfony/*
-      - name: clean local git repository
+          php-version: ${{ matrix.php }}
+      - name: prepare test environment
         run: |
+          .github/workflows/download-composer.sh
+          composer config extra.symfony.require "${{ matrix.symfony }}"
+          composer config extra.symfony.allow-contrib true
+          # adds flex, suppress composer.lock
+          composer require symfony/flex --no-update
+          # create a lock file
+          composer install
+          # updates to SYMFONY_VERSION, but runs recipes
+          composer update symfony/*
           # reset tracked files
           git reset --hard
           # clean up recipe generated files and folders
           git clean -df
       - name: execute unit tests
-        uses: php-actions/composer@v4
-        with:
-          php_version: ${{ matrix.php }}
-          command: run-script
-          args: quality
+        run: composer run-script quality
 
   test_functional:
     name: Functional Tests
