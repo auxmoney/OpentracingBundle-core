@@ -8,6 +8,7 @@ use Auxmoney\OpentracingBundle\EventListener\ExceptionLogSubscriber;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventReflectionError;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithError;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithException;
+use Auxmoney\OpentracingBundle\Tests\Mock\EventWithExceptionWithoutErrorMessage;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithThrowable;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
@@ -97,5 +98,16 @@ class ExceptionLogSubscriberTest extends TestCase
         }))->shouldBeCalledOnce();
 
         $this->subject->onException(new stdClass());
+    }
+
+    public function testProvidingDefaultExceptionMessageAsLogsCanNotBeEmpty(): void
+    {
+        $this->tracing->logInActiveSpan(Argument::that(function (array $argument) {
+            self::assertArrayHasKey('message', $argument);
+            self::assertEquals("No error message given", $argument['message']);
+            return true;
+        }))->shouldBeCalledOnce();
+
+        $this->subject->onException(new EventWithExceptionWithoutErrorMessage());
     }
 }
