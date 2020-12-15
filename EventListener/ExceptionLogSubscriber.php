@@ -12,6 +12,8 @@ use Throwable;
 
 final class ExceptionLogSubscriber implements EventSubscriberInterface
 {
+    private const DEFAULT_ERROR_MESSAGE = "No error message given";
+
     private $tracing;
 
     public function __construct(Tracing $tracing)
@@ -42,7 +44,7 @@ final class ExceptionLogSubscriber implements EventSubscriberInterface
                 'event' => 'error',
                 'error.kind' => 'Exception',
                 'error.object' => get_class($exception),
-                'message' => $exception->getMessage(),
+                'message' => $exception->getMessage() ?: self::DEFAULT_ERROR_MESSAGE,
                 'stack' => $exception->getTraceAsString(),
             ]
         );
