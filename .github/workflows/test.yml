@@ -94,7 +94,7 @@ jobs:
           sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
       - name: execute functional tests
         env:
-          PR_ORIGIN: ${GITHUB_REPOSITORY}
+          PR_ORIGIN: ${{ github.repository }}
         run: echo ${PR_ORIGIN}
         #run: run-script phpunit-functional-sf3
       - name: show running containers
