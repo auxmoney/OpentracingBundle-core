@@ -92,8 +92,11 @@ jobs:
         run: |
           wget https://get.symfony.com/cli/installer -O - | bash
           sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
-#      - name: execute unit tests
-#        run: run-script phpunit-functional-sf3
+      - name: execute functional tests
+        env:
+          PR_ORIGIN: ${GITHUB_REPOSITORY}
+        run: echo ${PR_ORIGIN}
+        #run: run-script phpunit-functional-sf3
       - name: show running containers
         run: docker ps
       - name: output tool versions
@@ -109,4 +112,3 @@ jobs:
 #          - SYMFONY_VERSION="3.4.*"
 #          - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
 #          - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
-#        services: docker
