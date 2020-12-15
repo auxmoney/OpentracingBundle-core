@@ -5,6 +5,10 @@ on:
     branches:
       - '*'
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
     branches:
       # TODO: set this to 'master'
       - '*'
