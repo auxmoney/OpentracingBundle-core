@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - '*'
+  pull_request:
+    branches:
+      # TODO: set this to 'master'
+      - '*'
 
 jobs:
 #  test_unit:
