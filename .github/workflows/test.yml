@@ -86,7 +86,7 @@ jobs:
           query: |
             query pr($owner:String!,$repo:String!,$ref:String!) {
               repository(owner:$owner,name:$repo) {
-                pullRequests(baseRefName:$ref, last:10, states: OPEN) {
+                pullRequests(headRefName:$ref, last:10, states: OPEN) {
                   nodes {
                     baseRepository {
                       nameWithOwner
