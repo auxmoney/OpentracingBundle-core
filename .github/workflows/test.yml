@@ -84,9 +84,9 @@ jobs:
         id: get_latest_release
         with:
           query: |
-            query pr($owner:String!,$repo:String!) {
+            query pr($owner:String!,$repo:String!,$ref:String!) {
               repository(owner:$owner,name:$repo) {
-                pullRequests(baseRefName:"replace-travis", last:10, states: OPEN) {
+                pullRequests(baseRefName:$ref, last:10, states: OPEN) {
                   nodes {
                     baseRepository {
                       nameWithOwner
@@ -102,6 +102,7 @@ jobs:
             }
           owner: auxmoney
           repo: OpentracingBundle-core
+          ref: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
