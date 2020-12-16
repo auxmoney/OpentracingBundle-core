@@ -2,7 +2,7 @@ name: release
 
 on:
   release:
-#
+# FIXME: revert
 #  push:
 #    branches:
 #      - master

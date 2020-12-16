@@ -68,38 +68,66 @@ jobs:
 #    needs:
 #      - test_unit
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        symfony:
-          - '3.4.*'
-          - '4.4.*'
-          - '5.1.*'
+#    strategy:
+#      matrix:
+#        symfony:
+#          - '3.4.*'
+#          - '4.4.*'
+#          - '5.1.*'
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: setup php
-        uses: nanasess/setup-php@v3.0.6
+      - name: ref
+        run: echo ${{ github.ref }}
+      - name: GitHub GraphQL API Query
+        uses: octokit/graphql-action@v2.2.1
+        id: get_latest_release
         with:
-          php-version: '7.4'
-      - name: prepare test environment
-        run: |
-          .github/workflows/download-composer.sh
-          composer config extra.symfony.require "${{ matrix.symfony }}"
-          composer config extra.symfony.allow-contrib true
-          # adds flex, suppress composer.lock
-          composer require symfony/flex --no-update
-          # create a lock file
-          composer install
-          # updates to SYMFONY_VERSION, but runs recipes
-          composer update symfony/*
-          # reset tracked files
-          git reset --hard
-          # clean up recipe generated files and folders
-          git clean -df
-      - name: install symfony cli
-        run: |
-          wget https://get.symfony.com/cli/installer -O - | bash
-          sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
+          query: |
+            query pr($owner:String!,$repo:String!) {
+              repository(owner:$owner,name:$repo) {
+                pullRequests(baseRefName:"replace-travis", last:10, states: OPEN) {
+                  nodes {
+                    baseRepository {
+                      nameWithOwner
+                    }
+                    baseRefName
+                    headRepository {
+                      nameWithOwner
+                    }
+                    headRefName
+                  }
+                }
+              }
+            }
+          owner: auxmoney
+          repo: OpentracingBundle-core
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
+#      - name: setup php
+#        uses: nanasess/setup-php@v3.0.6
+#        with:
+#          php-version: '7.4'
+#      - name: prepare test environment
+#        run: |
+#          .github/workflows/download-composer.sh
+#          composer config extra.symfony.require "${{ matrix.symfony }}"
+#          composer config extra.symfony.allow-contrib true
+#          # adds flex, suppress composer.lock
+#          composer require symfony/flex --no-update
+#          # create a lock file
+#          composer install
+#          # updates to SYMFONY_VERSION, but runs recipes
+#          composer update symfony/*
+#          # reset tracked files
+#          git reset --hard
+#          # clean up recipe generated files and folders
+#          git clean -df
+#      - name: install symfony cli
+#        run: |
+#          wget https://get.symfony.com/cli/installer -O - | bash
+#          sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
       - name: execute functional tests
         env:
           PR_ORIGIN: ${{ github.repository }}
@@ -107,11 +135,14 @@ jobs:
         #run: run-script phpunit-functional-sf3
       - name: show running containers
         run: docker ps
-      - name: output tool versions
-        run: |
-          php -v
-          composer --version
-          symfony -V
+#      - name: output tool versions
+#        run: |
+#          php -v
+#          composer --version
+#          symfony -V
+
+
+
 
 
 #
