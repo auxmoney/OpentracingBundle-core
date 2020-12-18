@@ -55,6 +55,9 @@ class TransportUdp implements Transport
         }
         self::$hostPort = $hostport;
 var_dump($maxPacketSize);
+var_dump($maxPacketSize == 0);
+var_dump((int)$maxPacketSize == 0);
+
         if ($maxPacketSize == 0) {
             $maxPacketSize = stristr(PHP_OS, 'DAR') ? self::MAC_UDP_MAX_SIZE : Constants\UDP_PACKET_MAX_LENGTH;
         }
