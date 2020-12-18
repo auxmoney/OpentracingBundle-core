@@ -66,6 +66,7 @@
       "Tests/Functional/Scripts/setup.sh",
       "Tests/Functional/Scripts/requireAdditionalVendors.sh",
       "Tests/Functional/Scripts/createResetPoint.sh",
+      "composer show jukylin/jaeger-php",
       "vendor/bin/phpunit --colors=never --testsuite=functional-sf3 --no-coverage",
       "Tests/Functional/Scripts/teardown.sh"
     ],

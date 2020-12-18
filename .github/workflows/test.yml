@@ -109,9 +109,6 @@ jobs:
         env:
           SYMFONY_VERSION: ${{ matrix.symfony }}
         run: |
-          cd build/testproject
-          composer show jukylin/jaeger-php
-          cd ../../
           composer run-script phpunit-functional-sf3
       - name: execute functional tests
         if: ${{ matrix.symfony != '3.4.*' }}
