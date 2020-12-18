@@ -10,7 +10,7 @@ on:
       - synchronize
       - reopened
     branches:
-      # TODO: set this to 'master'
+      # TODO: set this to 'master' later
       - '*'
 
 jobs:
