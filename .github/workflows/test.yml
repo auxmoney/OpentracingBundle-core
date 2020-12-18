@@ -57,11 +57,9 @@ jobs:
       - name: execute unit tests
         run: composer run-script quality
       - name: upload coverage
-        run: php vendor/bin/php-coveralls
-      - name: output tool versions
-        run: |
-          php -v
-          composer --version
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
 
   test_functional:
     name: Functional Tests
