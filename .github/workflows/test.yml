@@ -104,10 +104,10 @@ jobs:
           sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
       - name: execute functional tests
         if: ${{ matrix.symfony == '3.4.*' }}
-        run: run-script phpunit-functional-sf3
+        run: composer run-script phpunit-functional-sf3
       - name: execute functional tests
         if: ${{ matrix.symfony != '3.4.*' }}
-        run: run-script phpunit-functional
+        run: composer run-script phpunit-functional
       - name: show running containers
         run: docker ps
       - name: output tool versions
