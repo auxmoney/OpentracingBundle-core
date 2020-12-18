@@ -14,7 +14,7 @@ class Foo
     public function __construct($maxPacketSize = '')
     {
         if ($maxPacketSize == 0) {
-            $maxPacketSize = true ? self::MAC_UDP_MAX_SIZE : UDP_PACKET_MAX_LENGTH;
+            $maxPacketSize = false ? self::MAC_UDP_MAX_SIZE : UDP_PACKET_MAX_LENGTH;
         }
 
         var_dump($maxPacketSize);
@@ -26,3 +26,5 @@ class Foo
 
 $f = new Foo();
 var_dump(Foo::$maxSpanBytes);
+
+$g = new Foo('bad');
