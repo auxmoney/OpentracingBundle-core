@@ -132,6 +132,7 @@ abstract class JaegerWebFunctionalTest extends TestCase
 
     protected function consoleCacheClear(): void
     {
+        $this->runInTestProject(['symfony', 'local:php:list']);
         $this->runInTestProject(['symfony', 'console', 'cache:clear']);
     }
 
