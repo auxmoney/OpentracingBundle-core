@@ -123,6 +123,7 @@ abstract class JaegerWebFunctionalTest extends TestCase
     {
         $process = new Process($commandLine, self::BUILD_TESTPROJECT);
         $process->mustRun();
+        var_dump($process->getOutput());
     }
 
     protected function composerDumpAutoload(): void
