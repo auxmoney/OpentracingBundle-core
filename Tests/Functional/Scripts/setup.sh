@@ -14,8 +14,8 @@ docker run -d --name jaeger \
 docker stop jaeger
 mkdir -p build/
 cd build/
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
+git config user.email "you@example.com"
+git config user.name "Your Name"
 symfony new --version=${SYMFONY_VERSION} testproject
 cd testproject/
 composer config minimum-stability dev
