@@ -14,10 +14,13 @@ docker run -d --name jaeger \
 docker stop jaeger
 mkdir -p build/
 cd build/
+symfony new --no-git --version=${SYMFONY_VERSION} testproject
+cd testproject/
+git init
 git config user.email "you@example.com"
 git config user.name "Your Name"
-symfony new --version=${SYMFONY_VERSION} testproject
-cd testproject/
+git add .
+git commit -m"initial commit"
 composer config minimum-stability dev
 composer config prefer-stable true
 composer require auxmoney/opentracing-bundle-jaeger
