@@ -68,87 +68,50 @@ jobs:
 #    needs:
 #      - test_unit
     runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        symfony:
-#          - '3.4.*'
-#          - '4.4.*'
-#          - '5.1.*'
+    strategy:
+      matrix:
+        symfony:
+          - '3.4.*'
+          - '4.4.*'
+          - '5.1.*'
     steps:
       - name: checkout
         uses: actions/checkout@v2
       - name: ref
         run: echo ${{ github.ref }}
-      - name: GitHub GraphQL API Query
-        uses: octokit/graphql-action@v2.2.1
-        id: get_latest_release
+      - name: setup php
+        uses: nanasess/setup-php@v3.0.6
         with:
-          query: |
-            query pr($owner:String!,$repo:String!,$ref:String!) {
-              repository(owner:$owner,name:$repo) {
-                pullRequests(headRefName:$ref, last:10, states: OPEN) {
-                  nodes {
-                    baseRepository {
-                      nameWithOwner
-                    }
-                    baseRefName
-                    headRepository {
-                      nameWithOwner
-                    }
-                    headRefName
-                  }
-                }
-              }
-            }
-          owner: auxmoney
-          repo: OpentracingBundle-core
-          ref: ${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
-#      - name: setup php
-#        uses: nanasess/setup-php@v3.0.6
-#        with:
-#          php-version: '7.4'
-#      - name: prepare test environment
-#        run: |
-#          .github/workflows/download-composer.sh
-#          composer config extra.symfony.require "${{ matrix.symfony }}"
-#          composer config extra.symfony.allow-contrib true
-#          # adds flex, suppress composer.lock
-#          composer require symfony/flex --no-update
-#          # create a lock file
-#          composer install
-#          # updates to SYMFONY_VERSION, but runs recipes
-#          composer update symfony/*
-#          # reset tracked files
-#          git reset --hard
-#          # clean up recipe generated files and folders
-#          git clean -df
-#      - name: install symfony cli
-#        run: |
-#          wget https://get.symfony.com/cli/installer -O - | bash
-#          sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
+          php-version: '7.4'
+      - name: prepare test environment
+        run: |
+          .github/workflows/download-composer.sh
+          composer config extra.symfony.require "${{ matrix.symfony }}"
+          composer config extra.symfony.allow-contrib true
+          # adds flex, suppress composer.lock
+          composer require symfony/flex --no-update
+          # create a lock file
+          composer install
+          # updates to SYMFONY_VERSION, but runs recipes
+          composer update symfony/*
+          # reset tracked files
+          git reset --hard
+          # clean up recipe generated files and folders
+          git clean -df
+      - name: install symfony cli
+        run: |
+          wget https://get.symfony.com/cli/installer -O - | bash
+          sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
       - name: execute functional tests
-        env:
-          PR_ORIGIN: ${{ github.repository }}
-        run: echo ${PR_ORIGIN}
-        #run: run-script phpunit-functional-sf3
+        if: ${{ matrix.symfony == '3.4.*' }}
+        run: run-script phpunit-functional-sf3
+      - name: execute functional tests
+        if: ${{ matrix.symfony != '3.4.*' }}
+        run: run-script phpunit-functional
       - name: show running containers
         run: docker ps
-#      - name: output tool versions
-#        run: |
-#          php -v
-#          composer --version
-#          symfony -V
-
-
-
-
-
-#
-#
-#        env:
-#          - SYMFONY_VERSION="3.4.*"
-#          - BRANCH=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
-#          - PR_ORIGIN=${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}
+      - name: output tool versions
+        run: |
+          composer --version
+          symfony -V
+          php -v
