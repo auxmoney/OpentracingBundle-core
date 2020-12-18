@@ -123,7 +123,6 @@ abstract class JaegerWebFunctionalTest extends TestCase
     {
         $process = new Process($commandLine, self::BUILD_TESTPROJECT);
         $process->mustRun();
-        var_dump($process->getOutput());
     }
 
     protected function composerDumpAutoload(): void
@@ -133,7 +132,6 @@ abstract class JaegerWebFunctionalTest extends TestCase
 
     protected function consoleCacheClear(): void
     {
-        $this->runInTestProject(['symfony', 'local:php:list']);
         $this->runInTestProject(['symfony', 'console', 'cache:clear']);
     }
 

@@ -72,19 +72,15 @@ jobs:
       matrix:
         symfony:
           - '3.4.*'
-#          - '4.4.*'
-#          - '5.1.*'
+          - '4.4.*'
+          - '5.1.*'
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: ref
-        run: echo ${{ github.ref }}
       - name: setup php
         uses: nanasess/setup-php@v3.0.6
         with:
           php-version: '7.4'
-      - name: phpinfo
-        run: php -i
       - name: prepare test environment
         run: |
           .github/workflows/download-composer.sh
@@ -108,8 +104,7 @@ jobs:
         if: ${{ matrix.symfony == '3.4.*' }}
         env:
           SYMFONY_VERSION: ${{ matrix.symfony }}
-        run: |
-          composer run-script phpunit-functional-sf3
+        run: composer run-script phpunit-functional-sf3
       - name: execute functional tests
         if: ${{ matrix.symfony != '3.4.*' }}
         env:
@@ -117,8 +112,3 @@ jobs:
         run: composer run-script phpunit-functional
       - name: show running containers
         run: docker ps
-      - name: output tool versions
-        run: |
-          composer --version
-          symfony -V
-          php -v
