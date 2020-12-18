@@ -2,10 +2,9 @@ name: release
 
 on:
   release:
-# FIXME: revert
-#  push:
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
 
 jobs:
   release:

@@ -10,8 +10,7 @@ on:
       - synchronize
       - reopened
     branches:
-      # TODO: set this to 'master'
-      - '*'
+      - 'master'
 
 jobs:
   test_unit:
@@ -65,7 +64,7 @@ jobs:
     name: Functional Tests
     needs:
       - test_unit
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         symfony:
