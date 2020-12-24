@@ -1,7 +1,6 @@
 name: release
 
 on:
-  release:
   push:
     branches:
       - master
