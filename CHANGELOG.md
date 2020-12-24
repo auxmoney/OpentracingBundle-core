@@ -1,3 +1,10 @@
+## [0.7.6](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.5...v0.7.6) (2020-12-24)
+
+
+### Bug Fixes
+
+* replace Travis with GitHub ([#51](https://github.com/auxmoney/OpentracingBundle-core/issues/51)) ([57d0bdf](https://github.com/auxmoney/OpentracingBundle-core/commit/57d0bdfe1d69b2be44c08cf045cb414e83cd34a8))
+
 ## [0.7.5](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.4...v0.7.5) (2020-12-15)
 
 
