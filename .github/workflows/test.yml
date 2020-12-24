@@ -40,7 +40,7 @@ jobs:
           php-version: ${{ matrix.php }}
       - name: prepare test environment
         run: |
-          .github/workflows/download-composer.sh
+          Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
           # adds flex, suppress composer.lock
@@ -80,7 +80,7 @@ jobs:
           php-version: '7.4'
       - name: prepare test environment
         run: |
-          .github/workflows/download-composer.sh
+          Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
           # adds flex, suppress composer.lock
