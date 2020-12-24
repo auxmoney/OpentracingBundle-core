@@ -1,3 +1,10 @@
+## [0.7.5](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.4...v0.7.5) (2020-12-15)
+
+
+### Bug Fixes
+
+* Provide default error message, as zipkin will throw exception for empty annotations ([#48](https://github.com/auxmoney/OpentracingBundle-core/issues/48)) ([e36c41f](https://github.com/auxmoney/OpentracingBundle-core/commit/e36c41f18ca3e6e0f10a52ab1b3ec81916942a13))
+
 ## [0.7.4](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.3...v0.7.4) (2020-11-05)
 
 
