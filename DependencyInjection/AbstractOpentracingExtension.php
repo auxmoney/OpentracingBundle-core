@@ -46,7 +46,7 @@ abstract class AbstractOpentracingExtension extends Extension
 
     private function overwriteProjectNameParameter(ContainerBuilder $container): void
     {
-        $projectDirectory = $container->getParameter('kernel.project_dir');
+        $projectDirectory = (string) $container->getParameter('kernel.project_dir');
         $container->setParameter('env(AUXMONEY_OPENTRACING_PROJECT_NAME)', basename($projectDirectory));
     }
 
