@@ -1,3 +1,10 @@
+## [0.7.7](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.6...v0.7.7) (2021-02-06)
+
+
+### Bug Fixes
+
+* Add php.version to Request Span tags ([#60](https://github.com/auxmoney/OpentracingBundle-core/issues/60)) ([1cf7491](https://github.com/auxmoney/OpentracingBundle-core/commit/1cf7491625c7e35eea426ed0544e759adc1a2231))
+
 ## [0.7.6](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.5...v0.7.6) (2020-12-24)
 
 
