@@ -15,5 +15,5 @@ class Constant
      *  - core:command
      *  - dbal:transaction
      */
-    const SPAN_ORIGIN = 'auxmoney-opentracing-bundle.span-origin';
+    public const SPAN_ORIGIN = 'auxmoney-opentracing-bundle.span-origin';
 }

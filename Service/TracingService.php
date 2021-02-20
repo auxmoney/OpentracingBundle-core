@@ -8,10 +8,9 @@ use Auxmoney\OpentracingBundle\Internal\Opentracing;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 use OpenTracing\Exceptions\UnsupportedFormat;
+use OpenTracing\Span;
 
 use const OpenTracing\Formats\TEXT_MAP;
-
-use OpenTracing\Span;
 
 final class TracingService implements Tracing
 {
