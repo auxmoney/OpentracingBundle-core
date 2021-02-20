@@ -8,6 +8,7 @@ use Auxmoney\OpentracingBundle\Internal\Persistence;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use const OpenTracing\Tags\ERROR;
 
 final class FinishCommandSpanSubscriber implements EventSubscriberInterface
