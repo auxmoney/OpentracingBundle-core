@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Internal\Decorator;
 
 use Auxmoney\OpentracingBundle\Service\Tracing;
+
 use const OpenTracing\Tags\ERROR;
 use const OpenTracing\Tags\HTTP_METHOD;
 use const OpenTracing\Tags\HTTP_STATUS_CODE;

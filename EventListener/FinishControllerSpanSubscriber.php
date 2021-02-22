@@ -11,6 +11,7 @@ use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+
 use const OpenTracing\Tags\ERROR;
 use const OpenTracing\Tags\HTTP_STATUS_CODE;
 
