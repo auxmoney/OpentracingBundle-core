@@ -23,7 +23,7 @@ class PSR18ClientDecoratorTest extends TestCase
     /** @var PSR18ClientDecorator */
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->decoratedClient = $this->prophesize(ClientInterface::class);

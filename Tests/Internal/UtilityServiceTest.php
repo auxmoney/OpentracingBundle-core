@@ -16,7 +16,7 @@ class UtilityServiceTest extends TestCase
 {
     private $opentracing;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->opentracing = $this->prophesize(Opentracing::class);

@@ -13,7 +13,7 @@ class DefaultAgentHostResolverTest extends TestCase
     /** @var DefaultAgentHostResolver */
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

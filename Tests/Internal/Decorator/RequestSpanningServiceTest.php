@@ -20,7 +20,7 @@ class RequestSpanningServiceTest extends TestCase
     /** @var RequestSpanningService */
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->tracing = $this->prophesize(Tracing::class);

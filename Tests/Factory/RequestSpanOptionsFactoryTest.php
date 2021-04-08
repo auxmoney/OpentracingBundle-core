@@ -14,24 +14,18 @@ use Symfony\Component\HttpFoundation\Request;
 class RequestSpanOptionsFactoryTest extends TestCase
 {
     private $utility;
-    private $kernelDebug;
-    private $kernelEnvironment;
-    private $hostName;
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->utility = $this->prophesize(Utility::class);
-        $this->kernelDebug = 'false';
-        $this->kernelEnvironment = 'some environment';
-        $this->hostName = 'hostname';
+        $kernelDebug = 'false';
+        $kernelEnvironment = 'some environment';
+        $hostName = 'hostname';
 
         $this->subject = new RequestSpanOptionsFactory(
-            $this->utility->reveal(),
-            $this->kernelDebug,
-            $this->kernelEnvironment,
-            $this->hostName
+            $this->utility->reveal(), $kernelDebug, $kernelEnvironment, $hostName
         );
     }
 

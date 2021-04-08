@@ -23,7 +23,7 @@ class CachedOpentracingTest extends TestCase
     private $samplerClass;
     private $samplerValue;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->tracerFactory = $this->prophesize(TracerFactory::class);
