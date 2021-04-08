@@ -28,7 +28,7 @@ class TestErrorWebCommand extends Command
         $this->requestFactory = $requestFactory;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $request = $this->requestFactory->createRequest('GET', 'http://localhost:8000/error');
         $response = $this->client->sendRequest($request);

@@ -20,7 +20,7 @@ class FinishCommandSpanSubscriberTest extends TestCase
     private $persistence;
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->tracing = $this->prophesize(Tracing::class);

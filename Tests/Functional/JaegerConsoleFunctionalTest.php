@@ -14,7 +14,7 @@ abstract class JaegerConsoleFunctionalTest extends JaegerWebFunctionalTest
         $this->consoleCacheClear();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->gitResetTestProject();
         $this->dockerStopJaeger();
