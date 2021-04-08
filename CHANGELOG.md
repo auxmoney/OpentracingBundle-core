@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.7...v0.8.0) (2021-04-08)
+
+
+### Features
+
+* drop PHP versions 7.1 and 7.2 ([#68](https://github.com/auxmoney/OpentracingBundle-core/issues/68)) ([f160e2f](https://github.com/auxmoney/OpentracingBundle-core/commit/f160e2ff7ab57192b86b53389884f371b5e07fb9))
+
 ## [0.7.7](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.6...v0.7.7) (2021-02-06)
 
 

@@ -31,7 +31,7 @@ class TestCommand extends Command
         $this->requestFactory = $requestFactory;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->tracing->setTagOfActiveSpan('tag.from.command', true);
         $this->tracing->setBaggageItem('baggage-item', 'some baggage value');

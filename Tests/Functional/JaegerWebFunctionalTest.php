@@ -25,12 +25,12 @@ abstract class JaegerWebFunctionalTest extends TestCase
         $this->symfonyLocalServerStart();
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->dockerStartJaeger();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->symfonyLocalServerStop();
         $this->gitResetTestProject();
@@ -41,7 +41,7 @@ abstract class JaegerWebFunctionalTest extends TestCase
     {
         $client = new Client();
         $response = $client->get(sprintf('http://localhost:16686/api/traces/%s?raw=true', $traceId));
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     protected function getSpansFromTrace(array $trace): array

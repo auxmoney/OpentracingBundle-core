@@ -17,7 +17,7 @@ class PSR18CompilerPassTest extends TestCase
     /** @var PSR18CompilerPass */
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -36,7 +36,7 @@ final class FinishCommandSpanSubscriber implements EventSubscriberInterface
     {
         $exitCode = $event->getExitCode();
         $this->tracing->setTagOfActiveSpan('command.exit-code', $exitCode);
-        if ($exitCode != 0) {
+        if ($exitCode !== 0) {
             $this->tracing->setTagOfActiveSpan(ERROR, true);
         }
         $this->tracing->finishActiveSpan();

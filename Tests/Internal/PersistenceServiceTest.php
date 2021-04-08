@@ -15,8 +15,9 @@ use RuntimeException;
 class PersistenceServiceTest extends TestCase
 {
     private $opentracing;
+    private $logger;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->opentracing = $this->prophesize(Opentracing::class);
