@@ -1,3 +1,10 @@
+## [0.8.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.8.0...v0.8.1) (2021-04-12)
+
+
+### Bug Fixes
+
+* raise minimum symfony version ([#69](https://github.com/auxmoney/OpentracingBundle-core/issues/69)) ([cd78e0c](https://github.com/auxmoney/OpentracingBundle-core/commit/cd78e0c3dcdf76e688f0335821dcdc47979f2d21))
+
 # [0.8.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.7.7...v0.8.0) (2021-04-08)
 
 
