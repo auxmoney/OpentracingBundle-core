@@ -6,6 +6,8 @@ namespace Auxmoney\OpentracingBundle\Tests\Mock;
 
 use OpenTracing\Mock\MockSpan;
 use OpenTracing\Mock\MockTracer as OriginalMockTracer;
+use OpenTracing\Scope;
+use OpenTracing\ScopeManager;
 use OpenTracing\Span;
 use OpenTracing\SpanContext;
 use OpenTracing\Tracer;
@@ -25,7 +27,7 @@ class MockTracer implements Tracer
         );
     }
 
-    public function getScopeManager()
+    public function getScopeManager(): ScopeManager
     {
         return $this->mockTracer->getScopeManager();
     }
@@ -35,12 +37,12 @@ class MockTracer implements Tracer
         return $this->mockTracer->getActiveSpan();
     }
 
-    public function startActiveSpan($operationName, $options = [])
+    public function startActiveSpan(string $operationName, $options = []): Scope
     {
         return $this->mockTracer->startActiveSpan($operationName, $options);
     }
 
-    public function startSpan($operationName, $options = [])
+    public function startSpan(string $operationName, $options = []): Span
     {
         return $this->mockTracer->startSpan($operationName, $options);
     }
@@ -48,12 +50,12 @@ class MockTracer implements Tracer
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function inject(SpanContext $spanContext, $format, &$carrier): void
+    public function inject(SpanContext $spanContext, string $format, &$carrier): void
     {
         $carrier['made_up_header'] = '1:2:3:4';
     }
 
-    public function extract($format, $carrier)
+    public function extract(string $format, $carrier): ?SpanContext
     {
         return $this->mockTracer->extract($format, $carrier);
     }
