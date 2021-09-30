@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Tests\Mock;
 
 use OpenTracing\Mock\MockSpan;
+use OpenTracing\Mock\MockSpanContext;
 use OpenTracing\Mock\MockTracer as OriginalMockTracer;
 use OpenTracing\Scope;
 use OpenTracing\ScopeManager;
@@ -22,7 +23,9 @@ class MockTracer implements Tracer
         $this->mockTracer = new OriginalMockTracer(
             [],
             [
-                TEXT_MAP => 'OpenTracing\Mock\MockSpanContext::createAsRoot'
+                TEXT_MAP => static function (array $items): MockSpanContext {
+                    return MockSpanContext::createAsRoot(true, $items);
+                }
             ]
         );
     }
