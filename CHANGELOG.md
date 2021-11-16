@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.0...v1.0.1) (2021-11-16)
+
+
+### Bug Fixes
+
+* cleanup vendors ([#74](https://github.com/auxmoney/OpentracingBundle-core/issues/74)) ([2a0bd9f](https://github.com/auxmoney/OpentracingBundle-core/commit/2a0bd9f4624edaa26905ba25dbdbb94c73039afa))
+
 # [1.0.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v0.8.1...v1.0.0) (2021-11-16)
 
 
