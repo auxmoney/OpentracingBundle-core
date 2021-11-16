@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Auxmoney\OpentracingBundle\Service;
 
-use OpenTracing\Exceptions\UnsupportedFormat;
+use OpenTracing\UnsupportedFormatException;
 use Psr\Http\Message\RequestInterface;
 
 interface Tracing
@@ -14,7 +14,7 @@ interface Tracing
      * @param array<mixed> $carrier
      * @return array<mixed>
      *
-     * @throws UnsupportedFormat when the format is not recognized by the tracer
+     * @throws UnsupportedFormatException when the format is not recognized by the tracer
      */
     public function injectTracingHeadersIntoCarrier(array $carrier): array;
 

@@ -2,7 +2,7 @@ parameters:
   paths:
     - .
 
-  excludes_analyse:
+  excludePaths:
     - Tests/*
     - vendor/*
 

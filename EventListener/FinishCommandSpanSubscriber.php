@@ -23,7 +23,7 @@ final class FinishCommandSpanSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @return array<string,array>
+     * @return array<string,array<int|string>>
      */
     public static function getSubscribedEvents(): array
     {

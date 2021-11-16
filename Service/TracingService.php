@@ -7,7 +7,7 @@ namespace Auxmoney\OpentracingBundle\Service;
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
-use OpenTracing\Exceptions\UnsupportedFormat;
+use OpenTracing\UnsupportedFormatException;
 use OpenTracing\Span;
 
 use const OpenTracing\Formats\TEXT_MAP;
@@ -98,7 +98,7 @@ final class TracingService implements Tracing
      * @param array<mixed> $carrier
      * @return array<mixed>
      *
-     * @throws UnsupportedFormat when the format is not recognized by the tracer
+     * @throws UnsupportedFormatException when the format is not recognized by the tracer
      */
     private function doInjectTracingHeadersIntoCarrier(Span $span, array $carrier): array
     {
