@@ -37,10 +37,10 @@ which will then use this library.
 
 #### Jaeger
 
-* require the dependencies (unfortunately, `opentracing/opentracing` is not released in a stable version right now):
+* require the dependencies:
 
 ```bash
-    composer req auxmoney/opentracing-bundle-jaeger opentracing/opentracing:1.0.0-beta5@beta
+    composer req auxmoney/opentracing-bundle-jaeger
 ```
 
 * if not done already: spin up [development jaeger instance](https://www.jaegertracing.io/docs/latest/getting-started/) (All in One)
@@ -51,10 +51,10 @@ by the involved networks.
 
 #### Zipkin
 
-* require the dependencies (unfortunately, `opentracing/opentracing` is not released in a stable version right now):
+* require the dependencies:
 
 ```bash
-    composer req auxmoney/opentracing-bundle-zipkin opentracing/opentracing:1.0.0-beta5@beta
+    composer req auxmoney/opentracing-bundle-zipkin
 ```
 
 * if not done already: spin up [development zipkin instance](https://zipkin.io/pages/quickstart) (Docker)
