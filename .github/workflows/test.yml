@@ -30,9 +30,9 @@ jobs:
           - php: '7.4'
             symfony: '4.4.*'
           - php: '7.3'
-            symfony: '5.2.*'
+            symfony: '5.3.*'
           - php: '7.4'
-            symfony: '5.2.*'
+            symfony: '5.3.*'
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
         symfony:
           - '3.4.*'
           - '4.4.*'
-          - '5.2.*'
+          - '5.3.*'
     steps:
       - name: checkout
         uses: actions/checkout@v2
