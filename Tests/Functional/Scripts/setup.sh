@@ -22,5 +22,5 @@ git config user.name "Your Name"
 git add .
 git commit -m"initial commit"
 composer config prefer-stable true
-composer require auxmoney/opentracing-bundle-jaeger:dev-replace-jaeger # TODO replace with version
+composer require auxmoney/opentracing-bundle-jaeger:^1.0
 cd ../../
