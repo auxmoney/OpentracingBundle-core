@@ -9,11 +9,14 @@ use Auxmoney\OpentracingBundle\Factory\SpanOptionsFactory;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 
 class StartRootSpanSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracing;
     private $spanOptionsFactory;
     private $subject;

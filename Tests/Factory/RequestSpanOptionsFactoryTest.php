@@ -9,10 +9,13 @@ use Auxmoney\OpentracingBundle\Internal\Utility;
 use OpenTracing\NoopSpanContext;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 class RequestSpanOptionsFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $utility;
     private $subject;
 

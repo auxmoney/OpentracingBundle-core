@@ -12,11 +12,14 @@ use Auxmoney\OpentracingBundle\Tests\Mock\EventWithResponse;
 use Auxmoney\OpentracingBundle\Tests\Mock\EventWithResponseAndReflectionError;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class FinishControllerSpanSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracingId;
     private $logger;
     private $tracing;

@@ -8,12 +8,15 @@ use Auxmoney\OpentracingBundle\DependencyInjection\PSR18CompilerPass;
 use Auxmoney\OpentracingBundle\Internal\Decorator\PSR18ClientDecorator;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 class PSR18CompilerPassTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var PSR18CompilerPass */
     private $subject;
 

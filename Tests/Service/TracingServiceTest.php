@@ -10,11 +10,14 @@ use Auxmoney\OpentracingBundle\Service\TracingService;
 use OpenTracing\Mock\MockSpan;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 
 class TracingServiceTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $logger;
     private $mockTracer;
     private $subject;

@@ -9,6 +9,7 @@ use Auxmoney\OpentracingBundle\Internal\Decorator\RequestSpanning;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -17,6 +18,8 @@ use RuntimeException;
 
 class PSR18ClientDecoratorTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $decoratedClient;
     private $tracing;
     private $requestSpanning;
