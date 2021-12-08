@@ -35,7 +35,7 @@ class DefaultAgentHostResolverTest extends TestCase
     public function testResolveAgentHostFailed(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessageRegExp('/could not resolve/');
+        $this->expectExceptionMessageMatches('/could not resolve/');
 
         $this->subject->ensureAgentHostIsResolvable('älsakfdkaofkeäkvaäsooäaegölsgälkfdvpaoskvä.cöm');
     }

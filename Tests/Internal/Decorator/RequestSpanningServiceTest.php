@@ -7,6 +7,7 @@ namespace Auxmoney\OpentracingBundle\Tests\Internal\Decorator;
 use Auxmoney\OpentracingBundle\Internal\Decorator\RequestSpanningService;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use const OpenTracing\Tags\ERROR;
 use const OpenTracing\Tags\HTTP_METHOD;
 use const OpenTracing\Tags\HTTP_STATUS_CODE;
@@ -16,6 +17,8 @@ use const OpenTracing\Tags\SPAN_KIND_RPC_CLIENT;
 
 class RequestSpanningServiceTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracing;
     /** @var RequestSpanningService */
     private $subject;

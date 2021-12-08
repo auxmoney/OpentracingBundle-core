@@ -8,6 +8,7 @@ use Auxmoney\OpentracingBundle\EventListener\FinishCommandSpanSubscriber;
 use Auxmoney\OpentracingBundle\Internal\Persistence;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,6 +17,8 @@ use const OpenTracing\Tags\ERROR;
 
 class FinishCommandSpanSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracing;
     private $persistence;
     private $subject;

@@ -8,10 +8,13 @@ use Auxmoney\OpentracingBundle\EventListener\FinishRootSpanSubscriber;
 use Auxmoney\OpentracingBundle\Internal\Persistence;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 
 class FinishRootSpanSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracing;
     private $persistence;
     private $subject;

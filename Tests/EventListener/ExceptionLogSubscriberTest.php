@@ -13,10 +13,13 @@ use Auxmoney\OpentracingBundle\Tests\Mock\EventWithThrowable;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use stdClass;
 
 class ExceptionLogSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracing;
     private $subject;
 

@@ -10,10 +10,13 @@ use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use OpenTracing\Tracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use const OpenTracing\Formats\TEXT_MAP;
 
 class UtilityServiceTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $opentracing;
 
     public function setUp(): void

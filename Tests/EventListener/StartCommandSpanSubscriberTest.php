@@ -8,11 +8,14 @@ use Auxmoney\OpentracingBundle\EventListener\StartCommandSpanSubscriber;
 use Auxmoney\OpentracingBundle\Factory\SpanOptionsFactory;
 use Auxmoney\OpentracingBundle\Service\Tracing;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleEvent;
 
 class StartCommandSpanSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $tracing;
     private $spanOptionsFactory;
     private $subject;

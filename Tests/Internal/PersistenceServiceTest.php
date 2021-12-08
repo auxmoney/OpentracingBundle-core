@@ -9,11 +9,14 @@ use Auxmoney\OpentracingBundle\Internal\PersistenceService;
 use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 
 class PersistenceServiceTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $opentracing;
     private $logger;
 

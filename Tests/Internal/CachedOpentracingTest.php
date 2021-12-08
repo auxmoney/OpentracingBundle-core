@@ -9,10 +9,13 @@ use Auxmoney\OpentracingBundle\Internal\CachedOpentracing;
 use Auxmoney\OpentracingBundle\Tests\Mock\MockTracer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LoggerInterface;
 
 class CachedOpentracingTest extends TestCase
 {
+    use ProphecyTrait;
+
     private $logger;
     private $projectName;
     private $agentHost;
