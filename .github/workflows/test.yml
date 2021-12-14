@@ -27,11 +27,12 @@ jobs:
         php:
           - '7.4'
           - '8.0'
+          - '8.1'
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: setup php
-        uses: nanasess/setup-php@v3.0.6
+      - name: Setup PHP Action
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
       - name: prepare test environment
@@ -70,15 +71,17 @@ jobs:
         php:
           - '7.4'
           - '8.0'
+          - '8.1'
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: setup php
-        uses: nanasess/setup-php@v3.0.6
+      - name: Setup PHP Action
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: ${{ matrix.php }}
       - name: prepare test environment
         run: |
+          echo ${{ matrix.php }} > .php-version
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
@@ -94,6 +97,7 @@ jobs:
           git clean -df
       - name: install symfony cli
         run: |
+          echo ${{ matrix.php }} > .php-version
           wget https://get.symfony.com/cli/installer -O - | bash
           sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
       - name: execute functional tests
