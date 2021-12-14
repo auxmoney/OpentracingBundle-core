@@ -20,19 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - php: '7.3'
-            symfony: '3.4.*'
-          - php: '7.4'
-            symfony: '3.4.*'
-          - php: '7.3'
-            symfony: '4.4.*'
-          - php: '7.4'
-            symfony: '4.4.*'
-          - php: '7.3'
-            symfony: '5.3.*'
-          - php: '7.4'
-            symfony: '5.3.*'
+        symfony:
+          - '3.4.*'
+          - '4.4.*'
+          - '5.3.*'
+        php:
+          - '7.4'
+          - '8.0'
+          - '8.1'
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -73,6 +68,10 @@ jobs:
           - '3.4.*'
           - '4.4.*'
           - '5.3.*'
+        php:
+          - '7.4'
+          - '8.0'
+          - '8.1'
     steps:
       - name: checkout
         uses: actions/checkout@v2
