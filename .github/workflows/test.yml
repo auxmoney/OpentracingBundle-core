@@ -58,6 +58,7 @@ jobs:
         run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
 
   test_functional:
+    if: ${{ false }} # TODO: temporary disabling of functionals until Jaeger plugin is released
     name: Functional Tests
     needs:
       - test_unit
