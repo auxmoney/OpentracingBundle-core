@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.2...v1.0.3) (2021-12-15)
+
+
+### Bug Fixes
+
+* allow compatible higher psr/log versions ([#79](https://github.com/auxmoney/OpentracingBundle-core/issues/79)) ([f8f1999](https://github.com/auxmoney/OpentracingBundle-core/commit/f8f199927cacedd669c0540f52c7b03989493116))
+
 ## [1.0.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.1...v1.0.2) (2021-12-15)
 
 
