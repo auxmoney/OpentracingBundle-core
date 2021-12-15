@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.3...v1.1.0) (2021-12-15)
+
+
+### Features
+
+* support PHP 8 ([#80](https://github.com/auxmoney/OpentracingBundle-core/issues/80)) ([d85d93b](https://github.com/auxmoney/OpentracingBundle-core/commit/d85d93b8a6659059fc38aca8dc453bd90f5ac2bc))
+
 ## [1.0.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.2...v1.0.3) (2021-12-15)
 
 
