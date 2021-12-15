@@ -81,7 +81,6 @@ jobs:
           php-version: ${{ matrix.php }}
       - name: prepare test environment
         run: |
-          echo ${{ matrix.php }} > .php-version
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
@@ -97,7 +96,6 @@ jobs:
           git clean -df
       - name: install symfony cli
         run: |
-          echo ${{ matrix.php }} > .php-version
           wget https://get.symfony.com/cli/installer -O - | bash
           sudo mv ~/.symfony/bin/symfony /usr/local/bin/symfony
       - name: execute functional tests

@@ -21,6 +21,7 @@ git config user.email "you@example.com"
 git config user.name "Your Name"
 git add .
 git commit -m"initial commit"
+composer config minimum-stability dev
 composer config prefer-stable true
-composer require auxmoney/opentracing-bundle-jaeger
+composer require auxmoney/opentracing-bundle-jaeger:dev-php-8
 cd ../../
