@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.1...v1.0.2) (2021-12-15)
+
+
+### Bug Fixes
+
+* prepare PHP 8 compatibility for plugins ([#77](https://github.com/auxmoney/OpentracingBundle-core/issues/77)) ([152a628](https://github.com/auxmoney/OpentracingBundle-core/commit/152a6288c6ee57280595a04d1bae0707960ac129))
+
 ## [1.0.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.0.0...v1.0.1) (2021-11-16)
 
 
