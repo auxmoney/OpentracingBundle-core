@@ -93,7 +93,7 @@ final class FinishControllerSpanSubscriber implements EventSubscriberInterface
     {
         $responseStatusCode = $response ? $response->getStatusCode() : 'not determined';
         $this->tracing->setTagOfActiveSpan(HTTP_STATUS_CODE, $responseStatusCode);
-        if ($responseStatusCode && $responseStatusCode >= 400) {
+        if ($responseStatusCode && (int) $responseStatusCode >= 400) {
             $this->tracing->setTagOfActiveSpan(ERROR, true);
         }
     }
