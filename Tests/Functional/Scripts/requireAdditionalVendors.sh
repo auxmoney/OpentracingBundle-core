@@ -10,7 +10,7 @@ echo "GITHUB_REF: $GITHUB_REF"
 echo "CURRENT_REF (GITHUB_HEAD_REF:-GITHUB_REF): $CURRENT_REF"
 CURRENT_BRANCH=${CURRENT_REF#refs/heads/}
 echo "CURRENT_BRANCH: $CURRENT_BRANCH"
-if [[ $CURRENT_BRANCH -ne "master" ]]; then
+if [[ "$CURRENT_BRANCH" -ne "master" ]]; then
     composer config minimum-stability dev
     VENDOR_VERSION=":dev-${CURRENT_BRANCH}"
 fi
