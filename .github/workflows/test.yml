@@ -15,56 +15,56 @@ on:
     - cron: '1 9 * * 0'
 
 jobs:
-  test_unit:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - symfony: '4.4.*'
-            php: '7.4'
-          - symfony: '4.4.*'
-            php: '8.0'
-          - symfony: '4.4.*'
-            php: '8.1'
-          - symfony: '5.4.*'
-            php: '7.4'
-          - symfony: '5.4.*'
-            php: '8.0'
-          - symfony: '5.4.*'
-            php: '8.1'
-          - symfony: '6.0.*'
-            php: '8.0'
-          - symfony: '6.0.*'
-            php: '8.1'
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: Setup PHP Action
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-      - name: prepare test environment
-        run: |
-          Tests/Functional/Scripts/downloadComposer.sh
-          composer config extra.symfony.require "${{ matrix.symfony }}"
-          composer config extra.symfony.allow-contrib true
-          # adds flex, suppress composer.lock
-          composer require symfony/flex --no-update
-          # create a lock file
-          composer install
-          # updates to SYMFONY_VERSION, but runs recipes
-          composer update symfony/*
-          # reset tracked files
-          git reset --hard
-          # clean up recipe generated files and folders
-          git clean -df
-      - name: execute unit tests
-        run: composer run-script quality
-      - name: upload coverage
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: php vendor/bin/php-coveralls --exclude-no-stmt --coverage_clover=build/logs/clover.xml -v
+#  test_unit:
+#    name: Unit Tests
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        include:
+#          - symfony: '4.4.*'
+#            php: '7.4'
+#          - symfony: '4.4.*'
+#            php: '8.0'
+#          - symfony: '4.4.*'
+#            php: '8.1'
+#          - symfony: '5.4.*'
+#            php: '7.4'
+#          - symfony: '5.4.*'
+#            php: '8.0'
+#          - symfony: '5.4.*'
+#            php: '8.1'
+#          - symfony: '6.0.*'
+#            php: '8.0'
+#          - symfony: '6.0.*'
+#            php: '8.1'
+#    steps:
+#      - name: checkout
+#        uses: actions/checkout@v2
+#      - name: Setup PHP Action
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php }}
+#      - name: prepare test environment
+#        run: |
+#          Tests/Functional/Scripts/downloadComposer.sh
+#          composer config extra.symfony.require "${{ matrix.symfony }}"
+#          composer config extra.symfony.allow-contrib true
+#          # adds flex, suppress composer.lock
+#          composer require symfony/flex --no-update
+#          # create a lock file
+#          composer install
+#          # updates to SYMFONY_VERSION, but runs recipes
+#          composer update symfony/*
+#          # reset tracked files
+#          git reset --hard
+#          # clean up recipe generated files and folders
+#          git clean -df
+#      - name: execute unit tests
+#        run: composer run-script quality
+#      - name: upload coverage
+#        env:
+#          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: php vendor/bin/php-coveralls --exclude-no-stmt --coverage_clover=build/logs/clover.xml -v
 
   test_functional:
     name: Functional Tests
@@ -74,18 +74,18 @@ jobs:
     strategy:
       matrix:
         include:
-          - symfony: '4.4.*'
-            php: '7.4'
-          - symfony: '4.4.*'
-            php: '8.0'
-          - symfony: '4.4.*'
-            php: '8.1'
-          - symfony: '5.4.*'
-            php: '7.4'
-          - symfony: '5.4.*'
-            php: '8.0'
-          - symfony: '5.4.*'
-            php: '8.1'
+#          - symfony: '4.4.*'
+#            php: '7.4'
+#          - symfony: '4.4.*'
+#            php: '8.0'
+#          - symfony: '4.4.*'
+#            php: '8.1'
+#          - symfony: '5.4.*'
+#            php: '7.4'
+#          - symfony: '5.4.*'
+#            php: '8.0'
+#          - symfony: '5.4.*'
+#            php: '8.1'
           - symfony: '6.0.*'
             php: '8.0'
           - symfony: '6.0.*'
