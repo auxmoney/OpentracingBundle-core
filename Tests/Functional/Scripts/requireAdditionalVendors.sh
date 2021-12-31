@@ -40,7 +40,7 @@ fi
 if [[ "$CURRENT_BRANCH" == "master" ]]; then
     echo "\"$CURRENT_BRANCH\" == \"master\""
 fi
-
+echo "VENDOR_VERSION: $VENDOR_VERSION"
 exit 1
 ###
 
