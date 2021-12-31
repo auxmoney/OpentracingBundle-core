@@ -68,8 +68,8 @@ jobs:
 
   test_functional:
     name: Functional Tests
-    needs:
-      - test_unit
+#    needs:
+#      - test_unit
     runs-on: ubuntu-latest
     strategy:
       matrix:
