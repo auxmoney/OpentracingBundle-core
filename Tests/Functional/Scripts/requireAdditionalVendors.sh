@@ -10,7 +10,7 @@ if [[ $CURRENT_BRANCH -ne "master" ]]; then
     composer config minimum-stability dev
     VENDOR_VERSION=":dev-${CURRENT_BRANCH}"
 fi
-composer require auxmoney/opentracing-bundle-core${VENDOR_VERSION}
+composer require auxmoney/opentracing-bundle-core${VENDOR_VERSION} auxmoney/opentracing-bundle-jaeger
 composer require php-http/curl-client nyholm/psr7 webmozart/assert
 composer dump-autoload
 cd ../../

@@ -22,5 +22,7 @@ git config user.name "Your Name"
 git add .
 git commit -m"initial commit"
 composer config prefer-stable true
-composer require auxmoney/opentracing-bundle-jaeger
+if [[ -z "$WITHOUT_JAEGER" ]]; then
+    composer require auxmoney/opentracing-bundle-jaeger
+fi
 cd ../../
