@@ -17,8 +17,8 @@ use const OpenTracing\Tags\SPAN_KIND_RPC_SERVER;
 
 final class StartRootSpanSubscriber implements EventSubscriberInterface
 {
-    private $tracing;
-    private $spanOptionsFactory;
+    private Tracing $tracing;
+    private SpanOptionsFactory $spanOptionsFactory;
 
     public function __construct(
         Tracing $tracing,
@@ -40,8 +40,15 @@ final class StartRootSpanSubscriber implements EventSubscriberInterface
 
     public function onRequest(KernelEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
-            return;
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), remove outer if-block in favor of isMainRequest()
+        if (method_exists($event, 'isMainRequest')) {
+            if (!$event->isMainRequest()) {
+                return;
+            }
+        } elseif (method_exists($event, 'isMasterRequest')) {
+            if (!$event->isMasterRequest()) {
+                return;
+            }
         }
 
         $request = $event->getRequest();

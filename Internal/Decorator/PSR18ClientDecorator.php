@@ -12,9 +12,9 @@ use Psr\Http\Message\ResponseInterface;
 
 final class PSR18ClientDecorator implements ClientInterface
 {
-    private $decoratedClient;
-    private $tracing;
-    private $requestSpanning;
+    private ClientInterface $decoratedClient;
+    private Tracing $tracing;
+    private RequestSpanning $requestSpanning;
 
     public function __construct(ClientInterface $decoratedClient, Tracing $tracing, RequestSpanning $requestSpanning)
     {

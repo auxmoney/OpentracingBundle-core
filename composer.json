@@ -24,11 +24,11 @@
     "psr/http-client": "^1.0",
     "opentracing/opentracing": "^1.0.1",
     "composer/package-versions-deprecated": "^1.11.99",
-    "symfony/http-kernel": "^3.4|^4.4|^5.3",
-    "symfony/dependency-injection": "^3.4|^4.4|^5.3",
-    "symfony/config": "^3.4|^4.4|^5.3",
-    "symfony/console": "^3.4|^4.4|^5.3",
-    "symfony/yaml": "^3.4|^4.4|^5.3"
+    "symfony/http-kernel": "^4.4|^5.4|^6.0",
+    "symfony/dependency-injection": "^4.4|^5.4|^6.0",
+    "symfony/config": "^4.4|^5.4|^6.0",
+    "symfony/console": "^4.4|^5.4|^6.0",
+    "symfony/yaml": "^4.4|^5.4|^6.0"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
@@ -62,14 +62,6 @@
     "phpmd": "vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,Tests",
     "phpcs": "vendor/bin/phpcs",
     "phpunit": "phpdbg -qrr vendor/bin/phpunit --colors=never --testsuite=unit",
-    "phpunit-functional-sf3": [
-      "Tests/Functional/Scripts/checkEnvironment.sh",
-      "Tests/Functional/Scripts/setup.sh",
-      "Tests/Functional/Scripts/requireAdditionalVendors.sh",
-      "Tests/Functional/Scripts/createResetPoint.sh",
-      "vendor/bin/phpunit --colors=never --testsuite=functional-sf3 --no-coverage",
-      "Tests/Functional/Scripts/teardown.sh"
-    ],
     "phpunit-functional": [
       "Tests/Functional/Scripts/checkEnvironment.sh",
       "Tests/Functional/Scripts/setup.sh",

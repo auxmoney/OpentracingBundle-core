@@ -16,8 +16,8 @@ use const OpenTracing\Tags\SPAN_KIND_RPC_CLIENT;
 
 final class StartCommandSpanSubscriber implements EventSubscriberInterface
 {
-    private $tracing;
-    private $spanOptionsFactory;
+    private Tracing $tracing;
+    private SpanOptionsFactory $spanOptionsFactory;
 
     public function __construct(Tracing $tracing, SpanOptionsFactory $spanOptionsFactory)
     {

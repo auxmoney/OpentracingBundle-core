@@ -13,8 +13,8 @@ use const OpenTracing\Tags\ERROR;
 
 final class FinishCommandSpanSubscriber implements EventSubscriberInterface
 {
-    private $tracing;
-    private $persistence;
+    private Tracing $tracing;
+    private Persistence $persistence;
 
     public function __construct(Tracing $tracing, Persistence $persistence)
     {

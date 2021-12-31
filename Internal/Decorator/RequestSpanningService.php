@@ -15,7 +15,7 @@ use const OpenTracing\Tags\SPAN_KIND_RPC_CLIENT;
 
 final class RequestSpanningService implements RequestSpanning
 {
-    private $tracing;
+    private Tracing $tracing;
 
     public function __construct(Tracing $tracing)
     {

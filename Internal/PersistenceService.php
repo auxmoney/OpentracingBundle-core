@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Internal;
 
 use Exception;
+use OpenTracing\Tracer;
 use Psr\Log\LoggerInterface;
 
 final class PersistenceService implements Persistence
 {
-    private $tracer;
-    private $logger;
+    private Tracer $tracer;
+    private LoggerInterface $logger;
 
     public function __construct(Opentracing $opentracing, LoggerInterface $logger)
     {
