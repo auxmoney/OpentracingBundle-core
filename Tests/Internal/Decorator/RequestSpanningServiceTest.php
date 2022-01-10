@@ -20,8 +20,7 @@ class RequestSpanningServiceTest extends TestCase
     use ProphecyTrait;
 
     private $tracing;
-    /** @var RequestSpanningService */
-    private $subject;
+    private RequestSpanningService $subject;
 
     public function setUp(): void
     {

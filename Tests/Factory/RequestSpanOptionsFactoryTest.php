@@ -17,7 +17,7 @@ class RequestSpanOptionsFactoryTest extends TestCase
     use ProphecyTrait;
 
     private $utility;
-    private $subject;
+    private RequestSpanOptionsFactory $subject;
 
     public function setUp(): void
     {

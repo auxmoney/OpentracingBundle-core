@@ -16,7 +16,7 @@ class StartControllerSpanSubscriberTest extends TestCase
     use ProphecyTrait;
 
     private $tracing;
-    private $subject;
+    private StartControllerSpanSubscriber $subject;
 
     public function setUp(): void
     {

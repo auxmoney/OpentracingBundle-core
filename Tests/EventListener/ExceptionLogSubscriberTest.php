@@ -11,6 +11,7 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -20,7 +21,7 @@ class ExceptionLogSubscriberTest extends TestCase
     use ProphecyTrait;
 
     private $tracing;
-    private $subject;
+    private ExceptionLogSubscriber $subject;
 
     public function setUp(): void
     {

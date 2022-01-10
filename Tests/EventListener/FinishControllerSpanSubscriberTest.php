@@ -22,7 +22,7 @@ class FinishControllerSpanSubscriberTest extends TestCase
     private $tracingId;
     private $tracing;
     private $kernel;
-    private $subject;
+    private FinishControllerSpanSubscriber $subject;
 
     public function setUp(): void
     {

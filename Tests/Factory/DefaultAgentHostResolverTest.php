@@ -10,8 +10,7 @@ use RuntimeException;
 
 class DefaultAgentHostResolverTest extends TestCase
 {
-    /** @var DefaultAgentHostResolver */
-    private $subject;
+    private DefaultAgentHostResolver $subject;
 
     public function setUp(): void
     {

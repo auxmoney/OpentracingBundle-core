@@ -21,7 +21,7 @@ class StartRootSpanSubscriberTest extends TestCase
     private $tracing;
     private $spanOptionsFactory;
     private $kernel;
-    private $subject;
+    private StartRootSpanSubscriber $subject;
 
     public function setUp(): void
     {
@@ -41,6 +41,7 @@ class StartRootSpanSubscriberTest extends TestCase
     public function testOnRequestIsMasterRequest(): void
     {
         $request = Request::create('http://some.uri.test/');
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), replace HttpKernelInterface::MASTER_REQUEST with HttpKernelInterface::MAIN_REQUEST
         $event = new KernelEvent($this->kernel->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
 
         $this->spanOptionsFactory->createSpanOptions($request)->willReturn(['some' => 'options']);

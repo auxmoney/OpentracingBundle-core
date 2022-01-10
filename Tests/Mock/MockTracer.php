@@ -16,7 +16,7 @@ use const OpenTracing\Formats\TEXT_MAP;
 
 class MockTracer implements Tracer
 {
-    private $mockTracer;
+    private OriginalMockTracer $mockTracer;
 
     public function __construct()
     {

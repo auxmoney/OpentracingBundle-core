@@ -21,7 +21,7 @@ class FinishCommandSpanSubscriberTest extends TestCase
 
     private $tracing;
     private $persistence;
-    private $subject;
+    private FinishCommandSpanSubscriber $subject;
 
     public function setUp(): void
     {

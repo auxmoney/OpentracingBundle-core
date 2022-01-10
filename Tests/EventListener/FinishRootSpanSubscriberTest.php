@@ -21,7 +21,7 @@ class FinishRootSpanSubscriberTest extends TestCase
     private $persistence;
     private $kernel;
     private $request;
-    private $subject;
+    private FinishRootSpanSubscriber $subject;
 
     public function setUp(): void
     {
@@ -41,6 +41,7 @@ class FinishRootSpanSubscriberTest extends TestCase
 
     public function testOnFinishRequestIsMainRequest(): void
     {
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), replace HttpKernelInterface::MASTER_REQUEST with HttpKernelInterface::MAIN_REQUEST
         $event = new KernelEvent($this->kernel->reveal(), $this->request->reveal(), HttpKernelInterface::MASTER_REQUEST);
 
         $this->tracing->finishActiveSpan()->shouldBeCalledOnce();
