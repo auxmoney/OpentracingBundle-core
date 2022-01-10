@@ -17,8 +17,7 @@ class PSR18CompilerPassTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var PSR18CompilerPass */
-    private $subject;
+    private PSR18CompilerPass $subject;
 
     public function setUp(): void
     {

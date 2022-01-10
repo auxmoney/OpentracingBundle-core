@@ -17,14 +17,13 @@ class CachedOpentracingTest extends TestCase
     use ProphecyTrait;
 
     private $logger;
-    private $projectName;
-    private $agentHost;
-    private $agentPort;
     private $tracerFactory;
-    /** @var CachedOpentracing */
-    private $subject;
-    private $samplerClass;
-    private $samplerValue;
+    private CachedOpentracing $subject;
+    private string $projectName;
+    private string $agentHost;
+    private string $agentPort;
+    private string $samplerClass;
+    private bool $samplerValue;
 
     public function setUp(): void
     {

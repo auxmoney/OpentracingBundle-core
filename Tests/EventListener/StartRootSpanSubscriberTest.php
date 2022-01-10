@@ -12,6 +12,7 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class StartRootSpanSubscriberTest extends TestCase
 {
@@ -19,13 +20,15 @@ class StartRootSpanSubscriberTest extends TestCase
 
     private $tracing;
     private $spanOptionsFactory;
-    private $subject;
+    private $kernel;
+    private StartRootSpanSubscriber $subject;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->tracing = $this->prophesize(Tracing::class);
         $this->spanOptionsFactory = $this->prophesize(SpanOptionsFactory::class);
+        $this->kernel = $this->prophesize(HttpKernelInterface::class);
 
         $this->subject = new StartRootSpanSubscriber($this->tracing->reveal(), $this->spanOptionsFactory->reveal());
     }
@@ -38,9 +41,8 @@ class StartRootSpanSubscriberTest extends TestCase
     public function testOnRequestIsMasterRequest(): void
     {
         $request = Request::create('http://some.uri.test/');
-        $event = $this->prophesize(KernelEvent::class);
-        $event->isMasterRequest()->willReturn(true);
-        $event->getRequest()->willReturn($request);
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), replace HttpKernelInterface::MASTER_REQUEST with HttpKernelInterface::MAIN_REQUEST
+        $event = new KernelEvent($this->kernel->reveal(), $request, HttpKernelInterface::MASTER_REQUEST);
 
         $this->spanOptionsFactory->createSpanOptions($request)->willReturn(['some' => 'options']);
         $this->tracing->startActiveSpan(
@@ -56,17 +58,16 @@ class StartRootSpanSubscriberTest extends TestCase
             ]
         )->shouldBeCalledOnce();
 
-        $this->subject->onRequest($event->reveal());
+        $this->subject->onRequest($event);
     }
 
     public function testOnRequestIsNotMasterRequest(): void
     {
-        $event = $this->prophesize(KernelEvent::class);
-        $event->isMasterRequest()->willReturn(false);
+        $event = new KernelEvent($this->kernel->reveal(), $this->prophesize(Request::class)->reveal(), HttpKernelInterface::SUB_REQUEST);
 
         $this->spanOptionsFactory->createSpanOptions(Argument::any())->shouldNotBeCalled();
         $this->tracing->startActiveSpan(Argument::cetera())->shouldNotBeCalled();
 
-        $this->subject->onRequest($event->reveal());
+        $this->subject->onRequest($event);
     }
 }

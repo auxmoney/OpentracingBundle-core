@@ -10,14 +10,13 @@ use Psr\Log\LoggerInterface;
 
 final class CachedOpentracing implements Opentracing
 {
-    /** @var ?Tracer */
-    private $tracerInstance;
-    private $tracerFactory;
-    private $projectName;
-    private $agentHost;
-    private $agentPort;
-    private $logger;
-    private $samplerClass;
+    private ?Tracer $tracerInstance = null;
+    private TracerFactory $tracerFactory;
+    private LoggerInterface $logger;
+    private string $projectName;
+    private string $agentHost;
+    private string $agentPort;
+    private string $samplerClass;
 
     /** @var mixed */
     private $samplerValue;

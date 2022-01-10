@@ -18,7 +18,7 @@ class StartCommandSpanSubscriberTest extends TestCase
 
     private $tracing;
     private $spanOptionsFactory;
-    private $subject;
+    private StartCommandSpanSubscriber $subject;
 
     public function setUp(): void
     {

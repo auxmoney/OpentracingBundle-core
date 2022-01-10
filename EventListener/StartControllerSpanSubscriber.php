@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Event\KernelEvent;
 
 final class StartControllerSpanSubscriber implements EventSubscriberInterface
 {
-    private $tracing;
+    private Tracing $tracing;
 
     public function __construct(Tracing $tracing)
     {

@@ -23,8 +23,7 @@ class PSR18ClientDecoratorTest extends TestCase
     private $decoratedClient;
     private $tracing;
     private $requestSpanning;
-    /** @var PSR18ClientDecorator */
-    private $subject;
+    private PSR18ClientDecorator $subject;
 
     public function setUp(): void
     {

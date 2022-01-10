@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Auxmoney\OpentracingBundle\Service;
 
 use Auxmoney\OpentracingBundle\Internal\Opentracing;
+use OpenTracing\Span;
+use OpenTracing\Tracer;
+use OpenTracing\UnsupportedFormatException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
-use OpenTracing\UnsupportedFormatException;
-use OpenTracing\Span;
 
 use const OpenTracing\Formats\TEXT_MAP;
 
 final class TracingService implements Tracing
 {
-    private $tracer;
-    private $logger;
+    private Tracer $tracer;
+    private LoggerInterface $logger;
 
     public function __construct(Opentracing $opentracing, LoggerInterface $logger)
     {

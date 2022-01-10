@@ -11,10 +11,10 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class RequestSpanOptionsFactory implements SpanOptionsFactory
 {
-    private $kernelDebug;
-    private $kernelEnvironment;
-    private $utility;
-    private $hostName;
+    private Utility $utility;
+    private string $kernelDebug;
+    private string $kernelEnvironment;
+    private string $hostName;
 
     public function __construct(
         Utility $utility,

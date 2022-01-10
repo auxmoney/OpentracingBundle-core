@@ -19,8 +19,8 @@ class TracingServiceTest extends TestCase
     use ProphecyTrait;
 
     private $logger;
-    private $mockTracer;
-    private $subject;
+    private MockTracer $mockTracer;
+    private TracingService $subject;
 
     public function setUp(): void
     {
