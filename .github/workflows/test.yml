@@ -61,8 +61,6 @@ jobs:
           # clean up recipe generated files and folders
           git clean -df
       - name: execute unit tests
-        env:
-          COMPOSER_NO_INTERACTION: 1
         run: |
           composer config --no-plugins allow-plugins.symfony/flex true
           composer run-script quality
@@ -103,8 +101,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - name: prepare test environment
-        env:
-          COMPOSER_NO_INTERACTION: 1
         run: |
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
