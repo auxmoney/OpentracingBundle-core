@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.2.0...v1.2.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* symfony/flex plugin ([#89](https://github.com/auxmoney/OpentracingBundle-core/issues/89)) ([1e88544](https://github.com/auxmoney/OpentracingBundle-core/commit/1e885442b7141de1ddaaf4175c488ff537fd7f76))
+
 # [1.2.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.1.0...v1.2.0) (2022-01-10)
 
 
