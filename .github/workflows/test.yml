@@ -45,12 +45,11 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
       - name: prepare test environment
-        env:
-          COMPOSER_NO_INTERACTION: 1
         run: |
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
+          composer config --no-plugins allow-plugins.symfony/flex true
           # adds flex, suppress composer.lock
           composer require symfony/flex --no-update
           # create a lock file
@@ -64,7 +63,9 @@ jobs:
       - name: execute unit tests
         env:
           COMPOSER_NO_INTERACTION: 1
-        run: composer run-script quality
+        run: |
+          composer config --no-plugins allow-plugins.symfony/flex true
+          composer run-script quality
       - name: upload coverage
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -108,6 +109,7 @@ jobs:
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
+          composer config --no-plugins allow-plugins.symfony/flex true
           # adds flex, suppress composer.lock
           composer require symfony/flex --no-update
           # create a lock file
@@ -126,7 +128,8 @@ jobs:
         env:
           SYMFONY_VERSION: ${{ matrix.symfony }}
           WITHOUT_JAEGER: true
-          COMPOSER_NO_INTERACTION: 1
-        run: composer run-script phpunit-functional
+        run: |
+          composer config --no-plugins allow-plugins.symfony/flex true
+          composer run-script phpunit-functional
       - name: show running containers
         run: docker ps
