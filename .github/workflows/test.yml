@@ -49,6 +49,7 @@ jobs:
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
+          composer config --no-plugins allow-plugins.symfony/flex true
           # adds flex, suppress composer.lock
           composer require symfony/flex --no-update
           # create a lock file
@@ -102,6 +103,7 @@ jobs:
           Tests/Functional/Scripts/downloadComposer.sh
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
+          composer config --no-plugins allow-plugins.symfony/flex true
           # adds flex, suppress composer.lock
           composer require symfony/flex --no-update
           # create a lock file
