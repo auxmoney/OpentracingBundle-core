@@ -27,6 +27,7 @@ final class FinishRootSpanSubscriber implements EventSubscriberInterface
     {
         return [
             'kernel.finish_request' => ['onFinishRequest', -16],
+            'kernel.terminate' => ['onTerminate', -16],
         ];
     }
 
@@ -44,6 +45,21 @@ final class FinishRootSpanSubscriber implements EventSubscriberInterface
         }
 
         $this->tracing->finishActiveSpan();
+    }
+
+    public function onTerminate(KernelEvent $event): void
+    {
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), remove outer if-block in favor of isMainRequest()
+        if (method_exists($event, 'isMainRequest')) {
+            if (!$event->isMainRequest()) {
+                return;
+            }
+        } elseif (method_exists($event, 'isMasterRequest')) {
+            if (!$event->isMasterRequest()) {
+                return;
+            }
+        }
+
         $this->persistence->flush();
     }
 }

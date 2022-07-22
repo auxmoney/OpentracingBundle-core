@@ -37,6 +37,7 @@ class FinishRootSpanSubscriberTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertArrayHasKey('kernel.finish_request', $this->subject::getSubscribedEvents());
+        self::assertArrayHasKey('kernel.terminate', $this->subject::getSubscribedEvents());
     }
 
     public function testOnFinishRequestIsMainRequest(): void
@@ -45,7 +46,7 @@ class FinishRootSpanSubscriberTest extends TestCase
         $event = new KernelEvent($this->kernel->reveal(), $this->request->reveal(), HttpKernelInterface::MASTER_REQUEST);
 
         $this->tracing->finishActiveSpan()->shouldBeCalledOnce();
-        $this->persistence->flush()->shouldBeCalledOnce();
+        $this->persistence->flush()->shouldNotBeCalled();
 
         $this->subject->onFinishRequest($event);
     }
@@ -58,5 +59,27 @@ class FinishRootSpanSubscriberTest extends TestCase
         $this->persistence->flush()->shouldNotBeCalled();
 
         $this->subject->onFinishRequest($event);
+    }
+
+    public function testOnTerminateIsMainRequest(): void
+    {
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), replace HttpKernelInterface::MASTER_REQUEST with HttpKernelInterface::MAIN_REQUEST
+        $event = new KernelEvent($this->kernel->reveal(), $this->request->reveal(), HttpKernelInterface::MASTER_REQUEST);
+
+        $this->tracing->finishActiveSpan()->shouldNotBeCalled();
+        $this->persistence->flush()->shouldBeCalledOnce();
+
+        $this->subject->onTerminate($event);
+    }
+
+    public function testOnTerminateIsNotMainRequest(): void
+    {
+        # TODO: when Symfony 4.4 is unmaintained (November 2023), replace HttpKernelInterface::MASTER_REQUEST with HttpKernelInterface::MAIN_REQUEST
+        $event = new KernelEvent($this->kernel->reveal(), $this->request->reveal(), HttpKernelInterface::SUB_REQUEST);
+
+        $this->tracing->finishActiveSpan()->shouldNotBeCalled();
+        $this->persistence->flush()->shouldNotBeCalled();
+
+        $this->subject->onTerminate($event);
     }
 }
