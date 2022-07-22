@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.2.1...v1.2.2) (2022-07-22)
+
+
+### Bug Fixes
+
+* Move Trace-Propagation to Terminate Event ([#88](https://github.com/auxmoney/OpentracingBundle-core/issues/88)) ([56e9abe](https://github.com/auxmoney/OpentracingBundle-core/commit/56e9abe7df765a928637e27cd5bb89effc8c0709))
+
 ## [1.2.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.2.0...v1.2.1) (2022-07-20)
 
 
