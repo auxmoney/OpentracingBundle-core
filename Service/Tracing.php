@@ -27,6 +27,11 @@ interface Tracing
     public function injectTracingHeaders(RequestInterface $request): RequestInterface;
 
     /**
+     * Gets you the instance of active span
+     */
+    public function getActiveSpan(): ?Span;
+
+    /**
      * Starts a new Span representing a unit of work.
      *
      * @param array<string,mixed>|null $options A set of optional parameters:
