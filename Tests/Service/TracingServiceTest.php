@@ -239,4 +239,16 @@ class TracingServiceTest extends TestCase
             $activeSpan->getLogs()[2]['fields']
         );
     }
+
+    public function testGetActiveSpanWithoutActiveSpan()
+    {
+        self::assertNull($this->subject->getActiveSpan());
+    }
+
+
+    public function testGetActiveSpanWithActiveSpan()
+    {
+        $this->subject->startActiveSpan('operation name');
+        self::assertNotNull($this->subject->getActiveSpan());
+    }
 }
