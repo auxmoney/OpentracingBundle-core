@@ -6,6 +6,7 @@ namespace Auxmoney\OpentracingBundle\Service;
 
 use OpenTracing\UnsupportedFormatException;
 use Psr\Http\Message\RequestInterface;
+use OpenTracing\Span;
 
 interface Tracing
 {
