@@ -8,7 +8,7 @@ CURRENT_REF=${GITHUB_HEAD_REF:-$GITHUB_REF}
 CURRENT_BRANCH=${CURRENT_REF#refs/heads/}
 if [ "$CURRENT_BRANCH" != "master" ]; then
     composer config minimum-stability dev
-    composer config repositories.fork vcs ${SERVER_URL}/${REPOSITORY}.git
+    composer config repositories.fork vcs ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
     VENDOR_VERSION=:"dev-${CURRENT_BRANCH} as 1.99.0"
 
 fi
