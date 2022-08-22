@@ -120,8 +120,7 @@ jobs:
         run: |
           wget https://get.symfony.com/cli/installer -O symfony-installer.sh
           chmod a+x symfony-installer.sh
-          ./symfony-installer.sh --install-dir ~/.symfony
-          sudo mv ~/.symfony/symfony /usr/local/bin/symfony
+          sudo ./symfony-installer.sh --install-dir /usr/local/bin
       - name: execute functional tests
         env:
           SYMFONY_VERSION: ${{ matrix.symfony }}
