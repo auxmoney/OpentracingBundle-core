@@ -118,9 +118,7 @@ jobs:
           git clean -df
       - name: install symfony cli
         run: |
-          wget https://get.symfony.com/cli/installer -O symfony-installer.sh
-          chmod a+x symfony-installer.sh
-          sudo ./symfony-installer.sh --install-dir /usr/local/bin
+          wget https://get.symfony.com/cli/installer -O - | sudo bash -s -- --install-dir /usr/local/bin
       - name: execute functional tests
         env:
           SYMFONY_VERSION: ${{ matrix.symfony }}
