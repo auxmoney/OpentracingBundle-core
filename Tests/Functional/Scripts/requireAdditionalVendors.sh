@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash +x
 shopt -s extglob
 
 cd build/testproject/
@@ -11,6 +11,7 @@ if [ "$CURRENT_BRANCH" != "master" ]; then
     VENDOR_VERSION=:"dev-${CURRENT_BRANCH} as 1.99.0"
     composer config repositories.auxmoney vcs ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
 fi
+cat composer.json
 composer require "auxmoney/opentracing-bundle-core${VENDOR_VERSION}" auxmoney/opentracing-bundle-jaeger
 composer require php-http/curl-client nyholm/psr7 webmozart/assert
 composer dump-autoload
