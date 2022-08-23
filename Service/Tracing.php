@@ -6,6 +6,7 @@ namespace Auxmoney\OpentracingBundle\Service;
 
 use OpenTracing\UnsupportedFormatException;
 use Psr\Http\Message\RequestInterface;
+use OpenTracing\Span;
 
 interface Tracing
 {
@@ -25,6 +26,11 @@ interface Tracing
      * - requests created with Guzzle
      */
     public function injectTracingHeaders(RequestInterface $request): RequestInterface;
+
+    /**
+     * Gets you the instance of active span
+     */
+    public function getActiveSpan(): ?Span;
 
     /**
      * Starts a new Span representing a unit of work.
