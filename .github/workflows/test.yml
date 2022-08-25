@@ -122,6 +122,8 @@ jobs:
       - name: execute functional tests
         env:
           SYMFONY_VERSION: ${{ matrix.symfony }}
+          FORKED_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITHOUT_JAEGER: true
         run: |
           composer config --no-plugins allow-plugins.symfony/flex true

@@ -36,6 +36,11 @@ final class TracingService implements Tracing
         return $this->doInjectTracingHeadersIntoCarrier($span, $carrier);
     }
 
+    public function getActiveSpan(): ?Span
+    {
+        return $this->tracer->getActiveSpan();
+    }
+
     public function injectTracingHeaders(RequestInterface $request): RequestInterface
     {
         $span = $this->tracer->getActiveSpan();
