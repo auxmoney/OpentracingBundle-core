@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.2.3...v1.3.0) (2022-08-25)
+
+
+### Features
+
+* Get active span ([#91](https://github.com/auxmoney/OpentracingBundle-core/issues/91)) ([9bbeb24](https://github.com/auxmoney/OpentracingBundle-core/commit/9bbeb245ed5fdde514aa9d593a7f35a4ccabf4b3))
+
 ## [1.2.3](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.2.2...v1.2.3) (2022-08-22)
 
 
