@@ -39,7 +39,7 @@ jobs:
             php: '8.2'
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup PHP Action
         uses: shivammathur/setup-php@v2
         with:
@@ -50,7 +50,7 @@ jobs:
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
           composer config --no-plugins allow-plugins.symfony/flex true
-          # adds flex, suppress composer.lock
+          # adds flex
           composer require symfony/flex
           # updates to SYMFONY_VERSION, but runs recipes
           composer update symfony/*
@@ -93,7 +93,7 @@ jobs:
             php: '8.2'
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup PHP Action
         uses: shivammathur/setup-php@v2
         with:
@@ -104,10 +104,8 @@ jobs:
           composer config extra.symfony.require "${{ matrix.symfony }}"
           composer config extra.symfony.allow-contrib true
           composer config --no-plugins allow-plugins.symfony/flex true
-          # adds flex, suppress composer.lock
-          composer require symfony/flex --no-update
-          # create a lock file
-          composer install
+          # adds flex
+          composer require symfony/flex
           # updates to SYMFONY_VERSION, but runs recipes
           composer update symfony/*
           # reset tracked files
