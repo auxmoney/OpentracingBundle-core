@@ -51,9 +51,7 @@ jobs:
           composer config extra.symfony.allow-contrib true
           composer config --no-plugins allow-plugins.symfony/flex true
           # adds flex, suppress composer.lock
-          composer require symfony/flex --no-update
-          # create a lock file
-          composer install
+          composer require symfony/flex
           # updates to SYMFONY_VERSION, but runs recipes
           composer update symfony/*
           # reset tracked files
