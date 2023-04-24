@@ -1,3 +1,11 @@
+## [1.3.1](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.3.0...v1.3.1) (2023-04-24)
+
+
+### Bug Fixes
+
+* update release action ([#98](https://github.com/auxmoney/OpentracingBundle-core/issues/98)) ([5ee0767](https://github.com/auxmoney/OpentracingBundle-core/commit/5ee07675b12aee47e6517ce813eaf2fd90283d1e))
+* update supported PHP and Symfony versions + composer behaviour ([#97](https://github.com/auxmoney/OpentracingBundle-core/issues/97)) ([4c13875](https://github.com/auxmoney/OpentracingBundle-core/commit/4c1387545ffa57e9d83fe89aa44ed1b7a97be0af))
+
 # [1.3.0](https://github.com/auxmoney/OpentracingBundle-core/compare/v1.2.3...v1.3.0) (2022-08-25)
 
 
